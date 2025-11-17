@@ -28,5 +28,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./dist
-          # cname: offline.community
+          cname: offline.community
           force_orphan: true
