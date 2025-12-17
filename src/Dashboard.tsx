@@ -118,7 +118,7 @@ export default function Dashboard(): React.ReactElement {
 		setShipmentLoading(true);
 		try {
 			const encoded = encodeURIComponent(shipmentEmail);
-			const res = await fetch(`https://offline-dc-twilio-5f937b734ab9.herokuapp.com/shipment-file/${encoded}`);
+			const res = await fetch(`https://offline-dc-backend-ba4815b2bcc8.herokuapp.com/shipment-file/${encoded}`);
 			if (!res.ok) throw new Error(`HTTP ${res.status}`);
 			// try json, fallback to text
 			let data: any;
