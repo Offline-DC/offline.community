@@ -94,7 +94,7 @@ export default function Dashboard(): React.ReactElement {
 		setLoading(true);
 		try {
 			const encoded = encodeURIComponent(phone);
-			const res = await fetch(`https://offline-dc-twilio-5f937b734ab9.herokuapp.com/users/+1${encoded}`);
+			const res = await fetch(`https://offline-dc-backend-ba4815b2bcc8.herokuapp.comm/users/+1${encoded}`);
 			if (!res.ok) throw new Error(`HTTP ${res.status}`);
             console.log(res);
 			const data: LookupResult = await res.json();
