@@ -49,7 +49,6 @@ function App() {
           <Route path="/dumbdown" element={<DumbDumb />} />
           <Route path="/setup" element={<OfflineMode />} />
           <Route path="/support" element={<Support />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
           <Route
             path="/phone"
             element={
