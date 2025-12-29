@@ -72,7 +72,6 @@ We do **not**:
 The App requests the following permissions **only after explicit user action** and **only for core
 functionality**:
 
-- **RECEIVE_SMS** – to receive incoming messages for forwarding
 - **SEND_SMS** – to forward messages to the dumb phone
 - **READ_CONTACTS** – to access contacts for sharing and display
 - **BIND_NOTIFICATION_LISTENER_SERVICE** – to listen for message notifications when required by the device
