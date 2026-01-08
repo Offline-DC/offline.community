@@ -4,10 +4,16 @@ import OfflineMode from "./OfflineMode";
 import DumbDumb from "./DumbDumb.tsx";
 import Dashboard from "./Dashboard.tsx";
 import Support from "./Support";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import ReactGA from "react-ga4";
 import "./App.css";
-import PrivacyPage from "./PrivacyPage.tsx";
+import { filterProps } from "@mantine/core";
 
 export const OFFLINE_PHONE_NUMBER = "844-633-5463";
 
@@ -55,6 +61,7 @@ function App() {
               <ExternalRedirect url="https://shop.offline.community/products/offline-dumbphone-1" />
             }
           />
+          <Route path="/press" element={<Phone initialScreen="press" />} />
         </Routes>
       </BrowserRouter>
     </div>
