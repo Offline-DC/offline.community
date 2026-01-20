@@ -103,6 +103,8 @@ function Screen({
       "Grant Besner",
       "Jack Nugent",
       "Lydia Peabody",
+      "Mikayla DiDonato",
+      "Afreka Ebanks",
       "seewunder.studio",
     ];
   } else if (screen === "seewunder.studio") {
@@ -194,6 +196,22 @@ function Screen({
       <img
         src="/img/Lydia.png"
         alt="Lydia Peabody"
+        style={{ boxShadow: "none", width: "100%", height: "auto" }}
+      />
+    );
+  } else if (screen === "Mikayla DiDonato") {
+    display = (
+      <img
+        src="/img/pixel_milk.png"
+        alt="Mikayla DiDonato"
+        style={{ boxShadow: "none", width: "100%", height: "auto" }}
+      />
+    );
+  } else if (screen === "Afreka Ebanks") {
+    display = (
+      <img
+        src="/img/pixel_afreka.png"
+        alt="Afreka Ebanks"
         style={{ boxShadow: "none", width: "100%", height: "auto" }}
       />
     );
