@@ -58,7 +58,7 @@ function App() {
           <Route
             path="/phone"
             element={
-              <ExternalRedirect url="https://shop.offline.community/products/offline-dumbphone-1" />
+              <ExternalRedirect url="https://buy.stripe.com/aFa6oA8tO7b4aTNeAU8N200" />
             }
           />
           <Route path="/press" element={<Phone initialScreen="press" />} />

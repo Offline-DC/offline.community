@@ -17,6 +17,26 @@ type Props = {
   setAudioFile: Dispatch<SetStateAction<string>>;
 };
 
+const PAGE_SIZE = 6;
+
+function getVisibleOptions(options: string[], row: number, pageSize: number = PAGE_SIZE) {
+  const n = options.length;
+  if (n === 0) return { visibleOptions: [] as string[], highlightedIndex: 0 };
+
+  const r = Math.min(row, n - 1);
+  const isLastSlot = r % pageSize === pageSize - 1;
+  let windowStart = Math.floor(r / pageSize) * pageSize;
+
+  if (isLastSlot) windowStart = r;
+
+  const visibleOptions = options.slice(windowStart, windowStart + pageSize);
+
+  return {
+    visibleOptions,
+    highlightedIndex: r - windowStart,
+  };
+}
+
 function arraysEqual(a: string[], b: string[]) {
   if (a === b) return true;
   if (a == null || b == null) return false;
@@ -257,7 +277,7 @@ function Screen({
     setKeypadNum("1844OFFLINE,4");
   } else if (screen === "dumbphone I") {
     window.location.href =
-      "https://shop.offline.community/products/dumbphone-1";
+      "https://buy.stripe.com/aFa6oA8tO7b4aTNeAU8N200";
     setRow(0);
     setScreen("Home");
   } else if (screen === "Month Offline D.C.") {
@@ -312,9 +332,10 @@ function Screen({
       </div>
     );
   } else {
-    content = options.map((options, i) => (
-      <PhoneText key={options} highlight={row === i}>
-        {options}
+    const { visibleOptions, highlightedIndex } = getVisibleOptions(options, row);
+    content = visibleOptions.map((option, i) => (
+      <PhoneText key={option} highlight={i === highlightedIndex}>
+        {option}
       </PhoneText>
     ));
   }
