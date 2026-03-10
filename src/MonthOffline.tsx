@@ -67,20 +67,15 @@ function MonthOffline() {
                 </ul>
               </div>
               
-              {/* <div className="schedule-card">
+              <div className="schedule-card">
                 <div className="schedule-card-header">
                   <span className="location-icon">🏛️</span>
                   <h3>DC</h3>
                 </div>
                 <ul className="schedule-list">
-                  <li><span className="star">✰</span> march 5th – 7pm, <em>orientation</em></li>
-                  <li><span className="star">✰</span> march 12th – 7pm</li>
-                  <li><span className="star">✰</span> march 19th – 7pm</li>
-                  <li><span className="star">✰</span> march 26th – 7pm</li>
-                  <li><span className="star">✰</span> april 2nd – 7pm, <em>graduation</em></li>
-                  <li className="special-event"><span className="star">✰</span> april 9th – art gallery exhibit & graduation party</li>
+                  <p>MO DC is on recess. <a href="https://tally.so/r/WOorAk" target="_blank" rel="noopener noreferrer">Get notified</a> when we're back and at 'em.</p>
                 </ul>
-              </div> */}
+              </div>
 
             </div>
           </div>
