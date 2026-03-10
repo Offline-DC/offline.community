@@ -357,3 +357,15 @@
   max-width: 150px;
   height: auto;
 }
+
+/* Powered By */
+.powered-by {
+  margin-top: 15px;
+  font-size: 1em;
+  color: #666;
+}
+
+.powered-by a {
+  color: #0000FF;
+  text-decoration: underline;
+}

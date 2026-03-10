@@ -55,7 +55,7 @@ function MonthOffline() {
               <div className="schedule-card">
                 <div className="schedule-card-header">
                   <span className="location-icon">🗽</span>
-                  <h3>NYC</h3>
+                  <h3>NYC - Brooklyn</h3>
                 </div>
                 <ul className="schedule-list">
                   <li><span className="star">✰</span> may 4th – 7pm, <em>orientation</em></li>
@@ -99,6 +99,7 @@ function MonthOffline() {
           >
             Register Now
           </a>
+          <p className="powered-by">powered by <a href="https://dumb.co" target="_blank" rel="noopener noreferrer">dumb.co</a></p>
         </div>
       </div>
     </div>
