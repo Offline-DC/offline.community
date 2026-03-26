@@ -15,6 +15,91 @@ interface ScheduleData {
   columns: ScheduleColumn[];
 }
 
+const SCHEDULE_CSV_URL = import.meta.env.VITE_DATES_CSV_URL;
+
+// CSV parser that handles quoted fields
+const parseCsv = (text: string): string[][] => {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let cell = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const nextChar = text[i + 1];
+
+    if (char === '"') {
+      if (inQuotes && nextChar === '"') {
+        cell += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === "," && !inQuotes) {
+      row.push(cell);
+      cell = "";
+      continue;
+    }
+
+    if ((char === "\n" || char === "\r") && !inQuotes) {
+      if (char === "\r" && nextChar === "\n") {
+        i += 1;
+      }
+      row.push(cell);
+      if (row.some((value) => value.trim() !== "")) {
+        rows.push(row);
+      }
+      row = [];
+      cell = "";
+      continue;
+    }
+
+    cell += char;
+  }
+
+  if (cell.length > 0 || row.length > 0) {
+    row.push(cell);
+    if (row.some((value) => value.trim() !== "")) {
+      rows.push(row);
+    }
+  }
+
+  return rows;
+};
+
+// Parse CSV data into schedule structure
+const parseScheduleData = (rows: string[][]): ScheduleData => {
+  if (rows.length === 0) {
+    return { columns: [] };
+  }
+
+  const headerRow = rows[0];
+  const dataRows = rows.slice(1);
+
+  const columns: ScheduleColumn[] = [];
+
+  for (let colIndex = 1; colIndex < headerRow.length; colIndex++) {
+    const title = headerRow[colIndex];
+    const items: ScheduleItem[] = [];
+
+    for (const row of dataRows) {
+      const type = row[0] as 'li' | 'special-event';
+      const text = row[colIndex] || '';
+
+      if (text.trim()) {
+        items.push({ type, text });
+      }
+    }
+
+    columns.push({ title, items });
+  }
+
+  return { columns };
+};
+
 // Parse markdown-style links [text](url) into React anchor elements
 const parseMarkdownLinks = (text: string): ReactNode[] => {
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -67,11 +152,13 @@ function MonthOffline() {
   useEffect(() => {
     async function fetchSchedule() {
       try {
-        const response = await fetch('/api/schedule');
+        const response = await fetch(SCHEDULE_CSV_URL, { cache: "no-store" });
         if (!response.ok) {
           throw new Error('Failed to fetch schedule');
         }
-        const data = await response.json();
+        const csvText = await response.text();
+        const rows = parseCsv(csvText);
+        const data = parseScheduleData(rows);
         setScheduleData(data);
       } catch (err) {
         console.error('Error fetching schedule:', err);
