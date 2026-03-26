@@ -73,7 +73,12 @@ function MonthOffline() {
                   <h3>DC</h3>
                 </div>
                 <ul className="schedule-list">
-                  <p>MO DC is on recess. <a href="https://tally.so/r/WOorAk" target="_blank" rel="noopener noreferrer">Get notified</a> when we're back and at 'em.</p>
+                  <li><span className="star">✰</span> may 7th – 7pm, <em>orientation</em></li>
+                  <li><span className="star">✰</span> may 14th – 7pm</li>
+                  <li><span className="star">✰</span> may 21st – 7pm</li>
+                  <li><span className="star">✰</span> may 28th – 7pm</li>
+                  <li><span className="star">✰</span> june 4th – 7pm, <em>graduation</em></li>
+                  <li className="special-event"><span className="star">✰</span> june 11th – gallery exhibit & graduation party. Check out <a href="https://art.dumb.co" target="_blank" rel="noopener noreferrer">art.dumb.co</a> for inspo</li>
                 </ul>
               </div>
 
