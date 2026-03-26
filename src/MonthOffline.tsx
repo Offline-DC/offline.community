@@ -241,6 +241,10 @@ function MonthOffline() {
             </div>
           </div>
 
+          <div className="gallery-promo">
+            <p>Join us in NYC to celebrate the March Cohort. <a href="https://partiful.com/e/kvEuywdGfkEin52gs3U6" target="_blank" rel="noopener noreferrer">Click 2 RSVP</a></p>
+          </div>
+
           <div className="month-offline-image-row">
             <img src="https://shop.offline.community/cdn/shop/files/IMG_7135.jpg?v=1769106219" alt="Month Offline Badge 1" />
             <img src="https://shop.offline.community/cdn/shop/files/IMG_0080.heic?v=1769106189&width=2200" alt="Month Offline Badge 2" />

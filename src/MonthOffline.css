@@ -354,6 +354,32 @@
   color: #00008B;
 }
 
+/* Gallery Promo */
+.gallery-promo {
+  width: 100%;
+  background-color: #e8f4f8;
+  border: 2px solid #0000FF;
+  padding: 15px 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.gallery-promo p {
+  margin: 0;
+  font-size: 1.2em;
+  color: #000;
+}
+
+.gallery-promo a {
+  color: #0000FF;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.gallery-promo a:hover {
+  color: #00008B;
+}
+
 .month-offline-image-row {
   display: flex;
   justify-content: center;
