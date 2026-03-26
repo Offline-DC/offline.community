@@ -1,6 +1,88 @@
+import { useState, useEffect, type ReactNode } from 'react';
 import './MonthOffline.css';
 
+interface ScheduleItem {
+  type: 'li' | 'special-event';
+  text: string;
+}
+
+interface ScheduleColumn {
+  title: string;
+  items: ScheduleItem[];
+}
+
+interface ScheduleData {
+  columns: ScheduleColumn[];
+}
+
+// Parse markdown-style links [text](url) into React anchor elements
+const parseMarkdownLinks = (text: string): ReactNode[] => {
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts: ReactNode[] = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    parts.push(
+      <a key={match.index} href={match[2]} target="_blank" rel="noopener noreferrer">
+        {match[1]}
+      </a>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : [text];
+};
+
+// Location icons mapping based on title keywords
+function getLocationIcon(title: string): string {
+  const lowerTitle = title.toLowerCase();
+  if (lowerTitle.includes('nyc') || lowerTitle.includes('brooklyn') || lowerTitle.includes('new york')) {
+    return '🗽';
+  }
+  if (lowerTitle.includes('dc') || lowerTitle.includes('washington')) {
+    return '🏛️';
+  }
+  if (lowerTitle.includes('la') || lowerTitle.includes('los angeles')) {
+    return '🌴';
+  }
+  if (lowerTitle.includes('sf') || lowerTitle.includes('san francisco')) {
+    return '🌁';
+  }
+  return '📍';
+}
+
 function MonthOffline() {
+  const [scheduleData, setScheduleData] = useState<ScheduleData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchSchedule() {
+      try {
+        const response = await fetch('/api/schedule');
+        if (!response.ok) {
+          throw new Error('Failed to fetch schedule');
+        }
+        const data = await response.json();
+        setScheduleData(data);
+      } catch (err) {
+        console.error('Error fetching schedule:', err);
+        setError('Unable to load schedule');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchSchedule();
+  }, []);
+
   return (
     <div className="month-offline">
       <div className="month-offline-container">
@@ -52,36 +134,23 @@ function MonthOffline() {
             <h2 className="schedule-header">📍 May 2026 Locations</h2>
             
             <div className="schedule-grid">
-              <div className="schedule-card">
-                <div className="schedule-card-header">
-                  <span className="location-icon">🗽</span>
-                  <h3>NYC - Brooklyn</h3>
+              {loading && <p>Loading schedule...</p>}
+              {error && <p className="error">{error}</p>}
+              {scheduleData?.columns.map((column, index) => (
+                <div className="schedule-card" key={index}>
+                  <div className="schedule-card-header">
+                    <span className="location-icon">{getLocationIcon(column.title)}</span>
+                    <h3>{column.title}</h3>
+                  </div>
+                  <ul className="schedule-list">
+                    {column.items.map((item, itemIndex) => (
+                      <li key={itemIndex} className={item.type === 'special-event' ? 'special-event' : ''}>
+                        <span className="star">✰</span> {parseMarkdownLinks(item.text)}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="schedule-list">
-                  <li><span className="star">✰</span> may 4th – 7pm, <em>orientation</em></li>
-                  <li><span className="star">✰</span> may 11th – 7pm</li>
-                  <li><span className="star">✰</span> may 18th – 7pm</li>
-                  <li><span className="star">✰</span> may 25th – 7pm</li>
-                  <li><span className="star">✰</span> june 1st – 7pm, <em>graduation</em></li>
-                  <li className="special-event"><span className="star">✰</span> june 8th – gallery exhibit & graduation party. Check out <a href="https://art.dumb.co" target="_blank" rel="noopener noreferrer">art.dumb.co</a> for inspo</li>
-                </ul>
-              </div>
-              
-              <div className="schedule-card">
-                <div className="schedule-card-header">
-                  <span className="location-icon">🏛️</span>
-                  <h3>DC</h3>
-                </div>
-                <ul className="schedule-list">
-                  <li><span className="star">✰</span> may 7th – 7pm, <em>orientation</em></li>
-                  <li><span className="star">✰</span> may 14th – 7pm</li>
-                  <li><span className="star">✰</span> may 21st – 7pm</li>
-                  <li><span className="star">✰</span> may 28th – 7pm</li>
-                  <li><span className="star">✰</span> june 4th – 7pm, <em>graduation</em></li>
-                  <li className="special-event"><span className="star">✰</span> june 11th – gallery exhibit & graduation party. Check out <a href="https://art.dumb.co" target="_blank" rel="noopener noreferrer">art.dumb.co</a> for inspo</li>
-                </ul>
-              </div>
-
+              ))}
             </div>
           </div>
 
