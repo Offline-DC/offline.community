@@ -260,6 +260,7 @@ function MonthOffline() {
             Register Now
           </a>
           <p className="powered-by">powered by <a href="https://dumb.co" target="_blank" rel="noopener noreferrer">dumb.co</a></p>
+          <p className="powered-by">encouraged by <a href="https://seewunder.studio" target="_blank" rel="noopener noreferrer">See What's Under</a></p>
         </div>
       </div>
     </div>
