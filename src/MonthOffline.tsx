@@ -218,7 +218,7 @@ function MonthOffline() {
           </div>
 
           <div className="schedule-section">
-            <h2 className="schedule-header">📍 May 2026 Locations</h2>
+            <h2 className="schedule-header">📍 July 2026 Locations</h2>
             
             <div className="schedule-grid">
               {loading && <p>Loading schedule...</p>}
