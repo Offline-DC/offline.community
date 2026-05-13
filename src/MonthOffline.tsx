@@ -213,7 +213,7 @@ function MonthOffline() {
           </div>
 
           <div className="reservation-notice">
-            <p className="deadline">⏰ Reservations 2 join close on <strong>May 1st</strong>.</p>
+            <p className="deadline">⏰ Reservations 2 join close on <strong>June 29th</strong>.</p>
             <p className="discount-info">✰ email <a href="mailto:month@offline.community">month@offline.community</a> for a  code if u need financial support or if u wanna bring ur own dumbphone</p>
           </div>
 
