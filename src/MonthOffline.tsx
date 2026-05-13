@@ -240,6 +240,15 @@ function MonthOffline() {
               ))}
             </div>
           </div>
+<a
+  href="https://buy.stripe.com/aFa5kw11meDwaTN2Sc8N20b"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="register-button"
+>
+  Register Now
+</a>
+
 
           <div className="month-offline-image-row">
             <img src="https://shop.offline.community/cdn/shop/files/IMG_7135.jpg?v=1769106219" alt="Month Offline Badge 1" />
@@ -247,14 +256,7 @@ function MonthOffline() {
             <img src="https://shop.offline.community/cdn/shop/files/IMG_7136.jpg?v=1769106219" alt="Month Offline Badge 3" />
           </div>
 
-          <a
-            href="https://buy.stripe.com/aFa5kw11meDwaTN2Sc8N20b"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="register-button"
-          >
-            Register Now
-          </a>
+          
           <p className="powered-by">powered by <a href="https://dumb.co" target="_blank" rel="noopener noreferrer">dumb.co</a></p>
           <p className="powered-by">encouraged by <a href="https://seewunder.studio" target="_blank" rel="noopener noreferrer">See What's Under</a></p>
         </div>
