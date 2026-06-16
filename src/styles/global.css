@@ -1,0 +1,119 @@
+/*
+  global.css — the site-wide foundation.
+
+  Everything here is plain CSS. The :root block defines "design tokens"
+  (CSS custom properties) pulled straight from the Figma file, so every
+  page and component references these names instead of hard-coding values.
+  Change a value here once and it updates everywhere.
+
+  This file is imported a single time, in BaseLayout.astro.
+*/
+
+:root {
+  /* ---- Colors (named variables straight from the Figma file) ---- */
+  --mo-yellow: #ffe800; /* hero block, location rows */
+  --mo-cyan:   #03ffff; /* section-header bars */
+  --mo-blue:   #0000ff; /* masthead bar, sub-labels */
+  --mo-pink:   #ff69b4; /* "start a cohort" CTA bar */
+  --black:     #000000; /* page background */
+  --white:     #ffffff; /* content cards, body text on black */
+
+  /* ---- Typography ----
+     Two Google Fonts. Workbench is the display face (the LED/dot look)
+     used for headings, labels, and the masthead. Syne Mono is the body
+     face for running prose. Both fall back to a generic monospace. */
+  --font-display: 'Workbench', monospace;
+  --font-body:    'Syne Mono', monospace;
+
+  /* Workbench is a variable font; these axis settings pin the exact look
+     from the design (BLED = bleed, SCAN = scanline). Apply via
+     `font-variation-settings: var(--workbench-axes);` wherever we use it. */
+  --workbench-axes: 'BLED' 0, 'SCAN' 21;
+
+  /* Type scale (px values from the design) */
+  --size-heading: 24px; /* section headers, masthead */
+  --size-body:    16px; /* body copy, labels, news headlines */
+  --size-footer:  14px; /* footer + ticker */
+
+  /* Letter-spacing (Workbench runs slightly tracked-out; body less so) */
+  --track-heading: 1.44px;
+  --track-label:   0.96px;
+  --track-body:    0.32px;
+
+  /* Line-height */
+  --leading-display: 1.4;
+  --leading-body:    1.5;
+
+  /* ---- Spacing scale ----
+     A simple 8px-based scale. The design's recurring gaps fall on these. */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 48px;
+
+  /* ---- Layout ----
+     The whole site is a single centered column on a black background. */
+  --content-width: 600px; /* width of the column / colored bars */
+  --content-pad:   48px;  /* horizontal padding inside cards */
+
+  /* Recurring block heights from the design */
+  --bar-section:  48px;  /* cyan section-header bars */
+  --row-location: 78px;  /* yellow cohort rows */
+  --bar-cta:      100px; /* pink CTA bar */
+}
+
+/* ---- Base resets & defaults ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Never zoom text unexpectedly on mobile */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--track-body);
+}
+
+/* Headings all use the display face, uppercase, with the pinned axes.
+   We reset their default browser margins; spacing is handled per-section. */
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--workbench-axes);
+  font-weight: 400;
+  line-height: var(--leading-display);
+  letter-spacing: var(--track-heading);
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* A small reusable helper for the display face on non-heading elements
+   (labels, the masthead, the ticker, location rows, etc.). */
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: var(--workbench-axes);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+}

@@ -1,0 +1,15 @@
+# build output
+dist/
+# astro's generated types & cache
+.astro/
+# dependencies
+node_modules/
+# secrets — keep the Sheet URL out of version control
+.env
+.env.production
+# logs
+npm-debug.log*
+# macOS
+.DS_Store
+# Claude Code per-machine local settings (keep launch.json tracked, this one isn't shared)
+.claude/settings.local.json

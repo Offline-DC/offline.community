@@ -1,0 +1,55 @@
+---
+/*
+  Home page (placeholder).
+
+  Right now this just exercises the design foundation so we can see the
+  fonts, colors, and spacing render in the browser. We'll replace this
+  with the real Home sections (intro, press, how-it-works, the cohort
+  directory from the Sheet, the CTA, photos) in the next step.
+*/
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Month Offline">
+  <!-- Hero block (yellow) — placeholder for the logo/sticker image. -->
+  <div class="hero">M</div>
+
+  <!-- Sample section header bar (cyan) to check the heading style. -->
+  <h2 class="section-header">* Foundation check</h2>
+
+  <!-- Sample body copy to check the body font + color on black. -->
+  <p class="sample">
+    If you can read this in Syne Mono, see the Workbench headings above, and
+    the yellow / blue / cyan all look right — the foundation is wired up. The
+    ticker clock at the top should be counting seconds.
+  </p>
+</BaseLayout>
+
+<style>
+  .hero {
+    background: var(--mo-yellow);
+    color: var(--black);
+    height: 279px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-variation-settings: var(--workbench-axes);
+    font-size: 120px;
+    border: 6px solid var(--black);
+  }
+
+  .section-header {
+    background: var(--mo-cyan);
+    color: var(--black);
+    font-size: var(--size-heading);
+    height: var(--bar-section);
+    line-height: var(--bar-section);
+    padding: 0 var(--space-2);
+    margin-top: var(--space-3);
+  }
+
+  .sample {
+    padding: var(--space-3) var(--space-2);
+  }
+</style>

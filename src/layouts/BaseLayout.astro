@@ -1,0 +1,136 @@
+---
+/*
+  BaseLayout.astro — the wrapper every page renders inside.
+
+  In Astro, the section between the `---` fences is "frontmatter": JavaScript
+  that runs at BUILD time on the server, never in the browser. We use it here
+  to declare the props a page can pass in (title, description) and to compute
+  the ticker's initial date/time.
+
+  Whatever a page puts inside <BaseLayout>...</BaseLayout> lands where the
+  <slot /> is below. The ticker, masthead, and footer live here so all six
+  pages share them without repeating the markup.
+*/
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Month Offline — try a dumbphone for 30 days with a cohort of neighbors.' } = Astro.props;
+
+// Build-time fallback for the ticker, so there's no empty flash before the
+// client-side clock kicks in. The inline script below overwrites these with
+// the viewer's live local time once the page loads.
+const MONTHS = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+const now = new Date();
+const pad = (n: number) => String(n).padStart(2, '0');
+const initialDate = `${MONTHS[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+const initialTime = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Google Fonts: Workbench (display) + Syne Mono (body). preconnect
+         speeds up the font fetch. We request the plain Workbench family —
+         it serves the full variable font, and we pin the axes in CSS. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Workbench&display=swap"
+    />
+  </head>
+
+  <body>
+    <!-- Centered column. Everything sits inside this 600px-wide track. -->
+    <div class="column">
+      <!-- Ticker: live local date + time, on black. -->
+      <div class="ticker font-display">
+        <span id="ticker-date">{initialDate}</span> *
+        LESS IS MO *
+        <span id="ticker-time">{initialTime}</span> *
+        WWW.OFFLINE.COMMUNITY * WASHINGTON DC
+      </div>
+
+      <!-- Masthead bar (blue). -->
+      <h1 class="masthead">Month Offline * Less is MO</h1>
+
+      <!-- Page content goes here. -->
+      <main>
+        <slot />
+      </main>
+
+      <!-- Footer (centered, on black). -->
+      <footer class="site-footer font-display">
+        <p>WWW.OFFLINE.COMMUNITY</p>
+        <p>DUMB.CO * SEE WHAT'S UNDER STUDIO</p>
+        <p>WASHINGTON, DC 2026</p>
+      </footer>
+    </div>
+
+    <!-- The one bit of client-side JS: tick the ticker clock every second.
+         `is:inline` tells Astro to ship this as-is rather than bundling it. -->
+    <script is:inline>
+      (function () {
+        const MONTHS = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+        const pad = (n) => String(n).padStart(2, '0');
+        const dateEl = document.getElementById('ticker-date');
+        const timeEl = document.getElementById('ticker-time');
+        function tick() {
+          const d = new Date();
+          if (dateEl) dateEl.textContent = `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+          if (timeEl) timeEl.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+        }
+        tick();
+        setInterval(tick, 1000);
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  /* Styles in an Astro <style> block are automatically scoped to THIS
+     component — they won't leak into pages or other components. */
+
+  .column {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-2); /* breathing room on narrow screens */
+  }
+
+  .ticker {
+    font-size: var(--size-footer);
+    text-align: center;
+    padding: var(--space-1) 0;
+    /* Keep it to one line for now; we can make it a scrolling marquee later. */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .masthead {
+    background: var(--mo-blue);
+    color: var(--white);
+    font-size: var(--size-heading);
+    text-align: center;
+    height: var(--bar-section);
+    line-height: var(--bar-section); /* vertically center the single line */
+  }
+
+  .site-footer {
+    font-size: var(--size-footer);
+    text-align: center;
+    padding: var(--space-4) 0;
+    line-height: var(--leading-display);
+  }
+</style>
