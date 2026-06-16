@@ -1,55 +1,246 @@
 ---
 /*
-  Home page (placeholder).
+  Home page.
 
-  Right now this just exercises the design foundation so we can see the
-  fonts, colors, and spacing render in the browser. We'll replace this
-  with the real Home sections (intro, press, how-it-works, the cohort
-  directory from the Sheet, the CTA, photos) in the next step.
+  Sections, top to bottom (the ticker, masthead, and footer live in
+  BaseLayout and wrap every page):
+    1. Hero        — the M ❀ logo in a bordered yellow block
+    2. Intro       — what Month Offline is
+    3. Press       — "Read all about it" coverage
+    4. How it works— meetups, the dumbphone, and the directory blurb
+    5. Locations   — the cohort directory (placeholder rows for now)
+    6. CTA         — start a cohort in your city → DIY guide
+    7. Photos      — a strip of three images
 */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import CohortRow from '../components/CohortRow.astro';
+import PressItem from '../components/PressItem.astro';
+import { getCohorts } from '../lib/cohorts.js';
+
+// Pull the cohort directory from the published Google Sheet at build time.
+// Empty until cohorts are added to the sheet — the section shows an
+// empty-state message below in that case.
+const cohorts = await getCohorts();
 ---
 
 <BaseLayout title="Month Offline">
-  <!-- Hero block (yellow) — placeholder for the logo/sticker image. -->
-  <div class="hero">M</div>
+  <div class="home">
+    <!-- 1. Hero -->
+    <section class="hero">
+      <div class="hero__frame">
+        <img src="/images/logo.png" width="300" height="199" alt="Month Offline logo — a stamped letter M beside a flower" />
+      </div>
+    </section>
 
-  <!-- Sample section header bar (cyan) to check the heading style. -->
-  <h2 class="section-header">* Foundation check</h2>
+    <!-- 2. Intro -->
+    <section class="card">
+      <p class="lead font-display">
+        Part support group, part happy hour, part classroom: try a dumbphone
+        for 30 days and join a cohort of neighbors for weekly meetups and
+        mutual encouragement. If not now, when?
+      </p>
+      <p class="body">
+        Ahoy! The first Month Offline was hosted in Washington, DC back in May
+        2025. MO expanded to New York City in January 2026. One year after MO
+        began, we published all of our program materials so that anyone can
+        organize their own cohort.
+      </p>
+    </section>
 
-  <!-- Sample body copy to check the body font + color on black. -->
-  <p class="sample">
-    If you can read this in Syne Mono, see the Workbench headings above, and
-    the yellow / blue / cyan all look right — the foundation is wired up. The
-    ticker clock at the top should be counting seconds.
-  </p>
+    <!-- 3. Press -->
+    <SectionHeader label="Read all about it" />
+    <section class="card">
+      <ul class="press-list">
+        <PressItem headline="A group of us ditched our smartphones for a month. It changed us." outlet="Washington Post" />
+        <PressItem headline="The flip-phone cleanse" outlet="The Atlantic" />
+        <PressItem headline="Would you try the 30-day flip phone challenge?" outlet="Dazed" />
+      </ul>
+    </section>
+
+    <!-- 4. How it works -->
+    <SectionHeader label="How it works" />
+    <section class="card">
+      <p class="body">MO typically (but not always) involves …</p>
+
+      <h3 class="label">5 facilitated meetups</h3>
+      <ul class="bullets">
+        <li>✧ conversation prompts to reflect on the frictions &amp; fruits of offline life</li>
+        <li>⏾ weekly themes &amp; activities to tap into each other's experiences</li>
+      </ul>
+
+      <h3 class="label">Dumbphone 2 by dumb.co</h3>
+      <ul class="bullets">
+        <li>✧ dumbOS &amp; Dumb Down app syncs ur dumb &amp; smart phones — calls, texts, &amp; contacts</li>
+        <li>✦ iMessage, WhatsApp, Uber, Maps, Microsoft Authenticator</li>
+        <li>☼ 1 month of unlimited calling &amp; texting, 100 hours of emergency data</li>
+      </ul>
+
+      <p class="body">
+        <u>offline.community</u> is a directory of independently organized
+        Month Offline cohorts. We share facilitation tools and inspiration, but
+        each group is responsible for its own structure, content, and
+        accessibility. You can reach out to the organizer of MO in your city
+        below, or we'll help you start your own!
+      </p>
+    </section>
+
+    <!-- 5. Locations -->
+    <SectionHeader label="Month Offline locations" />
+    {cohorts.length > 0
+      ? cohorts.map((c) => (
+          <CohortRow location={c.location} date={c.date} organizer={c.organizer} href={c.href} />
+        ))
+      : <p class="no-cohorts">No cohorts listed yet — be the first to start one in your city, below.</p>
+    }
+
+    <!-- 6. CTA → DIY guide -->
+    <a class="cta" href="/diy">
+      <div class="cta__head">
+        <span class="font-display">Start Month Offline in your city</span>
+        <span class="font-display">&gt;&gt;&gt;</span>
+      </div>
+      <p class="cta__blurb">
+        Not seeing your location listed here? Organize your own cohort using
+        our getting started guide.
+      </p>
+    </a>
+
+    <!-- 7. Photos -->
+    <section class="photos">
+      <img src="/images/photo-1.png" alt="Participants at a Month Offline meetup" />
+      <img src="/images/photo-2.png" alt="A Month Offline gathering" />
+      <img src="/images/photo-3.png" alt="A Month Offline exhibition" />
+    </section>
+  </div>
 </BaseLayout>
 
 <style>
+  /* Stack all sections with a thin black gutter between them, matching the
+     design's ~12px gaps. */
+  .home {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: var(--space-1);
+  }
+
+  /* White content card — used by the intro, press, and how-it-works sections.
+     Body text on these is black (the page default is white-on-black). */
+  .card {
+    background: var(--white);
+    color: var(--black);
+    padding: var(--content-pad);
+  }
+
+  /* Locations empty-state (shown on the black page, white text). */
+  .no-cohorts {
+    font-size: var(--size-body);
+    padding: var(--space-3) var(--space-2);
+  }
+
+  /* Hero: the logo inside a black frame on a yellow block. */
   .hero {
     background: var(--mo-yellow);
-    color: var(--black);
-    height: 279px;
+    padding: 6px;
+  }
+  .hero__frame {
+    border: 6px solid var(--black);
+    min-height: 255px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-display);
-    font-variation-settings: var(--workbench-axes);
-    font-size: 120px;
-    border: 6px solid var(--black);
+  }
+  .hero__frame img {
+    width: 300px;
+    height: auto;
   }
 
-  .section-header {
-    background: var(--mo-cyan);
-    color: var(--black);
-    font-size: var(--size-heading);
-    height: var(--bar-section);
-    line-height: var(--bar-section);
-    padding: 0 var(--space-2);
+  /* The Workbench lead-in paragraph in the intro. */
+  .lead {
+    font-size: var(--size-body);
+    line-height: var(--leading-display);
+  }
+
+  /* Standard body paragraph (Syne Mono). */
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+  .body + .label,
+  .body + .body,
+  .bullets + .body,
+  .bullets + .label {
+    margin-top: var(--space-3);
+  }
+  .lead + .body {
     margin-top: var(--space-3);
   }
 
-  .sample {
-    padding: var(--space-3) var(--space-2);
+  /* Blue sub-labels inside "How it works". */
+  .label {
+    font-size: var(--size-body);
+    color: var(--mo-blue);
+    letter-spacing: var(--track-label);
+  }
+
+  .bullets {
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+  }
+  .bullets li + li {
+    margin-top: var(--space-2);
+  }
+
+  /* Press list: headlines separated by thin black rules. */
+  .press-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .press-list :global(.press-item) {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--black);
+  }
+  .press-list :global(.press-item:first-child) {
+    padding-top: 0;
+  }
+  .press-list :global(.press-item:last-child) {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  /* CTA bar (pink). */
+  .cta {
+    display: block;
+    background: var(--mo-pink);
+    color: var(--black);
+    text-decoration: none;
+    padding: var(--space-2);
+    min-height: var(--bar-cta);
+  }
+  .cta__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2);
+    font-size: var(--size-body);
+  }
+  .cta__blurb {
+    font-size: var(--size-body);
+    margin-top: var(--space-1);
+  }
+
+  /* Photo strip: three equal images in a row. */
+  .photos {
+    display: flex;
+    gap: var(--space-1);
+  }
+  .photos img {
+    flex: 1;
+    width: 0; /* let flex-basis drive width so all three are equal */
+    height: 219px;
+    object-fit: cover;
   }
 </style>

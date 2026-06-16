@@ -1,0 +1,21 @@
+---
+/*
+  PressItem.astro — one headline in the "Read all about it" press list.
+  Rendered as "HEADLINE * OUTLET" in the display face. Dividers between
+  items are handled by the list styling on the Home page.
+*/
+interface Props {
+  headline: string;
+  outlet: string;
+}
+const { headline, outlet } = Astro.props;
+---
+
+<li class="press-item font-display">{headline} * {outlet}</li>
+
+<style>
+  .press-item {
+    font-size: var(--size-body);
+    line-height: var(--leading-display);
+  }
+</style>

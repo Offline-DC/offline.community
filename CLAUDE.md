@@ -30,14 +30,15 @@ I have experience with static HTML/CSS/JS but no framework or build-tool experie
   These four subpages are meant to be read in that order. Each one links to the next at the bottom of the page (the last one, "How to Host an Exhibition," doesn't link forward to anything).
 
 ## Data source (Google Sheet)
-One row per cohort. Columns:
-- City
-- State
-- Organizer name(s)
-- Sign-up form link
-- Start date
+One row per cohort. The live sheet's column headers (matched case-insensitively
+in `src/lib/cohorts.js`):
+- `CITY`
+- `STATE`
+- `ORGANIZER` — organizer name(s)
+- `FORM` — sign-up form link
+- `MONTH` — start month/date
 
-A non-technical teammate edits this sheet directly to add or update cohorts — no admin UI needed on the site itself.
+A non-technical teammate edits this sheet directly to add or update cohorts — no admin UI needed on the site itself. New rows appear on the next build (see `getCohorts()` in `src/lib/cohorts.js`).
 
 ## Commands
 (Standard Astro scripts — confirm these against package.json once the project actually exists)

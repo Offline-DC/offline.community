@@ -1,0 +1,54 @@
+---
+/*
+  CohortRow.astro — one yellow row in the locations directory.
+
+  This is the component the Google Sheet data will map onto: each row in
+  the sheet (city, state, organizer, sign-up link, start date) becomes one
+  CohortRow. For now the Home page passes in placeholder rows; wiring it to
+  the published CSV is the next step.
+*/
+interface Props {
+  location: string;   // e.g. "New York City, NY"
+  date: string;       // e.g. "July 2026"
+  organizer: string;  // e.g. "Melissa"
+  href: string;       // the cohort's external sign-up form
+}
+const { location, date, organizer, href } = Astro.props;
+---
+
+<a class="cohort-row" href={href} target="_blank" rel="noopener">
+  <div class="cohort-row__head">
+    <span class="cohort-row__title font-display">{location} – {date}</span>
+    <span class="cohort-row__arrow font-display">&gt;&gt;&gt;</span>
+  </div>
+  <p class="cohort-row__organizer">Organized by {organizer}.</p>
+</a>
+
+<style>
+  .cohort-row {
+    display: block;
+    background: var(--mo-yellow);
+    color: var(--black);
+    text-decoration: none;
+    padding: var(--space-2);
+    min-height: var(--row-location);
+  }
+
+  .cohort-row__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+
+  .cohort-row__title,
+  .cohort-row__arrow {
+    font-size: var(--size-body);
+  }
+
+  /* The "Organized by …" line uses the body font (Syne Mono), not display. */
+  .cohort-row__organizer {
+    font-size: var(--size-body);
+    margin-top: var(--space-1);
+  }
+</style>

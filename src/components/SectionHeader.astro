@@ -1,0 +1,24 @@
+---
+/*
+  SectionHeader.astro — the cyan "* HEADING" bar that introduces each
+  section of the page. Pass the label text; the leading asterisk and the
+  uppercasing are handled here so callers just write the words.
+*/
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+
+<h2 class="section-header">* {label}</h2>
+
+<style>
+  .section-header {
+    background: var(--mo-cyan);
+    color: var(--black);
+    font-size: var(--size-heading);
+    height: var(--bar-section);
+    line-height: var(--bar-section); /* vertically center the single line */
+    padding: 0 var(--space-2);
+  }
+</style>

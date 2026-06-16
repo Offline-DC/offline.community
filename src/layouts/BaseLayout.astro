@@ -101,17 +101,20 @@ import '../styles/global.css';
   /* Styles in an Astro <style> block are automatically scoped to THIS
      component — they won't leak into pages or other components. */
 
+  /* The column caps width at 600px and centers it. No horizontal padding:
+     the colored bars are full-bleed (edge-to-edge of the column on desktop,
+     edge-to-edge of the screen on mobile), exactly as the design intends.
+     Elements that hold text — the ticker and footer — add their own inset. */
   .column {
     width: 100%;
     max-width: var(--content-width);
     margin: 0 auto;
-    padding: 0 var(--space-2); /* breathing room on narrow screens */
   }
 
   .ticker {
     font-size: var(--size-footer);
     text-align: center;
-    padding: var(--space-1) 0;
+    padding: var(--space-1) var(--space-2);
     /* Keep it to one line for now; we can make it a scrolling marquee later. */
     white-space: nowrap;
     overflow: hidden;
@@ -130,7 +133,7 @@ import '../styles/global.css';
   .site-footer {
     font-size: var(--size-footer);
     text-align: center;
-    padding: var(--space-4) 0;
+    padding: var(--space-4) var(--space-2);
     line-height: var(--leading-display);
   }
 </style>
