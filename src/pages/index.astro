@@ -13,6 +13,7 @@
     7. Photos      — a strip of three images
 */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import CohortRow from '../components/CohortRow.astro';
 import PressItem from '../components/PressItem.astro';
@@ -25,13 +26,9 @@ const cohorts = await getCohorts();
 ---
 
 <BaseLayout title="Month Offline">
-  <div class="home">
+  <div class="sections">
     <!-- 1. Hero -->
-    <section class="hero">
-      <div class="hero__frame">
-        <img src="/images/logo.png" width="300" height="199" alt="Month Offline logo — a stamped letter M beside a flower" />
-      </div>
-    </section>
+    <Hero />
 
     <!-- 2. Intro -->
     <section class="card">
@@ -116,44 +113,13 @@ const cohorts = await getCohorts();
 </BaseLayout>
 
 <style>
-  /* Stack all sections with a thin black gutter between them, matching the
-     design's ~12px gaps. */
-  .home {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    margin-top: var(--space-1);
-  }
-
-  /* White content card — used by the intro, press, and how-it-works sections.
-     Body text on these is black (the page default is white-on-black). */
-  .card {
-    background: var(--white);
-    color: var(--black);
-    padding: var(--content-pad);
-  }
+  /* `.sections` (the section stack) and `.card` now live in global.css,
+     shared across pages. */
 
   /* Locations empty-state (shown on the black page, white text). */
   .no-cohorts {
     font-size: var(--size-body);
     padding: var(--space-3) var(--space-2);
-  }
-
-  /* Hero: the logo inside a black frame on a yellow block. */
-  .hero {
-    background: var(--mo-yellow);
-    padding: 6px;
-  }
-  .hero__frame {
-    border: 6px solid var(--black);
-    min-height: 255px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .hero__frame img {
-    width: 300px;
-    height: auto;
   }
 
   /* The Workbench lead-in paragraph in the intro. */

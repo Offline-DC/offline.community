@@ -1,0 +1,34 @@
+---
+/*
+  Hero.astro — the M ❀ logo stamp inside a black frame on a yellow block.
+  Shared across pages (Home, DIY guide, …).
+
+  The logo is a transparent PNG (black ink only), so the yellow shows through
+  behind the stamp, matching the design.
+*/
+---
+
+<section class="hero">
+  <div class="hero__frame">
+    <img src="/images/logo.png" width="1200" height="796" alt="Month Offline logo — a stamped letter M beside a flower" />
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: var(--mo-yellow);
+    padding: 6px;
+  }
+  .hero__frame {
+    border: 6px solid var(--black);
+    min-height: 255px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) 0;
+  }
+  .hero__frame img {
+    width: 78%;
+    height: auto;
+  }
+</style>

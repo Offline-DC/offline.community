@@ -15,9 +15,22 @@
 interface Props {
   title: string;
   description?: string;
+  // The blue masthead bar text. Defaults to the site tagline (Home); other
+  // pages override it, e.g. the DIY guide passes "Month Offline > DIY Guide".
+  masthead?: string;
 }
 
-const { title, description = 'Month Offline — try a dumbphone for 30 days with a cohort of neighbors.' } = Astro.props;
+const {
+  title,
+  description = 'Month Offline — try a dumbphone for 30 days with a cohort of neighbors.',
+  masthead = 'Month Offline * Less is MO',
+} = Astro.props;
+
+// The masthead doubles as breadcrumb navigation: the leading "Month Offline"
+// always links back to the home page. Split it off the rest of the label so
+// only that part is a link (the trailing crumb, e.g. "> DIY Guide", is plain).
+const HOME_CRUMB = 'Month Offline';
+const mastheadRest = masthead.startsWith(HOME_CRUMB) ? masthead.slice(HOME_CRUMB.length) : null;
 
 // Build-time fallback for the ticker, so there's no empty flash before the
 // client-side clock kicks in. The inline script below overwrites these with
@@ -61,8 +74,10 @@ import '../styles/global.css';
         WWW.OFFLINE.COMMUNITY * WASHINGTON DC
       </div>
 
-      <!-- Masthead bar (blue). -->
-      <h1 class="masthead">Month Offline * Less is MO</h1>
+      <!-- Masthead bar (blue) / breadcrumb. "Month Offline" links home. -->
+      <h1 class="masthead">{mastheadRest !== null ? (
+        <Fragment><a class="masthead__home" href="/">{HOME_CRUMB}</a>{mastheadRest}</Fragment>
+      ) : masthead}</h1>
 
       <!-- Page content goes here. -->
       <main>
@@ -128,6 +143,17 @@ import '../styles/global.css';
     text-align: center;
     height: var(--bar-section);
     line-height: var(--bar-section); /* vertically center the single line */
+  }
+
+  /* The "Month Offline" breadcrumb link — looks like the surrounding text,
+     underlines on hover/focus to signal it's clickable. */
+  .masthead__home {
+    color: inherit;
+    text-decoration: none;
+  }
+  .masthead__home:hover,
+  .masthead__home:focus-visible {
+    text-decoration: underline;
   }
 
   .site-footer {

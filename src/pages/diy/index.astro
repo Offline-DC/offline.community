@@ -1,0 +1,166 @@
+---
+/*
+  DIY Guide — landing page (/diy).
+
+  Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
+    1. Hero            — the M ❀ logo
+    2. Letter          — "Dear future organizers" backstory
+    3. How to…         — links to the four ordered subpages
+    4. How it works    — the 5-week program
+    5. Ring ring        — schedule an intro call with Lydia (info session signup)
+
+  The four "How to" subpages don't exist yet (we're building them one at a
+  time), so those links 404 for now. The "Chat with Lydia" link is a
+  placeholder until we have the real scheduling URL.
+*/
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import GuideLink from '../../components/GuideLink.astro';
+import ProgramStep from '../../components/ProgramStep.astro';
+
+// The four subpages, read in order. Each links to the next at its own foot.
+const guideLinks = [
+  { number: '01', label: 'Gather participants', href: '/diy/gather-participants' },
+  { number: '02', label: 'Get dumbphones',      href: '/diy/get-dumbphones' },
+  { number: '03', label: 'Facilitate meetups',  href: '/diy/facilitate-meetups' },
+  { number: '04', label: 'Host an exhibition',  href: '/diy/host-an-exhibition' },
+];
+
+// The 5-week program shown under "How it works".
+const program = [
+  { number: 1, color: 'yellow', title: 'Communication', question: 'How do devices shape our patterns of communication?' },
+  { number: 2, color: 'cyan',   title: 'Memory',        question: "What do we notice when we're not feeling distracted?" },
+  { number: 3, color: 'pink',   title: 'Navigation',    question: "How do we experience urban space when we're off the map?" },
+  { number: 4, color: 'blue',   title: 'Boredom',       question: 'How do we inhabit the vacancies in our attention?' },
+  { number: 5, color: 'red',    title: 'Graduation',    question: 'What are we going to carry with us from this experience together?' },
+];
+---
+
+<BaseLayout title="DIY Guide — Month Offline" masthead="Month Offline > DIY Guide">
+  <div class="sections">
+    <!-- 1. Hero -->
+    <Hero />
+
+    <!-- 2. Letter -->
+    <section class="card">
+      <h3 class="letter__salutation font-display">Dear future organizers,</h3>
+      <p class="body">
+        Glad you're curious about starting Month Offline in your city. We've got
+        a bunch of resources to get you going, but first, like any good recipe,
+        we've got a little backstory. The MO team first met at Temperance Alley
+        — a community garden in Washington DC. For years, the gardeners among us
+        had been exploring how rewilded attention can help us become better
+        neighbors and placekeepers. We started the Month Offline challenge in
+        hopes of helping people explore their neighborhoods and encounter the
+        beauty of Life beyond the screen. In April 2025, we posted flyers around
+        the city with a simple invitation: CALL 1-844-OFFLINE if you want to
+        ditch your smartphone for 30 days. One year and 400+ people later, we're
+        super energized by all that's come to life in newfound offtime.
+      </p>
+      <p class="body">
+        In the following guide is a shared repository where you'll find all you
+        need to roll your own Month Offline cohort. We hope you do and can't wait
+        to meet you.
+      </p>
+      <p class="body letter__signoff">
+        Catch u on the flip,<br />
+        Aaron, Josh, &amp; Lydia
+      </p>
+    </section>
+
+    <!-- 3. How to… -->
+    <SectionHeader label="How to..." color="yellow" />
+    {guideLinks.map((link) => (
+      <GuideLink number={link.number} label={link.label} href={link.href} />
+    ))}
+
+    <!-- 4. How it works -->
+    <SectionHeader label="How it works" color="yellow" />
+    <section class="card">
+      <p class="body">
+        Weekly meetups are at the heart of MO. Neighbors get to know each other
+        and celebrate life beyond the screen. We made a 5-week program filled
+        with playful materials that you can bring to your city!
+      </p>
+      <div class="program">
+        {program.map((step) => (
+          <ProgramStep number={step.number} color={step.color} title={step.title} question={step.question} />
+        ))}
+      </div>
+    </section>
+
+    <!-- 5. Ring ring — join an info session -->
+    <SectionHeader label="Ring ring — join an info session" color="yellow" />
+    <section class="lydia">
+      <div class="lydia__top">
+        <p class="body">
+          Month Offline organizers host regular info sessions for groups
+          thinking about starting a cohort. Join one to learn about finding
+          participants, facilitating meetups, and getting dumbphones for your
+          people.
+        </p>
+        <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
+      </div>
+      <!-- href is a placeholder until the info-session signup link is shared. -->
+      <a class="lydia__btn font-display" href="#">Join an info session</a>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Standard body paragraph (Syne Mono). Spacing between stacked paragraphs. */
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+  .body + .body {
+    margin-top: var(--space-3);
+  }
+
+  /* Letter salutation + sign-off. */
+  .letter__salutation {
+    font-size: var(--size-body);
+    margin-bottom: var(--space-3);
+  }
+  .letter__signoff {
+    margin-top: var(--space-3);
+  }
+
+  /* The 5-week program list inside the "How it works" card. */
+  .program {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  /* Lydia intro-call card (cyan, black text). */
+  .lydia {
+    background: var(--mo-cyan);
+    color: var(--black);
+    padding: var(--content-pad);
+  }
+  .lydia__top {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+  .lydia__photo {
+    flex: none;
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+  }
+  .lydia__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--space-3);
+    padding: var(--space-2);
+    background: var(--black);
+    color: var(--white);
+    text-decoration: none;
+    font-size: var(--size-body);
+  }
+</style>

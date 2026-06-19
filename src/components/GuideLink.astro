@@ -1,0 +1,32 @@
+---
+/*
+  GuideLink.astro — a cyan "how-to" link row on the DIY guide landing page,
+  e.g. "01. GATHER PARTICIPANTS  >>>". Links to one of the four subpages.
+*/
+interface Props {
+  number: string; // e.g. "01"
+  label: string;  // e.g. "Gather participants"
+  href: string;   // e.g. "/diy/gather-participants"
+}
+const { number, label, href } = Astro.props;
+---
+
+<a class="guide-link" href={href}>
+  <span class="guide-link__label font-display">{number}. {label}</span>
+  <span class="guide-link__arrow font-display">&gt;&gt;&gt;</span>
+</a>
+
+<style>
+  .guide-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--mo-cyan);
+    color: var(--black);
+    text-decoration: none;
+    padding: var(--space-2);
+    min-height: var(--bar-section);
+    font-size: var(--size-body);
+  }
+</style>

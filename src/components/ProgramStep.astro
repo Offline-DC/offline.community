@@ -1,0 +1,49 @@
+---
+/*
+  ProgramStep.astro — one week of the 5-week program in "How it works":
+  a colored square with the step number, then a title and its guiding question.
+*/
+interface Props {
+  number: number;
+  color: 'yellow' | 'cyan' | 'pink' | 'blue' | 'red';
+  title: string;
+  question: string;
+}
+const { number, color, title, question } = Astro.props;
+---
+
+<div class="program-step">
+  <div class="program-step__num font-display" style={`background: var(--mo-${color});`}>{number}</div>
+  <div class="program-step__text">
+    <h4 class="program-step__title font-display">{title}</h4>
+    <p class="program-step__question">{question}</p>
+  </div>
+</div>
+
+<style>
+  .program-step {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+
+  .program-step__num {
+    flex: none;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black);
+    font-size: var(--size-heading);
+  }
+
+  .program-step__title {
+    font-size: var(--size-body);
+  }
+
+  .program-step__question {
+    font-size: var(--size-body);
+    margin-top: var(--space-1);
+  }
+</style>

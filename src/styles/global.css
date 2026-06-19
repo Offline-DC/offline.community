@@ -15,6 +15,7 @@
   --mo-cyan:   #03ffff; /* section-header bars */
   --mo-blue:   #0000ff; /* masthead bar, sub-labels */
   --mo-pink:   #ff69b4; /* "start a cohort" CTA bar */
+  --mo-red:    #ff0000; /* program-step accent (estimated — confirm in Figma) */
   --black:     #000000; /* page background */
   --white:     #ffffff; /* content cards, body text on black */
 
@@ -116,4 +117,23 @@ img {
   font-variation-settings: var(--workbench-axes);
   text-transform: uppercase;
   letter-spacing: var(--track-label);
+}
+
+/* ---- Shared layout patterns (used across pages) ---- */
+
+/* Stacks page sections with a thin black gutter between them (~12px in the
+   design). Wrap a page's sections in <div class="sections"> … </div>. */
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+/* White content card with black text (the page default is white-on-black).
+   Used by intro/press/how-it-works blocks and the DIY letter, etc. */
+.card {
+  background: var(--white);
+  color: var(--black);
+  padding: var(--content-pad);
 }
