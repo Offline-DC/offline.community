@@ -1,0 +1,189 @@
+---
+/*
+  DIY subpage 3 of 4 — How to Facilitate Meetups (/diy/facilitate-meetups).
+
+  Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
+    1. Hero       — the M ❀ logo
+    2. Heading    — cyan "* HOW TO FACILITATE MEETUPS" bar
+    3. Body       — the week-by-week walkthrough: blue sub-headings, three
+                    photos, a numbered "anatomy of a meetup" list, and a
+                    yellow callout pointing to the facilitator guides below
+    4. Resources  — six pink download cards (PDFs hosted on the site)
+    5. Next       — link forward to the next subpage in the read-in-order set
+
+  Underlined words use plain <u> for emphasis (same as the other subpages).
+---------------------------------------------------------------------------*/
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ResourceCard from '../../components/ResourceCard.astro';
+import NextLink from '../../components/NextLink.astro';
+
+// Download cards for the Resources section. PDFs uploaded later, so these
+// hrefs 404 until the files land in /public/downloads/.
+const resources = [
+  { title: 'Facilitation 101',          description: 'Helpful tips & tricks for organizing a new group.',                                  href: '/downloads/facilitation-101.pdf' },
+  { title: 'Participation Agreement',   description: 'Set expectations with participants to protect the integrity of your community.',     href: '/downloads/participation-agreement.pdf' },
+  { title: 'Time Capsule Card',         description: 'Set intentions that you can look back on.',                                          href: '/downloads/time-capsule-card.pdf' },
+  { title: 'Offline Pledge Card',       description: 'Ceremonially enter the month by signing the Offline Pledge together.',               href: '/downloads/offline-pledge-card.pdf' },
+  { title: 'Conversation Cards',        description: 'Weekly prompts to use at each meetup.',                                              href: '/downloads/conversation-cards.pdf' },
+  { title: 'Certificates of Completion', description: 'Graduate from Month Offline in style.',                                             href: '/downloads/certificates-of-completion.pdf' },
+];
+---
+
+<BaseLayout title="How to Facilitate Meetups — Month Offline" masthead="Month Offline > DIY Guide > Facilitation">
+  <div class="sections">
+    <!-- 1. Hero -->
+    <Hero />
+
+    <!-- 2. Heading -->
+    <SectionHeader label="How to facilitate meetups" />
+
+    <!-- 3. Body -->
+    <section class="card">
+      <img
+        class="card__photo"
+        src="/images/facilitation-01.png"
+        width="1500"
+        height="1000"
+        alt="Participants seated at long tables during a Month Offline orientation meetup"
+      />
+
+      <h3 class="label">Week 1: Orientation</h3>
+      <p class="body">
+        Send a reminder message prior to the first meetup with all the details,
+        and create a little mystery with speakeasy instructions: (e.g. "Find the
+        person in the straw hat and give them the passcode LESS IS MO.")
+      </p>
+      <p class="body">
+        If possible, arrange the seating to create open communication between all
+        participants. Bring some playful materials to set the tone: relevant
+        books, analog tools, lighting, table cloths, paper, pens, crayons,
+        name-tags, and/or speakers for some music.
+      </p>
+      <p class="body">
+        Stage a "Flipping Off Ceremony", where participants turn off their
+        smartphones and sign an Offline Pledge together to officially enter the
+        Month Offline.
+      </p>
+
+      <img
+        class="card__photo"
+        src="/images/facilitation-02.png"
+        width="1500"
+        height="1000"
+        alt="A Month Offline meetup gathered around a candlelit dinner table"
+      />
+
+      <h3 class="label">Weeks 2-4: Anatomy of a meetup</h3>
+      <p class="body">Month Offline meetups often contain 4 segments:</p>
+      <ol class="segments">
+        <li>
+          <u>Reflection</u>: participants are encouraged to reflect on the past
+          week by drawing and discussing dumb prompts in small groups.
+        </li>
+        <li>
+          <u>Round Robin</u>: participants share out their reflections in larger
+          groups.
+        </li>
+        <li>
+          <u>Creation</u>: facilitators prepare an activity or creative exercise
+          related to the weekly theme.
+        </li>
+        <li>
+          <u>Transition</u>: participants learn all about the next challenge and
+          set intentions for the week ahead.
+        </li>
+      </ol>
+
+      <!-- Yellow info box pointing at the Resources cards lower down. -->
+      <p class="callout">
+        Check the facilitator guides below for activity ideas and prompts for
+        each meetup.
+      </p>
+
+      <h3 class="label">Week 5: Graduation</h3>
+      <p class="body">
+        Close out the challenge with a Graduation Ceremony, where participants
+        can give mini commencement speeches about what they learned during the
+        month and take home key insights from each other.
+      </p>
+
+      <img
+        class="card__photo"
+        src="/images/facilitation-03.png"
+        width="1500"
+        height="1000"
+        alt="A Month Offline graduation ceremony under hanging paper lanterns"
+      />
+
+      <h3 class="label">Ongoing communication</h3>
+      <p class="body">
+        Send regular communication to participants 1-2 times per week. This can
+        include meetup reminders, invitations to participate in weekly
+        challenges, or upcoming events in the community. Reach out to
+        participants who miss unexpectedly.
+      </p>
+    </section>
+
+    <!-- 4. Resources -->
+    <SectionHeader label="Resources" />
+    {resources.map((r) => (
+      <ResourceCard title={r.title} description={r.description} href={r.href} />
+    ))}
+
+    <!-- 5. Next — read-in-order, per CLAUDE.md (Facilitate Meetups → Host an Exhibition). -->
+    <NextLink label="How to Host an Exhibition" href="/diy/host-an-exhibition" />
+  </div>
+</BaseLayout>
+
+<style>
+  /* Standard body paragraph (Syne Mono). */
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+  .body + .body {
+    margin-top: var(--space-3);
+  }
+
+  /* Blue sub-headings inside the card (same as the home page's "How it works"). */
+  .label {
+    font-size: var(--size-body);
+    color: var(--mo-blue);
+    letter-spacing: var(--track-label);
+  }
+  .label + .body {
+    margin-top: var(--space-2);
+  }
+
+  /* Photos interspersed through the card. The first one is flush with the
+     card's top padding (no extra margin above it). */
+  .card__photo {
+    width: 100%;
+    height: auto;
+    margin: var(--space-3) 0;
+  }
+  .card__photo:first-child {
+    margin-top: 0;
+  }
+
+  /* The numbered "4 segments" list. */
+  .segments {
+    margin: var(--space-2) 0 0;
+    padding-left: var(--space-3);
+    font-size: var(--size-body);
+  }
+  .segments li + li {
+    margin-top: var(--space-2);
+  }
+
+  /* Yellow info callout pointing at the resources. */
+  .callout {
+    background: var(--mo-yellow);
+    color: var(--black);
+    font-size: var(--size-body);
+    padding: var(--space-2);
+    margin: var(--space-3) 0;
+  }
+</style>

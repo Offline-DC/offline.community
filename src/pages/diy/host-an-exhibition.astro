@@ -1,0 +1,153 @@
+---
+/*
+  DIY subpage 4 of 4 — How to Host a Closing Exhibition
+  (/diy/host-an-exhibition). The last page in the read-in-order set.
+
+  Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
+    1. Hero       — the M ❀ logo
+    2. Heading    — cyan "* HOW TO HOST A CLOSING EXHIBITION" bar
+    3. Body       — blue sub-headings, the offtime-outlets graphic, a Vimeo
+                    embed of the Month Offline Gallery, and two photos
+    4. Next       — loops back to the DIY guide index (no forward arrow)
+
+  Underlined words use plain <u> for emphasis (same as the other subpages).
+---------------------------------------------------------------------------*/
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import NextLink from '../../components/NextLink.astro';
+---
+
+<BaseLayout title="How to Host a Closing Exhibition — Month Offline" masthead="Month Offline > DIY Guide > Exhibition">
+  <div class="sections">
+    <!-- 1. Hero -->
+    <Hero />
+
+    <!-- 2. Heading -->
+    <SectionHeader label="How to host a closing exhibition" />
+
+    <!-- 3. Body -->
+    <section class="card">
+      <h3 class="label">Offtime outlets</h3>
+      <p class="body">
+        Month Offline is not just about what we're saying no to, but what we're
+        inviting in. We ask participants to consider choosing an Offtime Outlet
+        for the month. How might they want to spend their newfound time? This is
+        a permission slip to do that thing they've always wanted to do. Keep it
+        low-stakes and low-pressure! Offtime outlets come in many different
+        shapes and sizes (including napping and spending more time with your
+        kids). Set aside some time to chat about offtime at each MO meetup.
+      </p>
+
+      <img
+        class="card__photo"
+        src="/images/exhibition-01.png"
+        width="1200"
+        height="1800"
+        alt="A handwritten Offtime Outlets sign-up sheet listing participants and the slow pursuits they chose"
+      />
+
+      <h3 class="label">Celebrate good times</h3>
+      <p class="body">
+        The original Month Offline cohorts in DC and NYC ended with a public,
+        phone-free exhibition where participants shared the offtime projects they
+        worked on with friends, family, and neighbors.
+      </p>
+
+      <!-- Vimeo embed of the Month Offline Gallery video. The responsive
+           wrapper below keeps it at a 16:9 ratio at any width. -->
+      <div class="video">
+        <iframe
+          src="https://player.vimeo.com/video/1153751486"
+          title="Month Offline Gallery"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <p class="body">
+        The exhibition feels sort of like a science fair for adults. Spread the
+        word by printing physical invitations and submitting to local newspapers
+        or community calendars.
+      </p>
+      <p class="body">
+        Invite 2-3 participants to share their experience during a ~20min
+        fireside chat and give the guests plenty of time to ask their own
+        questions. It's always a good time to hear the trials and triumphs from
+        the month-long challenge. People are always inspired to join a future
+        cohort! Find a way to record their contact information so you can follow
+        up with them after the event.
+      </p>
+
+      <h3 class="label">The dumb scroll</h3>
+      <p class="body">
+        At the exhibition, we unveil and unroll a "finite" scroll -- a
+        collective art piece made up of drawings that participants create at each
+        meetup. It's an analog form of social media that allows us to create
+        "content" for each other while we're offline. You can do it too! You'll
+        just need some butcher paper and some sharpies.
+      </p>
+
+      <img
+        class="card__photo"
+        src="/images/exhibition-02.png"
+        width="1500"
+        height="1000"
+        alt="A crowd gathered outdoors around the unrolled dumb scroll"
+      />
+      <img
+        class="card__photo"
+        src="/images/exhibition-03.png"
+        width="1500"
+        height="1000"
+        alt="Guests viewing the dumb scroll displayed on a wall at the indoor exhibition"
+      />
+    </section>
+
+    <!-- 4. Next — last page loops back to the DIY guide index (no arrow). -->
+    <NextLink label="DIY Guide" href="/diy" arrow={false} />
+  </div>
+</BaseLayout>
+
+<style>
+  /* Standard body paragraph (Syne Mono). */
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+  .body + .body {
+    margin-top: var(--space-3);
+  }
+
+  /* Blue sub-headings inside the card (same as the home page's "How it works"). */
+  .label {
+    font-size: var(--size-body);
+    color: var(--mo-blue);
+    letter-spacing: var(--track-label);
+  }
+  .label + .body {
+    margin-top: var(--space-2);
+  }
+
+  /* Photos interspersed through the card. */
+  .card__photo {
+    width: 100%;
+    height: auto;
+    margin: var(--space-3) 0;
+  }
+
+  /* Responsive 16:9 wrapper for the Vimeo embed. The iframe fills it
+     absolutely so the box keeps its ratio at any column width. */
+  .video {
+    position: relative;
+    padding-top: 56.25%; /* 9 / 16 = 0.5625 */
+    margin: var(--space-3) 0;
+  }
+  .video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>

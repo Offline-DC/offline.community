@@ -1,0 +1,58 @@
+---
+/*
+  ResourceCard.astro — a pink download row in a DIY subpage's "Resources"
+  section, e.g. "MONTH OFFLINE FLYERS  ⬇" with a short description beneath.
+
+  `href` points at a downloadable file (a PDF we host on the site). The
+  `download` attribute below tells the browser to save the file rather than
+  navigate to it. The PDFs are uploaded later, so these links 404 for now —
+  same approach as the subpages themselves while we build them out.
+*/
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+}
+const { title, description, href } = Astro.props;
+---
+
+<a class="resource" href={href} download>
+  <div class="resource__head">
+    <span class="resource__title font-display">{title}</span>
+    <!-- Download icon (arrow into a tray). `currentColor` keeps it black,
+         matching the text; aria-hidden since the link text says it all. -->
+    <svg class="resource__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M12 3v12m0 0l-5-5m5 5l5-5" />
+      <path d="M4 19h16" />
+    </svg>
+  </div>
+  <p class="resource__desc">{description}</p>
+</a>
+
+<style>
+  .resource {
+    display: block;
+    background: var(--mo-pink);
+    color: var(--black);
+    text-decoration: none;
+    padding: var(--space-2);
+  }
+  .resource__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .resource__title {
+    font-size: var(--size-body);
+  }
+  .resource__icon {
+    flex: none;
+    width: 20px;
+    height: 20px;
+  }
+  .resource__desc {
+    font-size: var(--size-body);
+    margin-top: var(--space-1);
+  }
+</style>

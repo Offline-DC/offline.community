@@ -1,0 +1,102 @@
+---
+/*
+  DIY subpage 2 of 4 — How to Get Dumbphones (/diy/get-dumbphones).
+
+  Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
+    1. Hero       — the M ❀ logo
+    2. Heading    — cyan "* HOW TO GET DUMBPHONES" bar
+    3. Body       — two blue sub-headings, a photo, and a black email CTA
+    4. Next       — link forward to the next subpage in the read-in-order set
+
+  No "Resources" section on this page (the design doesn't have one). The blue
+  sub-headings reuse the home page's `.label` style; the black button mirrors
+  the DIY landing page's Lydia call-to-action.
+---------------------------------------------------------------------------*/
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import NextLink from '../../components/NextLink.astro';
+---
+
+<BaseLayout title="How to Get Dumbphones — Month Offline" masthead="Month Offline > DIY Guide > Dumbphones">
+  <div class="sections">
+    <!-- 1. Hero -->
+    <Hero />
+
+    <!-- 2. Heading -->
+    <SectionHeader label="How to get dumbphones" />
+
+    <!-- 3. Body -->
+    <section class="card">
+      <h3 class="label">The dumbest phone company</h3>
+      <p class="body">
+        It's not every day that a tech startup grows out of an offline
+        community, but <u>dumb.co</u> is just that! The dumbphone company was
+        started by two of the MO founders and some of the very first
+        participants. Inspired by the learnings and needs that came to light
+        during the challenge, they built a dumbphone that makes it super easy
+        for people to flip off.
+      </p>
+
+      <img
+        class="card__photo"
+        src="/images/dumbphones.png"
+        width="1500"
+        height="1000"
+        alt="Participants gathered around a table setting up their dumbphones"
+      />
+
+      <h3 class="label">How it works</h3>
+      <p class="body">
+        dumb.co is offering free phones to all Month Offline participants. Upon
+        receiving the phone, they will need to activate a $20.99/mo phone plan
+        for a minimum of 2 months. Email lydia@offline.community to receive a
+        promo code that you can share with your participants.
+      </p>
+
+      <!-- CTA out to dumb.co to order phones. -->
+      <a class="order-btn font-display" href="https://dumb.co" target="_blank" rel="noopener">Order dumbphones</a>
+    </section>
+
+    <!-- 4. Next — read-in-order, per CLAUDE.md (Get Dumbphones → Facilitate Meetups → …). -->
+    <NextLink label="How to Facilitate Meetups" href="/diy/facilitate-meetups" />
+  </div>
+</BaseLayout>
+
+<style>
+  /* Standard body paragraph (Syne Mono). */
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+
+  /* Blue sub-headings inside the card (same as the home page's "How it works"). */
+  .label {
+    font-size: var(--size-body);
+    color: var(--mo-blue);
+    letter-spacing: var(--track-label);
+  }
+  .label + .body {
+    margin-top: var(--space-2);
+  }
+
+  /* The photo sits between the two sub-sections inside the white card. */
+  .card__photo {
+    width: 100%;
+    height: auto;
+    margin: var(--space-3) 0;
+  }
+
+  /* Black CTA button (white text), mirroring the landing page's Lydia button. */
+  .order-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--space-3);
+    padding: var(--space-2);
+    background: var(--black);
+    color: var(--white);
+    text-decoration: none;
+    font-size: var(--size-body);
+  }
+</style>

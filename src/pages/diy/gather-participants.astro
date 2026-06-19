@@ -1,0 +1,109 @@
+---
+/*
+  DIY subpage 1 of 4 — How to Gather Participants (/diy/gather-participants).
+
+  Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
+    1. Hero       — the M ❀ logo
+    2. Heading    — cyan "* HOW TO GATHER PARTICIPANTS" bar
+    3. Body       — the how-to copy, with a flyering photo mid-card
+    4. Resources  — pink download cards (PDFs hosted on the site)
+    5. Next       — link forward to the next subpage in the read-in-order set
+
+  Underlined words in the body use plain <u> for emphasis (same as the home
+  page's "offline.community"/"dumb.co") — they're not links.
+---------------------------------------------------------------------------*/
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ResourceCard from '../../components/ResourceCard.astro';
+import NextLink from '../../components/NextLink.astro';
+
+// Download cards for the Resources section. The PDFs are uploaded later, so
+// these hrefs 404 until the files land in /public/downloads/.
+const resources = [
+  {
+    title: 'Month Offline Flyers',
+    description: 'Editable posters that you can post around your neighborhood -- in 4 different colors! Include your phone number or e-mail address in the blank space at the bottom.',
+    href: '/downloads/month-offline-flyers.pdf',
+  },
+  {
+    title: 'Sign up form',
+    description: 'Duplicate the interest form we created to keep track of all your participants.',
+    href: '/downloads/month-offline-sign-up-form.pdf',
+  },
+  {
+    title: 'Month Offline Postcards',
+    description: 'Encouraging letters from past participants.',
+    href: '/downloads/month-offline-postcards.pdf',
+  },
+];
+---
+
+<BaseLayout title="How to Gather Participants — Month Offline" masthead="Month Offline > DIY Guide > Participants">
+  <div class="sections">
+    <!-- 1. Hero -->
+    <Hero />
+
+    <!-- 2. Heading -->
+    <SectionHeader label="How to gather participants" />
+
+    <!-- 3. Body -->
+    <section class="card">
+      <p class="body">
+        It's much easier to flip off in community than on your own. The first
+        step is to <u>recruit</u> a group of 5-30 participants to go offline
+        together. Invite some friends to join you, and ask them to invite some
+        of their friends. Flyer on telephone boxes and in record stores, book
+        shops, or cafes. Table on a busy street corner. Submit to local
+        newsletters, magazines, and e-mail listservs. The world is your oyster!
+      </p>
+
+      <img
+        class="card__photo"
+        src="/images/mo_flyer.png"
+        width="1500"
+        height="1000"
+        alt="A hand wheat-pasting a Month Offline poster onto a city wall"
+      />
+
+      <p class="body">
+        <u>Cold call</u> all the people who've signed up and get to know why
+        they're joining, and what they hope to get out of the month. Set
+        expectations and share a bit about yourself and your meetups.
+      </p>
+      <p class="body">
+        Create a <u>communication channel</u> like monthoffline@gmail.com or use
+        an SMS service like Clicksend to keep participants in the loop. Send a
+        <u>welcome postcard</u> in the mail to participants 1-2 weeks before your
+        Month Offline begins.
+      </p>
+    </section>
+
+    <!-- 4. Resources -->
+    <SectionHeader label="Resources" />
+    {resources.map((r) => (
+      <ResourceCard title={r.title} description={r.description} href={r.href} />
+    ))}
+
+    <!-- 5. Next — read-in-order, per CLAUDE.md (Gather → Get Dumbphones → …). -->
+    <NextLink label="How to Get Dumbphones" href="/diy/get-dumbphones" />
+  </div>
+</BaseLayout>
+
+<style>
+  /* Standard body paragraph (Syne Mono). Spacing between stacked paragraphs. */
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+  .body + .body {
+    margin-top: var(--space-3);
+  }
+
+  /* The flyering photo sits between paragraphs inside the white card. */
+  .card__photo {
+    width: 100%;
+    height: auto;
+    margin: var(--space-3) 0;
+  }
+</style>

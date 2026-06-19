@@ -1,0 +1,33 @@
+---
+/*
+  NextLink.astro — the cyan "* NEXT: …" bar at the foot of a DIY subpage,
+  linking forward to the next page in the read-in-order sequence. The last
+  subpage ("Host an Exhibition") has no next page, so it omits this.
+*/
+interface Props {
+  label: string; // e.g. "How to Get Dumbphones"
+  href: string;  // e.g. "/diy/get-dumbphones"
+  arrow?: boolean; // show the ">>>" arrow (off for the loop-back to /diy)
+}
+const { label, href, arrow = true } = Astro.props;
+---
+
+<a class="next-link" href={href}>
+  <span class="next-link__label font-display">* Next: {label}</span>
+  {arrow && <span class="next-link__arrow font-display">&gt;&gt;&gt;</span>}
+</a>
+
+<style>
+  .next-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--mo-cyan);
+    color: var(--black);
+    text-decoration: none;
+    padding: var(--space-1) var(--space-2);
+    min-height: var(--bar-section);
+    font-size: var(--size-heading);
+  }
+</style>
