@@ -77,6 +77,19 @@ const resources = [
         <u>welcome postcard</u> in the mail to participants 1-2 weeks before your
         Month Offline begins.
       </p>
+
+      <h3 class="label">Space &amp; time</h3>
+      <p class="body">
+        Find 1 or 2 other people who want to facilitate with you, and choose a
+        time of day that you're all available for 5 consecutive weeks. Meetups
+        typically last 1.5-2hours, and you'll need at least a half hour on either
+        end for set up and takedown!
+      </p>
+      <p class="body">
+        Choose a local "third place" that will host you. Month Offline is a great
+        way to patronize local businesses and support IRL community hubs. Private
+        rooms (or relatively quiet spaces) at bars or cafes tend to work best.
+      </p>
     </section>
 
     <!-- 4. Resources -->
@@ -98,6 +111,19 @@ const resources = [
   }
   .body + .body {
     margin-top: var(--space-3);
+  }
+
+  /* Blue sub-headings inside the card (same as the home page's "How it works"). */
+  .label {
+    font-size: var(--size-body);
+    color: var(--mo-blue);
+    letter-spacing: var(--track-label);
+  }
+  .body + .label {
+    margin-top: var(--space-3);
+  }
+  .label + .body {
+    margin-top: var(--space-2);
   }
 
   /* The flyering photo sits between paragraphs inside the white card. */
