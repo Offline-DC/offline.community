@@ -240,14 +240,14 @@ function MonthOffline() {
               ))}
             </div>
           </div>
-<a
+          {/* <a
   href="https://buy.stripe.com/aFa5kw11meDwaTN2Sc8N20b"
   target="_blank"
   rel="noopener noreferrer"
   className="register-button"
 >
   Register Now
-</a>
+</a> */}
 
 
           <div className="month-offline-image-row">
