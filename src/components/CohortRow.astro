@@ -27,11 +27,16 @@ const { location, date, organizer, href } = Astro.props;
 <style>
   .cohort-row {
     display: block;
-    background: var(--mo-yellow);
+    background: var(--mo-cyan);
     color: var(--black);
     text-decoration: none;
     padding: var(--space-2);
     min-height: var(--row-location);
+    transition: background-color 0.15s ease;
+  }
+  /* Hover: lighten the box 20% toward white. */
+  .cohort-row:hover {
+    background: color-mix(in srgb, var(--mo-cyan) 80%, white);
   }
 
   .cohort-row__head {

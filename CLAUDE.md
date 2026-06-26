@@ -34,7 +34,7 @@ One row per cohort. The live sheet's column headers (matched case-insensitively
 in `src/lib/cohorts.js`):
 - `CITY`
 - `STATE`
-- `ORGANIZER` — organizer name(s)
+- `ORGANIZERS` — organizer name(s)
 - `FORM` — sign-up form link
 - `MONTH` — start month/date
 

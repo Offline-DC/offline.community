@@ -5,10 +5,10 @@
   Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
     1. Hero       — the M ❀ logo
     2. Heading    — cyan "* HOW TO FACILITATE MEETUPS" bar
-    3. Body       — the week-by-week walkthrough: blue sub-headings, three
-                    photos, a numbered "anatomy of a meetup" list, and a
-                    yellow callout pointing to the facilitator guides below
-    4. Resources  — six pink download cards (PDFs hosted on the site)
+    3. Body       — the week-by-week walkthrough: blue sub-headings, photos, a
+                    "what 2 bring" checklist, a numbered "anatomy of a meetup"
+                    list, and a yellow callout pointing to the guides below
+    4. Resources  — four pink resource cards (PDFs hosted on the site)
     5. Next       — link forward to the next subpage in the read-in-order set
 
   Underlined words use plain <u> for emphasis (same as the other subpages).
@@ -18,16 +18,16 @@ import Hero from '../../components/Hero.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import ResourceCard from '../../components/ResourceCard.astro';
 import NextLink from '../../components/NextLink.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
 
-// Download cards for the Resources section. PDFs uploaded later, so these
-// hrefs 404 until the files land in /public/downloads/.
+// Resource cards. Hosted PDFs live in /public/resources/; each card opens in
+// a new tab.
 const resources = [
-  { title: 'Facilitation 101',          description: 'Helpful tips & tricks for organizing a new group.',                                  href: '/downloads/facilitation-101.pdf' },
-  { title: 'Participation Agreement',   description: 'Set expectations with participants to protect the integrity of your community.',     href: '/downloads/participation-agreement.pdf' },
-  { title: 'Time Capsule Card',         description: 'Set intentions that you can look back on.',                                          href: '/downloads/time-capsule-card.pdf' },
-  { title: 'Offline Pledge Card',       description: 'Ceremonially enter the month by signing the Offline Pledge together.',               href: '/downloads/offline-pledge-card.pdf' },
-  { title: 'Conversation Cards',        description: 'Weekly prompts to use at each meetup.',                                              href: '/downloads/conversation-cards.pdf' },
-  { title: 'Certificates of Completion', description: 'Graduate from Month Offline in style.',                                             href: '/downloads/certificates-of-completion.pdf' },
+  { title: 'Time Capsule Card',          description: 'Orientation: set intentions that you can look back on at the end of the month.',     href: '/resources/mo_time_capsule.pdf' },
+  { title: 'Offline Pledge Card',        description: 'Orientation: ceremonially enter the month by signing the Offline Pledge together.',   href: '/resources/mo_pledge.pdf' },
+  { title: 'Conversation Cards',         description: 'Weekly prompts to use at each meetup.',                                              href: '/resources/mo_prompts.pdf' },
+  { title: 'Facilitation Guides',        description: "beat-for-beat structure of the og MO meetups. take what's useful, leave the rest.", href: '/resources/facilitation_guides.pdf' },
+  { title: 'Certificates of Completion', description: 'Graduate from Month Offline in style.',                                             href: '/resources/mo_certificate.pdf' },
 ];
 ---
 
@@ -49,23 +49,62 @@ const resources = [
         alt="Participants seated at long tables during a Month Offline orientation meetup"
       />
 
-      <h3 class="label">Week 1: Orientation</h3>
       <p class="body">
-        Send a reminder message prior to the first meetup with all the details,
-        and create a little mystery with speakeasy instructions: (e.g. "Find the
-        person in the straw hat and give them the passcode LESS IS MO.")
+        Month Offline meetups are playful and thought-provoking event where
+        participants encourage, challenge, and get to know each other.
       </p>
       <p class="body">
-        If possible, arrange the seating to create open communication between all
-        participants. Bring some playful materials to set the tone: relevant
-        books, analog tools, lighting, table cloths, paper, pens, crayons,
-        name-tags, and/or speakers for some music.
+        we're not purists (it's OK to slip up), but we do urge ppl to <u>make
+        the most</u> of the the time we have together.
       </p>
       <p class="body">
-        Stage a "Flipping Off Ceremony", where participants turn off their
+        facilitators <u>don't have all the answers</u> and don't take up too
+        much space in the room -- we help participants learn from each other and
+        crowdsource creative workarounds to common troubles. u can download
+        detailed facilitation guides for each meetup, or create ur own!
+      </p>
+
+      <h3 class="label">What should I bring?</h3>
+      <ul class="bring">
+        <li>✶ a handbell to easily get the attention of a large group</li>
+        <li>✷ nametags to help strangers become friends</li>
+        <li>✸ old-school tools for ppl to play with, e.g. typewriter, quill pen, film camera</li>
+        <li>✹ relevant books for participants to peruse</li>
+        <li>✺ paper, crayons, and pens for drawing or writing about the triumphs and trials of MO</li>
+        <li>✻ stickers for ppl to bedazzle their phones</li>
+        <li>✼ speakers and a rockin' playlist</li>
+      </ul>
+
+      <h3 class="label">What's the orientation like?</h3>
+      <p class="body">
+        participants have called in, left voicemails, signed up, showed up, and
+        now ... orientation meetup is all about building a doorway in time and
+        walking through it together. Month Offline has officially™ begun! <u>the
+        focus is <em>not</em> on the pain of the problem, but on the fun of the
+        challenge ahead</u>. private commitments become shared, and participants
+        get a chance to meet the rest of the cohort.
+      </p>
+      <p class="body">
+        <u>arrange the seating</u> to allow for open communication between all
+        participants. invite ppl pair up as they arrive and chat with each other
+        about why they're flipping off.
+      </p>
+      <p class="body">
+        after everyone has arrived, circle up and ask ppl to share the <u>story
+        of their name</u>, and a <u>digital habit</u> they're hoping to leave
+        behind.
+      </p>
+      <p class="body">
+        stage a <u>Flipping Off Ceremony</u>, where participants turn off their
         smartphones and sign an Offline Pledge together to officially enter the
         Month Offline.
       </p>
+
+      <!-- Add `src` (e.g. src="/audio/flipping-off-ceremony.mp3") once the
+           audio file is uploaded; until then the player renders as a placeholder. -->
+      <div class="card__audio">
+        <AudioPlayer title="Flipping Off Ceremony" />
+      </div>
 
       <img
         class="card__photo"
@@ -75,26 +114,20 @@ const resources = [
         alt="A Month Offline meetup gathered around a candlelit dinner table"
       />
 
-      <h3 class="label">Weeks 2-4: Anatomy of a meetup</h3>
+      <h3 class="label">How do the meetups work?</h3>
       <p class="body">Month Offline meetups often contain 4 segments:</p>
       <ol class="segments">
-        <li>
-          <u>Reflection</u>: participants are encouraged to reflect on the past
-          week by drawing and discussing dumb prompts in small groups.
-        </li>
-        <li>
-          <u>Round Robin</u>: participants share out their reflections in larger
-          groups.
-        </li>
-        <li>
-          <u>Creation</u>: facilitators prepare an activity or creative exercise
-          related to the weekly theme.
-        </li>
-        <li>
-          <u>Transition</u>: participants learn all about the next challenge and
-          set intentions for the week ahead.
-        </li>
+        <li><u>Reflection</u>: draw a memorable moment from the last week and discuss dumb prompts in small groups</li>
+        <li><u>Round Robin</u>: share out reflections to the whole group</li>
+        <li><u>Creation</u>: hands-on activity or creative exercise related to the weekly theme</li>
+        <li><u>Transition</u>: learn about the next challenge and set intentions for the week ahead</li>
       </ol>
+      <p class="body">
+        bonus: <u>reach out to participants</u> 1-2 times per week with meetup
+        reminders, notes of encouragement, weekly challenges, or upcoming
+        events. check in with anyone who misses unexpectedly to make sure
+        they're doing OK.
+      </p>
 
       <!-- Yellow info box pointing at the Resources cards lower down. -->
       <p class="callout">
@@ -102,11 +135,15 @@ const resources = [
         each meetup.
       </p>
 
-      <h3 class="label">Week 5: Graduation</h3>
+      <h3 class="label">What's the graduation like?</h3>
       <p class="body">
-        Close out the challenge with a Graduation Ceremony, where participants
+        close out the challenge with a Graduation Ceremony, where participants
         can give mini commencement speeches about what they learned during the
         month and take home key insights from each other.
+      </p>
+      <p class="body">
+        u might want to make a way for participants to keep in touch with each
+        other after the challenge: e-mail listserv, reunions, alumni events, etc.
       </p>
 
       <img
@@ -117,16 +154,49 @@ const resources = [
         alt="A Month Offline graduation ceremony under hanging paper lanterns"
       />
 
-      <h3 class="label">Ongoing communication</h3>
+      <h3 class="label">How do we share our stories w/o social media?</h3>
       <p class="body">
-        Send regular communication to participants 1-2 times per week. This can
-        include meetup reminders, invitations to participate in weekly
-        challenges, or upcoming events in the community. Reach out to
-        participants who miss unexpectedly.
+        the MO team innovated a new form of social media called the Dumbscroll.
+        at the beginning of each meetup, participants are invited to create
+        (analog) content about what went down during their offtime -- memorable
+        moments, frustrating frictions, surprising synchronicities.
       </p>
+      <p class="body">
+        after graduation, their drawings &amp; writings are assembled into a
+        collective art piece: a <em>finite</em> scroll on brown butcher paper
+        that tells the stories of our Month Offline. this is a feed that u can
+        get to the bottom of, and u have to be there to see it.
+      </p>
+
+      <img
+        class="card__photo"
+        src="/images/dumbscroll_01.png"
+        width="1512"
+        height="1134"
+        alt="The dumb scroll unrolled, covered in participants' drawings and writing"
+      />
+      <img
+        class="card__photo"
+        src="/images/dumbscroll_02.png"
+        width="1512"
+        height="1134"
+        alt="A close-up of the dumb scroll's hand-drawn entries"
+      />
     </section>
 
-    <!-- 4. Resources -->
+    <!-- 4. Ring ring -->
+    <SectionHeader label="Ring ring: we r here 2 help u flip off" color="yellow" />
+    <section class="lydia lydia--cyan">
+      <div class="lydia__top">
+        <p class="body">
+          ready to take the next step? start thinking about a co-facilitator, a venue, and a start date. submit an interest form and we'll invite u to the next Q&amp;A session where u can ask any questions, meet other aspiring organizers, and learn how to get dumbphones.
+        </p>
+        <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
+      </div>
+      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">COUNT ME IN</a>
+    </section>
+
+    <!-- 5. Resources -->
     <SectionHeader label="Resources" />
     {resources.map((r) => (
       <ResourceCard title={r.title} description={r.description} href={r.href} />
@@ -147,16 +217,6 @@ const resources = [
     margin-top: var(--space-3);
   }
 
-  /* Blue sub-headings inside the card (same as the home page's "How it works"). */
-  .label {
-    font-size: var(--size-body);
-    color: var(--mo-blue);
-    letter-spacing: var(--track-label);
-  }
-  .label + .body {
-    margin-top: var(--space-2);
-  }
-
   /* Photos interspersed through the card. The first one is flush with the
      card's top padding (no extra margin above it). */
   .card__photo {
@@ -168,6 +228,11 @@ const resources = [
     margin-top: 0;
   }
 
+  /* Vertical breathing room around the audio player in the card. */
+  .card__audio {
+    margin: var(--space-3) 0;
+  }
+
   /* The numbered "4 segments" list. */
   .segments {
     margin: var(--space-2) 0 0;
@@ -176,6 +241,22 @@ const resources = [
   }
   .segments li + li {
     margin-top: var(--space-2);
+  }
+  /* Gap between the segments list and the "bonus:" paragraph after it. */
+  .segments + .body {
+    margin-top: var(--space-3);
+  }
+
+  /* The "what 2 bring" checklist — fun glyph bullets inline (like the home
+     page), so the markers are part of the text rather than disc list bullets. */
+  .bring {
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    font-size: var(--size-body);
+  }
+  .bring li + li {
+    margin-top: var(--space-1);
   }
 
   /* Yellow info callout pointing at the resources. */

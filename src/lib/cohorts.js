@@ -10,11 +10,13 @@ import Papa from 'papaparse';
 // The sheet has one row per cohort. Header names are normalized to UPPERCASE
 // (see transformHeader below) so a stray capitalization or space in the sheet
 // won't silently blank out a column. Current headers in the sheet:
-//   CITY | STATE | ORGANIZER | FORM | MONTH
+//   CITY | STATE | ORGANIZERS | FORM | MONTH
+// NB: the organizer column is "ORGANIZERS" (plural) in the live sheet — it must
+// match exactly (after uppercasing), so this can't be "ORGANIZER".
 const COLUMNS = {
   city: 'CITY',
   state: 'STATE',
-  organizer: 'ORGANIZER',
+  organizer: 'ORGANIZERS',
   signupUrl: 'FORM',
   startDate: 'MONTH',
 };
@@ -44,6 +46,13 @@ export async function getCohorts() {
 
   const csv = await res.text();
 
+  // PapaParse is a full CSV parser (not a naive comma-split), so a field that
+  // contains commas, ampersands, or quotes stays intact as long as the sheet
+  // quotes it — e.g. an ORGANIZER cell of
+  //   Lydia Peabody, Tim O'Brien, & Emily Kennedy
+  // is exported by Google Sheets as "Lydia Peabody, Tim O'Brien, & Emily Kennedy"
+  // and parses as one value without shifting the FORM/MONTH columns after it.
+  //
   // header: true → use the first row as keys; skipEmptyLines → ignore blank rows;
   // transformHeader → normalize keys to UPPERCASE so matching is case/space-tolerant.
   const { data, errors } = Papa.parse(csv, {

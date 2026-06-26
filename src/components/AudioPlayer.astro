@@ -1,0 +1,214 @@
+---
+/*
+  AudioPlayer.astro — a yellow audio card with a custom play/seek UI.
+
+  Used in the DIY letter (the "1-844-OFFLINE VOICEMAILS" clip) and reusable on
+  other pages. Pass a title, an optional byline, and the audio file URL:
+
+    <AudioPlayer
+      title="1-844-Offline Voicemails"
+      byline="May 2025 * by Josh Morin"
+      src="/audio/voicemails.mp3"
+    />
+
+  `src` is optional: leave it off and the card renders as an inert placeholder
+  (handy before the file is uploaded). Add `src` later and it just works.
+
+  The title/byline/time use the display face (auto-uppercased by .font-display).
+  A native <audio> element does the actual playback; the small script at the
+  bottom drives our custom controls and reflects playback state back into them.
+*/
+interface Props {
+  title: string;
+  byline?: string;
+  src?: string;
+}
+const { title, byline, src } = Astro.props;
+---
+
+<figure class="audio-player">
+  <figcaption class="audio-player__meta">
+    <span class="audio-player__title font-display">{title}</span>
+    {byline && <span class="audio-player__byline font-display">{byline}</span>}
+  </figcaption>
+
+  <div class="audio-player__controls">
+    <button type="button" class="audio-player__toggle" aria-label="Play">
+      <!-- Play (triangle) / pause (two bars); the script swaps which is shown. -->
+      <svg class="audio-player__icon-play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+      <svg class="audio-player__icon-pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" hidden><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+    </button>
+
+    <span class="audio-player__time font-display"><span class="audio-player__current">0:00</span>/<span class="audio-player__duration">0:00</span></span>
+
+    <div class="audio-player__bar" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">
+      <div class="audio-player__track"></div>
+      <div class="audio-player__fill"></div>
+    </div>
+  </div>
+
+  {src && <audio class="audio-player__audio" src={src} preload="metadata"></audio>}
+</figure>
+
+<style>
+  .audio-player {
+    background: var(--mo-yellow);
+    color: var(--black);
+    padding: var(--space-2);
+    margin: 0;
+  }
+
+  .audio-player__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .audio-player__title {
+    font-size: var(--size-body);
+  }
+  .audio-player__byline {
+    font-size: var(--size-footer);
+  }
+
+  .audio-player__controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .audio-player__toggle {
+    flex: none;
+    display: flex;
+    padding: 0;
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+  }
+  .audio-player__toggle svg {
+    display: block;
+  }
+  /* The browser's default [hidden] rule doesn't apply to SVG, so hide the
+     inactive icon (play/pause) explicitly — covers both initial and toggled state. */
+  .audio-player__toggle svg[hidden] {
+    display: none;
+  }
+
+  .audio-player__time {
+    flex: none;
+    font-size: var(--size-footer);
+    white-space: nowrap;
+  }
+
+  /* Seek bar: a thin track with a thicker black fill up to the current time. */
+  .audio-player__bar {
+    position: relative;
+    flex: 1;
+    height: 16px;
+    cursor: pointer;
+    touch-action: none; /* drag seeks rather than scrolling the page */
+  }
+  .audio-player__track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.35);
+  }
+  .audio-player__fill {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 6px;
+    transform: translateY(-50%);
+    background: var(--black);
+  }
+
+  .audio-player__toggle:focus-visible,
+  .audio-player__bar:focus-visible {
+    outline: 2px solid var(--black);
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  // mm:ss, tolerant of NaN/Infinity (e.g. before metadata loads).
+  function fmt(t: number): string {
+    if (!isFinite(t)) return '0:00';
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    return m + ':' + String(s).padStart(2, '0');
+  }
+
+  function initPlayer(root: Element) {
+    const audio = root.querySelector<HTMLAudioElement>('.audio-player__audio');
+    const toggle = root.querySelector<HTMLButtonElement>('.audio-player__toggle');
+    const iconPlay = root.querySelector<SVGElement>('.audio-player__icon-play');
+    const iconPause = root.querySelector<SVGElement>('.audio-player__icon-pause');
+    const curEl = root.querySelector('.audio-player__current');
+    const durEl = root.querySelector('.audio-player__duration');
+    const bar = root.querySelector<HTMLElement>('.audio-player__bar');
+    const fill = root.querySelector<HTMLElement>('.audio-player__fill');
+    if (!toggle || !iconPlay || !iconPause || !curEl || !durEl || !bar || !fill) return;
+
+    // No source yet (file added later) — leave the controls inert.
+    if (!audio) return;
+
+    function setPlaying(playing: boolean) {
+      iconPlay!.hidden = playing;
+      iconPause!.hidden = !playing;
+      toggle!.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    }
+    function renderProgress() {
+      const d = audio!.duration;
+      fill!.style.width = (d ? (audio!.currentTime / d) * 100 : 0) + '%';
+      curEl!.textContent = fmt(audio!.currentTime);
+      bar!.setAttribute('aria-valuenow', String(Math.floor(audio!.currentTime) || 0));
+    }
+
+    toggle.addEventListener('click', () => {
+      if (audio.paused) audio.play(); else audio.pause();
+    });
+    audio.addEventListener('play', () => setPlaying(true));
+    audio.addEventListener('pause', () => setPlaying(false));
+    audio.addEventListener('ended', () => setPlaying(false));
+    audio.addEventListener('timeupdate', renderProgress);
+    audio.addEventListener('loadedmetadata', () => {
+      durEl.textContent = fmt(audio.duration);
+      bar.setAttribute('aria-valuemax', String(Math.floor(audio.duration) || 0));
+      renderProgress();
+    });
+
+    // Seek by clicking or dragging anywhere along the bar.
+    function seekTo(clientX: number) {
+      if (!audio!.duration) return;
+      const rect = bar!.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+      audio!.currentTime = ratio * audio!.duration;
+      renderProgress();
+    }
+    let dragging = false;
+    bar.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      bar.setPointerCapture(e.pointerId);
+      seekTo(e.clientX);
+    });
+    bar.addEventListener('pointermove', (e) => { if (dragging) seekTo(e.clientX); });
+    bar.addEventListener('pointerup', (e) => {
+      dragging = false;
+      bar.releasePointerCapture(e.pointerId);
+    });
+    // Keyboard seeking (the bar is focusable, role="slider").
+    bar.addEventListener('keydown', (e) => {
+      if (!audio.duration) return;
+      if (e.key === 'ArrowRight') { audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); renderProgress(); e.preventDefault(); }
+      if (e.key === 'ArrowLeft')  { audio.currentTime = Math.max(0, audio.currentTime - 5); renderProgress(); e.preventDefault(); }
+    });
+  }
+
+  document.querySelectorAll('.audio-player').forEach(initPlayer);
+</script>

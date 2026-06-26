@@ -5,12 +5,13 @@
   Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
     1. Hero       — the M ❀ logo
     2. Heading    — cyan "* HOW TO GET DUMBPHONES" bar
-    3. Body       — two blue sub-headings, a photo, and a black email CTA
+    3. Body       — two blue sub-headings, a photo, and a black "submit your
+                    cohort" CTA out to dumb.co
     4. Next       — link forward to the next subpage in the read-in-order set
 
   No "Resources" section on this page (the design doesn't have one). The blue
-  sub-headings reuse the home page's `.label` style; the black button mirrors
-  the DIY landing page's Lydia call-to-action.
+  sub-headings use the shared `.label` bar style (in global.css); the black
+  button mirrors the DIY landing page's Lydia call-to-action.
 ---------------------------------------------------------------------------*/
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
@@ -28,14 +29,52 @@ import NextLink from '../../components/NextLink.astro';
 
     <!-- 3. Body -->
     <section class="card">
-      <h3 class="label">The dumbest phone company</h3>
+      <h3 class="label">Why dumb down?</h3>
       <p class="body">
-        It's not every day that a tech startup grows out of an offline
-        community, but <u>dumb.co</u> is just that! The dumbphone company was
-        started by two of the MO founders and some of the very first
-        participants. Inspired by the learnings and needs that came to light
-        during the challenge, they built a dumbphone that makes it super easy
-        for people to flip off.
+        most of us have learned the hard way that we need more than just
+        self-control, grayscale screens, and private resolutions to reduce our
+        screen time. ppl get the most out of MO when they fully abandon their
+        smartphones for the month.
+      </p>
+      <p class="body">
+        why? every device has an opinion about how we should be relating,
+        attending, and spending our time -- an opinion expressed in the form of
+        its hardware and software design. beginning in the '90s, a couple of
+        companies decided it would be a good idea to try combining telephones
+        and computers into one all-purpose pocket communicator. the dumbphone
+        says nah. its intentionally-limited functionality leaves room for mind
+        &amp; body wandering, for fruitful friction, for glorious glitches.
+      </p>
+
+      <!-- BBC Archive clip: "1998: Can Computers and Phones Combine?" (starts at 1s). -->
+      <div class="video">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/EuF65Ohn51M?start=1"
+          title="1998: Can COMPUTERS and PHONES Combine? — The Money Programme, BBC Archive"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <p class="body">
+        all dumbphones are welcome at Month Offline, most ppl use the dumbphone
+        2 from dumb.co. the company was started by two of MO's founders <em>and</em>
+        some of the very first participants. inspired by everything they learned
+        during MO, they built a dumbphone that makes it easy (but not too easy)
+        for ppl to flip off.
+      </p>
+
+      <h3 class="label">What are the dumbphone deets?</h3>
+      <p class="body">
+        dumb.co is offering a discount code that organizers can give to
+        participants. when u share an interest form, you'll receive a followup
+        with all the details. in short: the hardware costs $20 and, upon
+        receiving the phone, they'll need to activate a $15.99/mo phone plan
+        for a minimum of 2 months. shipping usually takes 3–5 business days,
+        so make sure that ur ppl order with enough lead time. for more options,
+        check out the <a href="https://www.dumbphones.org/" target="_blank" rel="noopener">Dumbphone Finder</a>.
       </p>
 
       <img
@@ -46,16 +85,7 @@ import NextLink from '../../components/NextLink.astro';
         alt="Participants gathered around a table setting up their dumbphones"
       />
 
-      <h3 class="label">How it works</h3>
-      <p class="body">
-        dumb.co is offering free phones to all Month Offline participants. Upon
-        receiving the phone, they will need to activate a $20.99/mo phone plan
-        for a minimum of 2 months. Email lydia@offline.community to receive a
-        promo code that you can share with your participants.
-      </p>
-
-      <!-- CTA out to dumb.co to order phones. -->
-      <a class="order-btn font-display" href="https://dumb.co" target="_blank" rel="noopener">Order dumbphones</a>
+      <a class="order-btn font-display" href="https://tally.so/r/RGgD2p" target="_blank" rel="noopener">ANSWER THE CALL</a>
     </section>
 
     <!-- 4. Next — read-in-order, per CLAUDE.md (Get Dumbphones → Facilitate Meetups → …). -->
@@ -69,15 +99,8 @@ import NextLink from '../../components/NextLink.astro';
     font-size: var(--size-body);
     line-height: var(--leading-body);
   }
-
-  /* Blue sub-headings inside the card (same as the home page's "How it works"). */
-  .label {
-    font-size: var(--size-body);
-    color: var(--mo-blue);
-    letter-spacing: var(--track-label);
-  }
-  .label + .body {
-    margin-top: var(--space-2);
+  .body + .body {
+    margin-top: var(--space-3);
   }
 
   /* The photo sits between the two sub-sections inside the white card. */
@@ -85,6 +108,19 @@ import NextLink from '../../components/NextLink.astro';
     width: 100%;
     height: auto;
     margin: var(--space-3) 0;
+  }
+
+  /* Responsive 16:9 video embed — same vertical rhythm as the photo. The
+     wrapper holds the aspect ratio; the iframe fills it. */
+  .video {
+    aspect-ratio: 16 / 9;
+    margin: var(--space-3) 0;
+  }
+  .video iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
 
   /* Black CTA button (white text), mirroring the landing page's Lydia button. */
@@ -98,5 +134,10 @@ import NextLink from '../../components/NextLink.astro';
     color: var(--white);
     text-decoration: none;
     font-size: var(--size-body);
+    transition: background-color 0.15s ease;
+  }
+  /* Hover: lighten the box 20% toward white. */
+  .order-btn:hover {
+    background: color-mix(in srgb, var(--black) 80%, white);
   }
 </style>

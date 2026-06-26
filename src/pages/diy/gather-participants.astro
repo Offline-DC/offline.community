@@ -18,23 +18,23 @@ import SectionHeader from '../../components/SectionHeader.astro';
 import ResourceCard from '../../components/ResourceCard.astro';
 import NextLink from '../../components/NextLink.astro';
 
-// Download cards for the Resources section. The PDFs are uploaded later, so
-// these hrefs 404 until the files land in /public/downloads/.
+// Resource cards. Hosted PDFs live in /public/resources/; the sign-up form is
+// an external Tally link. Each card opens its resource in a new tab.
 const resources = [
   {
     title: 'Month Offline Flyers',
-    description: 'Editable posters that you can post around your neighborhood -- in 4 different colors! Include your phone number or e-mail address in the blank space at the bottom.',
-    href: '/downloads/month-offline-flyers.pdf',
+    description: 'editable posters that u can post around your neighborhood! include ur phone number or e-mail address in the blank space at the bottom.',
+    href: '/resources/mo_flyers.pdf',
   },
   {
-    title: 'Sign up form',
-    description: 'Duplicate the interest form we created to keep track of all your participants.',
-    href: '/downloads/month-offline-sign-up-form.pdf',
+    title: 'sign up form',
+    description: 'duplicate the interest form we created to keep track of all your participants.',
+    href: 'https://tally.so/templates/month-offline/m6zZYm',
   },
   {
     title: 'Month Offline Postcards',
-    description: 'Encouraging letters from past participants.',
-    href: '/downloads/month-offline-postcards.pdf',
+    description: 'encouraging letters from past participants. cut them out and mail them as a welcome gift.',
+    href: '/resources/mo_postcards.pdf',
   },
 ];
 ---
@@ -49,13 +49,24 @@ const resources = [
 
     <!-- 3. Body -->
     <section class="card">
+      <h3 class="label">How do I get the word out?</h3>
       <p class="body">
-        It's much easier to flip off in community than on your own. The first
-        step is to <u>recruit</u> a group of 5-30 participants to go offline
-        together. Invite some friends to join you, and ask them to invite some
-        of their friends. Flyer on telephone boxes and in record stores, book
-        shops, or cafes. Table on a busy street corner. Submit to local
-        newsletters, magazines, and e-mail listservs. The world is your oyster!
+        it's much easier to flip off in community than on ur own. the first step
+        is to <u>find at least one other person who wants to help u bring this
+        to life</u>.
+      </p>
+      <p class="body">
+        work together to recruit a group of 10–30 participants to go offline
+        together. set up a phone number, email address, or form where ppl can
+        sign up. invite some friends to join you, and ask them to invite some of
+        their friends.
+      </p>
+      <p class="body">
+        flyer on utility boxes, in cafes, book shops, bars -- or wherever u can
+        find a community bulletin board. table on a busy street corner. submit
+        an invitation to local newsletters or e-mail listservs. try to avoid
+        using social media ... <u>u will be surprised by how many ppl</u> come
+        out of the woodwork!
       </p>
 
       <img
@@ -67,29 +78,44 @@ const resources = [
       />
 
       <p class="body">
-        <u>Cold call</u> all the people who've signed up and get to know why
-        they're joining, and what they hope to get out of the month. Set
-        expectations and share a bit about yourself and your meetups.
+        <u>cold call</u> ppl as they sign up. ask them about why they decided to
+        take the plunge, their hopes &amp; dreams for the month. make sure
+        they're free on the date &amp; time you've selected. share a bit about
+        urself and what to expect from the meetups.
       </p>
       <p class="body">
-        Create a <u>communication channel</u> like monthoffline@gmail.com or use
-        an SMS service like Clicksend to keep participants in the loop. Send a
-        <u>welcome postcard</u> in the mail to participants 1-2 weeks before your
-        Month Offline begins.
+        <u>send a reminder</u> 1 week before and 1 day before with all ur deets:
+        date, time, &amp; location. try including a playful instruction like
+        "look 4 the man in the sunglasses and give him the secret passcode LESS
+        IS MO."
       </p>
 
-      <h3 class="label">Space &amp; time</h3>
+      <h3 class="label">Where should we meet up?</h3>
       <p class="body">
-        Find 1 or 2 other people who want to facilitate with you, and choose a
-        time of day that you're all available for 5 consecutive weeks. Meetups
-        typically last 1.5-2hours, and you'll need at least a half hour on either
-        end for set up and takedown!
+        <u>choose a day and time</u> that u and ur fellow organizers are
+        available for 5 consecutive weeks. meetups typically last 1.5-2hours,
+        and remember u will need at least a half hour on either end for set up
+        and takedown!
       </p>
       <p class="body">
-        Choose a local "third place" that will host you. Month Offline is a great
-        way to patronize local businesses and support IRL community hubs. Private
-        rooms (or relatively quiet spaces) at bars or cafes tend to work best.
+        <u>find a local venue</u> that will host u, and get to know the owners.
+        Month Offline is a great way to patronize local businesses and support
+        IRL community hubs. private rooms or relatively quite spaces at
+        restaurants &amp; bars tend to work best, but some groups meet outside
+        at the park.
       </p>
+      <p class="body">
+        once you've found ur ppl and place, ur ready to start prepping for the
+        meetups!
+      </p>
+
+      <img
+        class="card__photo"
+        src="/images/participants_02.png"
+        width="1512"
+        height="1134"
+        alt="Month Offline participants gathered around a table at their meetup venue"
+      />
     </section>
 
     <!-- 4. Resources -->
@@ -111,19 +137,6 @@ const resources = [
   }
   .body + .body {
     margin-top: var(--space-3);
-  }
-
-  /* Blue sub-headings inside the card (same as the home page's "How it works"). */
-  .label {
-    font-size: var(--size-body);
-    color: var(--mo-blue);
-    letter-spacing: var(--track-label);
-  }
-  .body + .label {
-    margin-top: var(--space-3);
-  }
-  .label + .body {
-    margin-top: var(--space-2);
   }
 
   /* The flyering photo sits between paragraphs inside the white card. */

@@ -26,10 +26,18 @@ const {
   masthead = 'Month Offline * Less is MO',
 } = Astro.props;
 
-// The masthead doubles as breadcrumb navigation: the leading "Month Offline"
-// always links back to the home page. Split it off the rest of the label so
-// only that part is a link (the trailing crumb, e.g. "> DIY Guide", is plain).
+// The masthead doubles as breadcrumb navigation. Crumbs listed here link to
+// their page; the current page's own (last) crumb always stays plain text.
+const CRUMB_LINKS: Record<string, string> = {
+  'Month Offline': '/',
+  'DIY Guide': '/diy',
+};
+
+// Breadcrumb pages separate crumbs with ">" (e.g. "Month Offline > DIY Guide >
+// Participants"). The home page instead uses "*" for its tagline ("Month
+// Offline * Less is MO"), which isn't a breadcrumb — handle that case below.
 const HOME_CRUMB = 'Month Offline';
+const crumbs = masthead.includes('>') ? masthead.split('>').map((c) => c.trim()) : null;
 const mastheadRest = masthead.startsWith(HOME_CRUMB) ? masthead.slice(HOME_CRUMB.length) : null;
 
 // Build-time fallback for the ticker, so there's no empty flash before the
@@ -66,17 +74,36 @@ import '../styles/global.css';
   <body>
     <!-- Centered column. Everything sits inside this 600px-wide track. -->
     <div class="column">
-      <!-- Ticker: live local date + time, on black. -->
+      <!-- Ticker: live local date + time, on black, scrolling horizontally.
+           The content is duplicated into two identical groups; the track
+           animates left by 50% (exactly one group's width) and loops
+           seamlessly. Both copies carry the .ticker-date/.ticker-time classes
+           so the clock script below updates them together. -->
       <div class="ticker font-display">
-        <span id="ticker-date">{initialDate}</span> *
-        LESS IS MO *
-        <span id="ticker-time">{initialTime}</span> *
-        WWW.OFFLINE.COMMUNITY * WASHINGTON DC
+        <div class="ticker__track">
+          <span class="ticker__group">
+            <span class="ticker-date">{initialDate}</span> * <span class="ticker-time">{initialTime}</span> * <a class="ticker__link" href="https://www.offline.community">WWW.OFFLINE.COMMUNITY</a> * ALUMNI COUNTER: 400 PPL * CITY COUNTER: 2 * JOIN THE CHALLENGE * DITCH THE DOOMSCROLL * LOG OFF AND LINK UP * TOUCH GRASS *
+          </span>
+          <span class="ticker__group" aria-hidden="true">
+            <span class="ticker-date">{initialDate}</span> * <span class="ticker-time">{initialTime}</span> * <a class="ticker__link" href="https://www.offline.community" tabindex="-1">WWW.OFFLINE.COMMUNITY</a> * ALUMNI COUNTER: 400 PPL * CITY COUNTER: 2 * JOIN THE CHALLENGE * DITCH THE DOOMSCROLL * LOG OFF AND LINK UP * TOUCH GRASS *
+          </span>
+        </div>
       </div>
 
-      <!-- Masthead bar (blue) / breadcrumb. "Month Offline" links home. -->
-      <h1 class="masthead">{mastheadRest !== null ? (
-        <Fragment><a class="masthead__home" href="/">{HOME_CRUMB}</a>{mastheadRest}</Fragment>
+      <!-- Masthead bar / breadcrumb. On breadcrumb pages each known crumb links
+           to its page (except the current page's own, trailing crumb); on the
+           home page only the leading "Month Offline" links home. -->
+      <h1 class="masthead">{crumbs ? (
+        crumbs.map((crumb, i) => (
+          <Fragment>
+            {i > 0 && ' > '}
+            {CRUMB_LINKS[crumb] && i < crumbs.length - 1
+              ? <a class="masthead__link" href={CRUMB_LINKS[crumb]}>{crumb}</a>
+              : crumb}
+          </Fragment>
+        ))
+      ) : mastheadRest !== null ? (
+        <Fragment><a class="masthead__link" href="/">{HOME_CRUMB}</a>{mastheadRest}</Fragment>
       ) : masthead}</h1>
 
       <!-- Page content goes here. -->
@@ -88,7 +115,15 @@ import '../styles/global.css';
       <footer class="site-footer font-display">
         <p>WWW.OFFLINE.COMMUNITY</p>
         <p>DUMB.CO * SEE WHAT'S UNDER STUDIO</p>
-        <p>WASHINGTON, DC 2026</p>
+        <p>DESIGNED WITH CARE IN WASHINGTON, DC</p>
+        <p class="site-footer__cc">
+          <!-- Creative Commons logo — two C shapes inside a circle -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="16" height="16" aria-hidden="true">
+            <circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="6"/>
+            <path d="M36.5 33.5c-9.1 0-16.5 7.4-16.5 16.5s7.4 16.5 16.5 16.5c4.5 0 8.5-1.8 11.5-4.7l-4.2-4.2c-1.9 1.9-4.5 3-7.3 3-5.7 0-10.3-4.6-10.3-10.3s4.6-10.3 10.3-10.3c2.8 0 5.4 1.1 7.3 3l4.2-4.2c-3-2.9-7-4.3-11.5-4.3zm27 0c-9.1 0-16.5 7.4-16.5 16.5s7.4 16.5 16.5 16.5c4.5 0 8.5-1.8 11.5-4.7l-4.2-4.2c-1.9 1.9-4.5 3-7.3 3-5.7 0-10.3-4.6-10.3-10.3s4.6-10.3 10.3-10.3c2.8 0 5.4 1.1 7.3 3l4.2-4.2c-3-2.9-7-4.3-11.5-4.3z" fill="currentColor"/>
+          </svg>
+          CREATIVE COMMONS MMXXVI
+        </p>
       </footer>
     </div>
 
@@ -98,12 +133,15 @@ import '../styles/global.css';
       (function () {
         const MONTHS = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
         const pad = (n) => String(n).padStart(2, '0');
-        const dateEl = document.getElementById('ticker-date');
-        const timeEl = document.getElementById('ticker-time');
+        // Both ticker copies share these classes, so update them together.
+        const dateEls = document.querySelectorAll('.ticker-date');
+        const timeEls = document.querySelectorAll('.ticker-time');
         function tick() {
           const d = new Date();
-          if (dateEl) dateEl.textContent = `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-          if (timeEl) timeEl.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+          const dateStr = `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+          const timeStr = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+          dateEls.forEach((el) => { el.textContent = dateStr; });
+          timeEls.forEach((el) => { el.textContent = timeStr; });
         }
         tick();
         setInterval(tick, 1000);
@@ -128,31 +166,57 @@ import '../styles/global.css';
 
   .ticker {
     font-size: var(--size-footer);
-    text-align: center;
-    padding: var(--space-1) var(--space-2);
-    /* Keep it to one line for now; we can make it a scrolling marquee later. */
-    white-space: nowrap;
+    padding: var(--space-1) 0;
     overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* The track holds two identical groups side by side and slides left by one
+     group's width (50% of the track), then repeats — a seamless marquee. */
+  .ticker__track {
+    display: inline-flex;
+    animation: ticker-scroll 40s linear infinite;
+  }
+  .ticker__group {
+    flex: none;
+    padding-right: var(--space-2);
+  }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  /* Respect users who prefer reduced motion: hold the ticker still. */
+  @media (prefers-reduced-motion: reduce) {
+    .ticker__track { animation: none; }
+  }
+
+  /* The site URL in the ticker is a link home — looks like the surrounding
+     text, underlines on hover/focus. */
+  .ticker__link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ticker__link:hover,
+  .ticker__link:focus-visible {
+    text-decoration: underline;
   }
 
   .masthead {
-    background: var(--mo-blue);
-    color: var(--white);
+    background: var(--mo-cyan);
+    color: var(--black);
     font-size: var(--size-heading);
     text-align: center;
     height: var(--bar-section);
     line-height: var(--bar-section); /* vertically center the single line */
   }
 
-  /* The "Month Offline" breadcrumb link — looks like the surrounding text,
-     underlines on hover/focus to signal it's clickable. */
-  .masthead__home {
+  /* Breadcrumb links in the masthead — look like the surrounding text,
+     underline on hover/focus to signal they're clickable. */
+  .masthead__link {
     color: inherit;
     text-decoration: none;
   }
-  .masthead__home:hover,
-  .masthead__home:focus-visible {
+  .masthead__link:hover,
+  .masthead__link:focus-visible {
     text-decoration: underline;
   }
 
@@ -161,5 +225,12 @@ import '../styles/global.css';
     text-align: center;
     padding: var(--space-4) var(--space-2);
     line-height: var(--leading-display);
+    margin-top: 64px;
+  }
+  .site-footer__cc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
 </style>

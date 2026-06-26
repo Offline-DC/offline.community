@@ -33,57 +33,86 @@ const cohorts = await getCohorts();
     <!-- 2. Intro -->
     <section class="card">
       <p class="lead font-display">
-        Part support group, part happy hour, part classroom: try a dumbphone
-        for 30 days and join a cohort of neighbors for weekly meetups and
-        mutual encouragement. If not now, when?
+        part support group, part happy hour, part classroom: ditch ur
+        smartphone for 30 days and join a cohort of neighbors for weekly
+        meetups, creative challenges, and mutual encouragement.<br />if not now, when?
       </p>
       <p class="body">
-        Ahoy! The first Month Offline was hosted in Washington, DC back in May
-        2025. MO expanded to New York City in January 2026. One year after MO
-        began, we published all of our program materials so that anyone can
-        organize their own cohort.
+        ahoy! <u>you've reached offline.community</u> — a directory of Month
+        Offline cohorts and a guide to starting ur own. the very first MO
+        challenge took place in Washington DC in May 2025. since then, over 400
+        brave souls have entered the flip side with their neighbors — turning
+        doomscroll into neighborhood stroll, plugging their creativity into the
+        local landscape, &amp; filling the smartphone-shaped hole in their lives
+        with on-land joy. check the directory below to see if there's already a
+        MO cohort in ur city. if not, might u be the one to get it going? ⁕
       </p>
     </section>
 
     <!-- 3. Press -->
     <SectionHeader label="Read all about it" />
-    <section class="card">
+    <section class="card card--gray">
       <ul class="press-list">
-        <PressItem headline="A group of us ditched our smartphones for a month. It changed us." outlet="Washington Post" />
-        <PressItem headline="The flip-phone cleanse" outlet="The Atlantic" />
-        <PressItem headline="Would you try the 30-day flip phone challenge?" outlet="Dazed" />
+        <PressItem
+          headline="A group of us ditched our smartphones for a month. It changed us."
+          outlet="Washington Post"
+          href="https://www.washingtonpost.com/dc-md-va/interactive/2025/smartphones-dumbphones-month-offline/"
+        />
+        <PressItem
+          headline="The flip-phone cleanse"
+          outlet="The Atlantic"
+          href="https://www.theatlantic.com/technology/2026/04/month-offline-smartphone-detox/686911/"
+        />
+        <PressItem
+          headline="Would you try the 30-day flip phone challenge?"
+          outlet="Dazed"
+          href="https://www.dazeddigital.com/life-culture/article/69882/1/month-offline-smartphone-support-group-unplugging-flip-offline-detox"
+        />
       </ul>
     </section>
 
     <!-- 4. How it works -->
     <SectionHeader label="How it works" />
     <section class="card">
-      <p class="body">MO typically (but not always) involves …</p>
-
-      <h3 class="label">5 facilitated meetups</h3>
-      <ul class="bullets">
-        <li>✧ conversation prompts to reflect on the frictions &amp; fruits of offline life</li>
-        <li>⏾ weekly themes &amp; activities to tap into each other's experiences</li>
-      </ul>
-
-      <h3 class="label">Dumbphone 2 by dumb.co</h3>
-      <ul class="bullets">
-        <li>✧ dumbOS &amp; Dumb Down app syncs ur dumb &amp; smart phones — calls, texts, &amp; contacts</li>
-        <li>✦ iMessage, WhatsApp, Uber, Maps, Microsoft Authenticator</li>
-        <li>☼ 1 month of unlimited calling &amp; texting, 100 hours of emergency data</li>
-      </ul>
-
       <p class="body">
-        <u>offline.community</u> is a directory of independently organized
-        Month Offline cohorts. We share facilitation tools and inspiration, but
-        each group is responsible for its own structure, content, and
-        accessibility. You can reach out to the organizer of MO in your city
-        below, or we'll help you start your own!
+        <u>flipping off is better together!</u> the MO challenge is a community
+        of practice for groups of 10–30. participants gather at a local venue,
+        sign a pledge to forgo the use of their smartphone for 30 days, and
+        support the vitality of the neighborhood through their presence +
+        patronage.
       </p>
+
+      <h3 class="label">Facilitated IRL meetups</h3>
+      <ul class="bullets">
+        <li>✺ <u>hands-on activities</u> to explore weekly themes on the frictions &amp; fruits of offline living</li>
+        <li>✺ <u>dedicated time</u> to incubate your creative outlet and encourage others' exploration</li>
+        <li>✺ <u>graduation ceremony</u> to celebrate each other's offtime</li>
+      </ul>
+
+      <h3 class="label">dumbphone 2 by <a href="https://dumb.co" target="_blank" rel="noopener">dumb.co</a></h3>
+      <ul class="bullets">
+        <li>☎ <u>classic flip phone</u> designed with Month Offline participants in mind</li>
+        <li>☎ <u>unlimited</u> calling &amp; texting, grainy 2MP camera, the sweet sound of closure when u snap it shut</li>
+        <li>☎ <u>option to sync</u> calls, texts, &amp; contacts with ur "smart" phone</li>
+      </ul>
+
+      <h3 class="label">community exhibition</h3>
+      <ul class="bullets">
+        <li>❉ <u>public party</u> with the friends &amp; family of MO participants</li>
+        <li>❉ <u>showcase</u> stories, artworks, and practices that emerged during the month</li>
+      </ul>
     </section>
 
     <!-- 5. Locations -->
     <SectionHeader label="Month Offline locations" />
+    <!-- Directory blurb sits beneath the locations header in its own blue box. -->
+    <section class="directory-note">
+      <p>
+        each cohort is unique, but we're united by the MO pledge and our
+        commitment to attention liberation. join an existing cohort and start
+        ur own.
+      </p>
+    </section>
     {cohorts.length > 0
       ? cohorts.map((c) => (
           <CohortRow location={c.location} date={c.date} organizer={c.organizer} href={c.href} />
@@ -94,12 +123,11 @@ const cohorts = await getCohorts();
     <!-- 6. CTA → DIY guide -->
     <a class="cta" href="/diy">
       <div class="cta__head">
-        <span class="font-display">Start Month Offline in your city</span>
+        <span class="font-display">Start Month Offline in ur city</span>
         <span class="font-display">&gt;&gt;&gt;</span>
       </div>
       <p class="cta__blurb">
-        Not seeing your location listed here? Organize your own cohort using
-        our getting started guide.
+        not seeing ur location? don't fret ... use the DIY guide to roll ur own cohort.
       </p>
     </a>
 
@@ -126,28 +154,30 @@ const cohorts = await getCohorts();
   .lead {
     font-size: var(--size-body);
     line-height: var(--leading-display);
+    text-align: center;
   }
 
-  /* Standard body paragraph (Syne Mono). */
+  /* Standard body paragraph (Syne Mono). Home-page copy reads a touch larger
+     than the 16px site default. */
   .body {
-    font-size: var(--size-body);
+    font-size: 18px;
     line-height: var(--leading-body);
   }
-  .body + .label,
   .body + .body,
-  .bullets + .body,
-  .bullets + .label {
+  .bullets + .body {
     margin-top: var(--space-3);
   }
   .lead + .body {
     margin-top: var(--space-3);
   }
 
-  /* Blue sub-labels inside "How it works". */
-  .label {
+  /* Directory blurb box beneath the "Month Offline locations" header. */
+  .directory-note {
+    background: var(--mo-yellow);
+    color: var(--black);
+    padding: var(--space-3);
     font-size: var(--size-body);
-    color: var(--mo-blue);
-    letter-spacing: var(--track-label);
+    line-height: var(--leading-body);
   }
 
   .bullets {
@@ -185,6 +215,11 @@ const cohorts = await getCohorts();
     text-decoration: none;
     padding: var(--space-2);
     min-height: var(--bar-cta);
+    transition: background-color 0.15s ease;
+  }
+  /* Hover: lighten the box 20% toward white. */
+  .cta:hover {
+    background: color-mix(in srgb, var(--mo-pink) 80%, white);
   }
   .cta__head {
     display: flex;

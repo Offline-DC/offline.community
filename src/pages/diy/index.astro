@@ -5,19 +5,19 @@
   Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
     1. Hero            — the M ❀ logo
     2. Letter          — "Dear future organizers" backstory
-    3. How to…         — links to the four ordered subpages
-    4. How it works    — the 5-week program
-    5. Ring ring        — schedule an intro call with Lydia (info session signup)
+    3. The basics      — the 6-week program
+    4. Ring ring       — join the next Q&A (info session signup)
+    5. How to…         — links to the four ordered subpages
 
-  The four "How to" subpages don't exist yet (we're building them one at a
-  time), so those links 404 for now. The "Chat with Lydia" link is a
-  placeholder until we have the real scheduling URL.
+  The RSVP link is a placeholder (href="#") until the info-session signup URL
+  is shared.
 */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import GuideLink from '../../components/GuideLink.astro';
 import ProgramStep from '../../components/ProgramStep.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
 
 // The four subpages, read in order. Each links to the next at its own foot.
 const guideLinks = [
@@ -27,13 +27,16 @@ const guideLinks = [
   { number: '04', label: 'Host an exhibition',  href: '/diy/host-an-exhibition' },
 ];
 
-// The 5-week program shown under "How it works".
+// The 6-week program shown under "The basics".
+// Each question underlines a key phrase (the <u> tags are rendered as HTML in
+// ProgramStep via set:html — see that component).
 const program = [
-  { number: 1, color: 'yellow', title: 'Communication', question: 'How do devices shape our patterns of communication?' },
-  { number: 2, color: 'cyan',   title: 'Memory',        question: "What do we notice when we're not feeling distracted?" },
-  { number: 3, color: 'pink',   title: 'Navigation',    question: "How do we experience urban space when we're off the map?" },
-  { number: 4, color: 'blue',   title: 'Boredom',       question: 'How do we inhabit the vacancies in our attention?' },
-  { number: 5, color: 'red',    title: 'Graduation',    question: 'What are we going to carry with us from this experience together?' },
+  { number: 1, color: 'yellow', title: 'Communication', question: 'how do devices shape our patterns of communication? ppl <u>sign the Offline Pledge</u> and ceremonially flip off their smartphones.' },
+  { number: 2, color: 'cyan',   title: 'Memory',        question: "what do we notice when we're not feeling distracted? ppl interview each other about <u>a creative outlet</u> they're exploring." },
+  { number: 3, color: 'pink',   title: 'Navigation',    question: "how do we experience urban space when we're off the GPS? ppl <u>use paper maps</u> to share the story of their commute." },
+  { number: 4, color: 'blue',   title: 'Boredom',       question: 'how do we inhabit the vacancies in our attention? ppl <u>split into 2 teams</u> for a collage competition and plan a midweek outing.' },
+  { number: 5, color: 'red',    title: 'Graduation',    question: 'what are we going to carry with us from this experience together? ppl give <u>mini-commencement speeches</u> with their takeaways.' },
+  { number: 6, color: 'yellow', title: 'Exhibition',    question: 'how did we make the most of our offtime? ppl share their <u>creative outlets</u> at a public party for the community.' },
 ];
 ---
 
@@ -44,44 +47,78 @@ const program = [
 
     <!-- 2. Letter -->
     <section class="card">
-      <h3 class="letter__salutation font-display">Dear future organizers,</h3>
+      <h3 class="letter__salutation font-display">Dear organizers,</h3>
       <p class="body">
-        Glad you're curious about starting Month Offline in your city. We've got
-        a bunch of resources to get you going, but first, like any good recipe,
-        we've got a little backstory. The MO team first met at Temperance Alley
-        — a community garden in Washington DC. For years, the gardeners among us
-        had been exploring how rewilded attention can help us become better
-        neighbors and placekeepers. We started the Month Offline challenge in
-        hopes of helping people explore their neighborhoods and encounter the
-        beauty of Life beyond the screen. In April 2025, we posted flyers around
-        the city with a simple invitation: CALL 1-844-OFFLINE if you want to
-        ditch your smartphone for 30 days. One year and 400+ people later, we're
-        super energized by all that's come to life in newfound offtime.
+        we're glad you're curious about starting a Month Offline cohort in ur
+        city. a little backstory: MO's founding flipmates first met at a
+        phone-free Shabbat dinner in <a href="https://www.ustreetcommunity.org/temperance-alley-garden" target="_blank" rel="noopener">Temperance Alley</a>
+        -- a community garden and outdoor classroom in Washington, DC. Grant and
+        Danny teamed up with Aaron and Josh to design a challenge that would help
+        neighbors liberate their attention and deepen their sense of place. all
+        of us had been practicing our own forms of <a href="https://www.schoolofattention.org/attention-activism" target="_blank" rel="noopener">attention activism</a>
+        ... building clay ovens, inspiring friends to use flip phones, organizing
+        local field trips.
       </p>
       <p class="body">
-        In the following guide is a shared repository where you'll find all you
-        need to roll your own Month Offline cohort. We hope you do and can't wait
-        to meet you.
+        in April 2025, we came together to post flyers around DC with a simple
+        invitation: CALL 1-844-OFFLINE if u want to ditch ur smartphone for 30
+        days and experience the beauty of Life beyond the screen with a small
+        group of peers. to our surprise, ppl started leaving us heartfelt
+        voicemails about why they wanted to flip off. we put together a MO field
+        kit with old-school tools that would help us fill the void left behind
+        by our smartphones. and a few weeks later, 15 strangers assembled at a
+        local bar to embark on what turned out to be a transformative trip.
+      </p>
+
+      <div class="letter__audio">
+        <AudioPlayer
+          title="1-844-Offline Voice Collage"
+          byline="May 2025 * edited by Josh Morin"
+          src="/audio/1844OFFLINE.mp3"
+        />
+      </div>
+
+      <p class="body">
+        if that was THE END, it would have been enough! but we were so energized
+        by what emerged in newfound offtime that we decided to organize another
+        cohort. and another. and another ... after crushing the July '25
+        challenge, Lydia came on board as MO's first-ever trained facilitator
+        and not long after, she helped bring the challenge to a whole new city:
+        the Big Apple.
+      </p>
+      <p class="body">
+        so much has bloomed now: new friendships, photo books, dance videos,
+        plays, short films, a makeshift telegraph, subjective cartographies,
+        kombucha, repaired jeans, a petition to save the local park -- more than
+        we can remember. inspired by all we've witnessed, we created this DIY
+        guide to encourage u to start a MO cohort (and to make it ur own)! inside
+        you'll find helpful hints and printable materials for every stage of ur
+        organizing. u got this! don't hesitate to reach out.
       </p>
       <p class="body letter__signoff">
-        Catch u on the flip,<br />
-        Aaron, Josh, &amp; Lydia
+        Less is MO,<br />
+        Aaron, Josh, &amp; Lydia<br />
+        <a href="mailto:month@offline.community">month@offline.community</a>
       </p>
+      <img
+        class="letter__image"
+        src="/images/mo_bike.jpg"
+        width="1512"
+        height="1134"
+        alt="Rows of open yellow Month Offline field-kit boxes, each with a 'Welcome to the Flip Side' letter printed inside the lid"
+      />
     </section>
 
-    <!-- 3. How to… -->
-    <SectionHeader label="How to..." color="yellow" />
-    {guideLinks.map((link) => (
-      <GuideLink number={link.number} label={link.label} href={link.href} />
-    ))}
-
-    <!-- 4. How it works -->
-    <SectionHeader label="How it works" color="yellow" />
+    <!-- 3. The basics -->
+    <SectionHeader label="The basics" color="yellow" />
     <section class="card">
       <p class="body">
-        Weekly meetups are at the heart of MO. Neighbors get to know each other
-        and celebrate life beyond the screen. We made a 5-week program filled
-        with playful materials that you can bring to your city!
+        <u>weekly meetups are at the heart of MO</u>. the most important
+        'content' of our curriculum is the stories that participants bring back
+        from the field. the dumbphone is just a gateway. it's not a retreat,
+        but a <em>reentry</em> program to the beauty of local Life beyond the
+        screen. the og challenge is built around 5 themes, but u r welcome to
+        remix our recipe to better suit the needs of ur neighborhood:
       </p>
       <div class="program">
         {program.map((step) => (
@@ -90,21 +127,23 @@ const program = [
       </div>
     </section>
 
-    <!-- 5. Ring ring — join an info session -->
-    <SectionHeader label="Ring ring — join an info session" color="yellow" />
+    <!-- 4. Ring ring — interest form -->
+    <SectionHeader label="Ring ring: we r here 2 help u flip off" color="yellow" />
     <section class="lydia">
       <div class="lydia__top">
         <p class="body">
-          Month Offline organizers host regular info sessions for groups
-          thinking about starting a cohort. Join one to learn about finding
-          participants, facilitating meetups, and getting dumbphones for your
-          people.
+          ready to take the next step? start thinking about a co-facilitator, a venue, and a start date. submit an interest form and we'll invite u to the next Q&amp;A session where u can ask any questions, meet other aspiring organizers, and learn how to get dumbphones.
         </p>
         <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
       </div>
-      <!-- href is a placeholder until the info-session signup link is shared. -->
-      <a class="lydia__btn font-display" href="#">Join an info session</a>
+      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">COUNT ME IN</a>
     </section>
+
+    <!-- 5. How to… -->
+    <SectionHeader label="How to..." color="yellow" />
+    {guideLinks.map((link) => (
+      <GuideLink number={link.number} label={link.label} href={link.href} />
+    ))}
   </div>
 </BaseLayout>
 
@@ -127,6 +166,18 @@ const program = [
     margin-top: var(--space-3);
   }
 
+  /* The field-kit photo that closes the letter. */
+  .letter__image {
+    width: 100%;
+    height: auto;
+    margin-top: var(--space-3);
+  }
+
+  /* Vertical breathing room around the audio player in the letter. */
+  .letter__audio {
+    margin: var(--space-3) 0;
+  }
+
   /* The 5-week program list inside the "How it works" card. */
   .program {
     display: flex;
@@ -135,11 +186,11 @@ const program = [
     margin-top: var(--space-3);
   }
 
-  /* Lydia intro-call card (cyan, black text). */
+  /* Lydia intro-call card (pink, black text). */
   .lydia {
-    background: var(--mo-cyan);
+    background: var(--mo-pink);
     color: var(--black);
-    padding: var(--content-pad);
+    padding: var(--space-2);
   }
   .lydia__top {
     display: flex;
@@ -162,5 +213,10 @@ const program = [
     color: var(--white);
     text-decoration: none;
     font-size: var(--size-body);
+    transition: background-color 0.15s ease;
+  }
+  /* Hover: lighten the box 20% toward white. */
+  .lydia__btn:hover {
+    background: color-mix(in srgb, var(--black) 80%, white);
   }
 </style>

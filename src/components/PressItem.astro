@@ -1,21 +1,32 @@
 ---
 /*
   PressItem.astro — one headline in the "Read all about it" press list.
-  Rendered as "HEADLINE * OUTLET" in the display face. Dividers between
-  items are handled by the list styling on the Home page.
+  Rendered as "HEADLINE * OUTLET" in the display face, where the whole row
+  is a link out to the article (opens in a new tab). Dividers between items
+  are handled by the list styling on the Home page.
 */
 interface Props {
   headline: string;
   outlet: string;
+  href: string;
 }
-const { headline, outlet } = Astro.props;
+const { headline, outlet, href } = Astro.props;
 ---
 
-<li class="press-item font-display">{headline} * {outlet}</li>
+<li class="press-item font-display">
+  <a class="press-item__link" href={href} target="_blank" rel="noopener">{headline} * {outlet}</a>
+</li>
 
 <style>
   .press-item {
     font-size: var(--size-body);
     line-height: var(--leading-display);
+  }
+  .press-item__link {
+    text-decoration: none;
+  }
+  .press-item__link:hover,
+  .press-item__link:focus-visible {
+    text-decoration: underline;
   }
 </style>

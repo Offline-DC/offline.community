@@ -16,7 +16,9 @@ const { number, color, title, question } = Astro.props;
   <div class="program-step__num font-display" style={`background: var(--mo-${color});`}>{number}</div>
   <div class="program-step__text">
     <h4 class="program-step__title font-display">{title}</h4>
-    <p class="program-step__question">{question}</p>
+    <!-- set:html renders the <u> underline tags inside the question. The copy
+         is our own (not user input), so this is safe. -->
+    <p class="program-step__question" set:html={question}></p>
   </div>
 </div>
 
@@ -24,18 +26,23 @@ const { number, color, title, question } = Astro.props;
   .program-step {
     display: flex;
     gap: var(--space-2);
-    align-items: flex-start;
+    /* stretch so the colored number box grows to match the text height */
+    align-items: stretch;
   }
 
   .program-step__num {
     flex: none;
     width: 48px;
-    height: 48px;
+    /* No fixed height: the box stretches to the full row (text) height. The
+       number stays anchored near the top — align-items: flex-start pins it up,
+       and line-height: 48px centers it within the top 48px, exactly where it
+       sat when the box was a 48px square. */
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     color: var(--black);
     font-size: var(--size-heading);
+    line-height: 48px;
   }
 
   .program-step__title {

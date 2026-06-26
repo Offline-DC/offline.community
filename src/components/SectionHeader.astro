@@ -3,14 +3,13 @@
   SectionHeader.astro — the "* HEADING" bar that introduces each section.
   Pass the label; the leading asterisk and uppercasing are handled here.
 
-  `color` picks the bar color: cyan (Home's section headers) or yellow (the
-  DIY guide's section headers). Defaults to cyan.
+  `color` picks the bar color: yellow (default) or cyan.
 */
 interface Props {
   label: string;
   color?: 'cyan' | 'yellow';
 }
-const { label, color = 'cyan' } = Astro.props;
+const { label, color = 'yellow' } = Astro.props;
 ---
 
 <h2 class="section-header" style={`background: var(--mo-${color});`}>* {label}</h2>

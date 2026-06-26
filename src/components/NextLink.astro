@@ -29,5 +29,10 @@ const { label, href, arrow = true } = Astro.props;
     padding: var(--space-1) var(--space-2);
     min-height: var(--bar-section);
     font-size: var(--size-heading);
+    transition: background-color 0.15s ease;
+  }
+  /* Hover: lighten the box 20% toward white. */
+  .next-link:hover {
+    background: color-mix(in srgb, var(--mo-cyan) 80%, white);
   }
 </style>

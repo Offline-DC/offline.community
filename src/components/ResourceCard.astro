@@ -1,12 +1,12 @@
 ---
 /*
-  ResourceCard.astro — a pink download row in a DIY subpage's "Resources"
-  section, e.g. "MONTH OFFLINE FLYERS  ⬇" with a short description beneath.
+  ResourceCard.astro — a pink resource row in a DIY subpage's "Resources"
+  section, e.g. "MONTH OFFLINE FLYERS  ↗" with a short description beneath.
 
-  `href` points at a downloadable file (a PDF we host on the site). The
-  `download` attribute below tells the browser to save the file rather than
-  navigate to it. The PDFs are uploaded later, so these links 404 for now —
-  same approach as the subpages themselves while we build them out.
+  The whole pink box is one link. `href` points at the resource — usually a
+  PDF we host under /resources/, sometimes an external page (e.g. a sign-up
+  form). Opening in a new tab (target="_blank") keeps the guide page open
+  behind it; rel="noopener" is the standard safety attribute for that.
 */
 interface Props {
   title: string;
@@ -16,14 +16,15 @@ interface Props {
 const { title, description, href } = Astro.props;
 ---
 
-<a class="resource" href={href} download>
+<a class="resource" href={href} target="_blank" rel="noopener">
   <div class="resource__head">
     <span class="resource__title font-display">{title}</span>
-    <!-- Download icon (arrow into a tray). `currentColor` keeps it black,
-         matching the text; aria-hidden since the link text says it all. -->
+    <!-- Open-in-new-tab icon (arrow leaving a box). `currentColor` keeps it
+         black, matching the text; aria-hidden since the link text says it all. -->
     <svg class="resource__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M12 3v12m0 0l-5-5m5 5l5-5" />
-      <path d="M4 19h16" />
+      <path d="M14 4h6v6" />
+      <path d="M20 4l-9 9" />
+      <path d="M19 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6" />
     </svg>
   </div>
   <p class="resource__desc">{description}</p>
@@ -36,6 +37,11 @@ const { title, description, href } = Astro.props;
     color: var(--black);
     text-decoration: none;
     padding: var(--space-2);
+    transition: background-color 0.15s ease;
+  }
+  /* Hover: lighten the box 20% toward white. */
+  .resource:hover {
+    background: color-mix(in srgb, var(--mo-pink) 80%, white);
   }
   .resource__head {
     display: flex;

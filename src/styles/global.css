@@ -16,6 +16,7 @@
   --mo-blue:   #0000ff; /* masthead bar, sub-labels */
   --mo-pink:   #ff69b4; /* "start a cohort" CTA bar */
   --mo-red:    #ff0000; /* program-step accent (estimated — confirm in Figma) */
+  --mo-gray:   #d4d4d4; /* press ("Read all about it") listing background */
   --black:     #000000; /* page background */
   --white:     #ffffff; /* content cards, body text on black */
 
@@ -33,12 +34,12 @@
 
   /* Type scale (px values from the design) */
   --size-heading: 24px; /* section headers, masthead */
-  --size-body:    16px; /* body copy, labels, news headlines */
+  --size-body:    18px; /* body copy, labels, news headlines */
   --size-footer:  14px; /* footer + ticker */
 
   /* Letter-spacing (Workbench runs slightly tracked-out; body less so) */
-  --track-heading: 1.44px;
-  --track-label:   0.96px;
+  --track-heading: 0.06em;
+  --track-label:   0.06em;
   --track-body:    0.32px;
 
   /* Line-height */
@@ -105,6 +106,12 @@ a {
   color: inherit;
 }
 
+/* Links inside running body copy read as blue, underlined. */
+.body a {
+  color: var(--mo-blue);
+  text-decoration: underline;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -136,4 +143,72 @@ img {
   background: var(--white);
   color: var(--black);
   padding: var(--content-pad);
+}
+
+/* Gray variant of the card — used by the home page's press listings. */
+.card--gray {
+  background: var(--mo-gray);
+}
+
+/* Blue sub-heading bar — a filled blue bar with white text, used inside cards
+   on the home and DIY pages (e.g. "5 FACILITATED MEETUPS"). Always carries 32px
+   of space above it, except when it's the first thing in a card (where the
+   card's own padding already provides the separation). */
+.label {
+  background: var(--mo-blue);
+  color: var(--white);
+  font-size: var(--size-body);
+  letter-spacing: var(--track-label);
+  padding: var(--space-1) var(--space-2);
+  margin-top: 32px;
+}
+.label:first-child {
+  margin-top: 0;
+}
+/* Standard gap below a bar before the body copy that follows it. */
+.label + .body {
+  margin-top: var(--space-2);
+}
+/* A link inside a bar (e.g. the "dumb.co" sub-heading on the home page). */
+.label a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* ── Ring ring / Lydia call-to-action box ───────────────────────────────────
+   Shared across DIY index and any subpage that includes the interest-form CTA.
+   Pink background, Lydia photo aligned right, black button below. */
+.lydia {
+  background: var(--mo-pink);
+  color: var(--black);
+  padding: var(--space-2);
+}
+.lydia__top {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+.lydia__photo {
+  flex: none;
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+}
+.lydia__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-3);
+  padding: var(--space-2);
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  font-size: var(--size-body);
+  transition: background-color 0.15s ease;
+}
+.lydia__btn:hover {
+  background: color-mix(in srgb, var(--black) 80%, white);
+}
+.lydia--cyan {
+  background: var(--mo-cyan);
 }
