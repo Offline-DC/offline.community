@@ -5,15 +5,16 @@
   subpage ("Host an Exhibition") has no next page, so it omits this.
 */
 interface Props {
-  label: string; // e.g. "How to Get Dumbphones"
-  href: string;  // e.g. "/diy/get-dumbphones"
-  arrow?: boolean; // show the ">>>" arrow (off for the loop-back to /diy)
+  label: string;    // e.g. "How to Get Dumbphones"
+  href: string;     // e.g. "/diy/get-dumbphones"
+  arrow?: boolean;  // show the ">>>" arrow (off for the loop-back to /diy)
+  prefix?: string;  // defaults to "Next: "
 }
-const { label, href, arrow = true } = Astro.props;
+const { label, href, arrow = true, prefix = 'Next: ' } = Astro.props;
 ---
 
 <a class="next-link" href={href}>
-  <span class="next-link__label font-display">* Next: {label}</span>
+  <span class="next-link__label font-display">* {prefix}{label}</span>
   {arrow && <span class="next-link__arrow font-display">&gt;&gt;&gt;</span>}
 </a>
 
