@@ -32,11 +32,9 @@ const cohorts = await getCohorts();
 
     <!-- 2. Intro -->
     <section class="card">
-      <p class="lead font-display">
-        part support group, part happy hour, part classroom: ditch ur
-        smartphone for 30 days and join a cohort of neighbors for weekly
-        meetups, creative challenges, and mutual encouragement.<br />if not now, when?
-      </p>
+      <p class="lead__tagline font-display">part support group, part happy hour, part classroom</p>
+      <p class="lead__headline font-display">try a dumbphone for 30 days and join a cohort of neighbors for weekly meetups and mutual encouragement.</p>
+      <p class="lead__coda font-display">if not now, when?</p>
       <p class="body">
         ahoy! <u>you've reached offline.community</u> — a directory of Month
         Offline cohorts and a guide to starting ur own. the very first MO
@@ -150,11 +148,22 @@ const cohorts = await getCohorts();
     padding: var(--space-3) var(--space-2);
   }
 
-  /* The Workbench lead-in paragraph in the intro. */
-  .lead {
+  .lead__tagline {
     font-size: var(--size-body);
     line-height: var(--leading-display);
     text-align: center;
+  }
+  .lead__headline {
+    font-size: 28px;
+    line-height: var(--leading-display);
+    text-align: center;
+    margin-top: var(--space-2);
+  }
+  .lead__coda {
+    font-size: var(--size-body);
+    line-height: var(--leading-display);
+    text-align: center;
+    margin-top: var(--space-4);
   }
 
   /* Standard body paragraph (Syne Mono). Home-page copy reads a touch larger
@@ -167,7 +176,7 @@ const cohorts = await getCohorts();
   .bullets + .body {
     margin-top: var(--space-3);
   }
-  .lead + .body {
+  .lead__coda + .body {
     margin-top: var(--space-3);
   }
 
