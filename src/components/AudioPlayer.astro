@@ -171,10 +171,9 @@ const { title, byline, src } = Astro.props;
     }
 
     toggle.addEventListener('click', () => {
-      if (audio.paused) audio.play(); else audio.pause();
+      if (audio.paused) { audio.play(); setPlaying(true); }
+      else { audio.pause(); setPlaying(false); }
     });
-    audio.addEventListener('play', () => setPlaying(true));
-    audio.addEventListener('pause', () => setPlaying(false));
     audio.addEventListener('ended', () => setPlaying(false));
     audio.addEventListener('timeupdate', renderProgress);
     audio.addEventListener('loadedmetadata', () => {
