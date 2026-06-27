@@ -35,4 +35,10 @@ const { label, href, arrow = true } = Astro.props;
   .next-link:hover {
     background: color-mix(in srgb, var(--mo-cyan) 80%, white);
   }
+  .next-link__arrow {
+    transition: transform 0.15s ease;
+  }
+  .next-link:hover .next-link__arrow {
+    transform: translateX(2px);
+  }
 </style>

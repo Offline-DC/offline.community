@@ -16,7 +16,7 @@
   --mo-blue:   #0000ff; /* masthead bar, sub-labels */
   --mo-pink:   #ff69b4; /* "start a cohort" CTA bar */
   --mo-red:    #ff0000; /* program-step accent (estimated — confirm in Figma) */
-  --mo-gray:   #d4d4d4; /* press ("Read all about it") listing background */
+  --mo-gray:   #dddddd; /* press ("Read all about it") listing background */
   --black:     #000000; /* page background */
   --white:     #ffffff; /* content cards, body text on black */
 

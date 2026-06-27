@@ -34,4 +34,10 @@ const { number, label, href } = Astro.props;
   .guide-link:hover {
     background: color-mix(in srgb, var(--mo-cyan) 80%, white);
   }
+  .guide-link__arrow {
+    transition: transform 0.15s ease;
+  }
+  .guide-link:hover .guide-link__arrow {
+    transform: translateX(2px);
+  }
 </style>

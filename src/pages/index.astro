@@ -228,6 +228,12 @@ const cohorts = await getCohorts();
     gap: var(--space-2);
     font-size: var(--size-body);
   }
+  .cta__head .font-display:last-child {
+    transition: transform 0.15s ease;
+  }
+  .cta:hover .cta__head .font-display:last-child {
+    transform: translateX(2px);
+  }
   .cta__blurb {
     font-size: var(--size-body);
     margin-top: var(--space-1);

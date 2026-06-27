@@ -50,6 +50,12 @@ const { location, date, organizer, href } = Astro.props;
   .cohort-row__arrow {
     font-size: var(--size-body);
   }
+  .cohort-row__arrow {
+    transition: transform 0.15s ease;
+  }
+  .cohort-row:hover .cohort-row__arrow {
+    transform: translateX(2px);
+  }
 
   /* The "Organized by …" line uses the body font (Syne Mono), not display. */
   .cohort-row__organizer {
