@@ -90,10 +90,21 @@ import NextLink from '../../components/NextLink.astro';
         alt="Participants gathered around a table setting up their dumbphones"
       />
 
-      <a class="order-btn font-display" href="https://tally.so/r/RGgD2p" target="_blank" rel="noopener">ANSWER THE CALL</a>
     </section>
 
-    <!-- 4. Next — read-in-order, per CLAUDE.md (Get Dumbphones → Facilitate Meetups → …). -->
+    <!-- 4. Ring ring -->
+    <SectionHeader label="Ring ring: let's get organized" color="yellow" />
+    <section class="lydia">
+      <div class="lydia__top">
+        <p class="body">
+          ready to take the next step? start thinking about a co-facilitator, a venue, and ur first meetup date. submit an interest form and we'll invite u to the next Q&amp;A session where u can ask any questions, meet other aspiring organizers, and learn how to get dumbphones.
+        </p>
+        <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
+      </div>
+      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">COUNT ME IN</a>
+    </section>
+
+    <!-- 5. Next — read-in-order, per CLAUDE.md (Get Dumbphones → Facilitate Meetups → …). -->
     <NextLink label="How to Facilitate Meetups" href="/diy/facilitate-meetups" />
   </div>
 </BaseLayout>
@@ -128,21 +139,4 @@ import NextLink from '../../components/NextLink.astro';
     border: 0;
   }
 
-  /* Black CTA button (white text), mirroring the landing page's Lydia button. */
-  .order-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: var(--space-3);
-    padding: var(--space-2);
-    background: var(--black);
-    color: var(--white);
-    text-decoration: none;
-    font-size: var(--size-body);
-    transition: background-color 0.15s ease;
-  }
-  /* Hover: lighten the box 20% toward white. */
-  .order-btn:hover {
-    background: color-mix(in srgb, var(--black) 80%, white);
-  }
 </style>

@@ -179,19 +179,7 @@ const resources = [
       />
     </section>
 
-    <!-- 4. Ring ring -->
-    <SectionHeader label="Ring ring: let's get organized" color="yellow" />
-    <section class="lydia lydia--cyan">
-      <div class="lydia__top">
-        <p class="body">
-          ready to take the next step? start thinking about a co-facilitator, a venue, and ur first meetup date. submit an interest form and we'll invite u to the next Q&amp;A session where u can ask any questions, meet other aspiring organizers, and learn how to get dumbphones.
-        </p>
-        <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
-      </div>
-      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">COUNT ME IN</a>
-    </section>
-
-    <!-- 5. Resources -->
+    <!-- 4. Resources -->
     <SectionHeader label="Resources" />
     {resources.map((r) => (
       <ResourceCard title={r.title} description={r.description} href={r.href} />
