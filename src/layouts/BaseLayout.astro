@@ -225,6 +225,14 @@ import '../styles/global.css';
     display: block;
     width: 40px;
     margin: 0 auto 12px;
+    animation: spin 8s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pinwheel { animation: none; }
   }
 
   .site-footer {
