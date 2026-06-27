@@ -114,15 +114,15 @@ import '../styles/global.css';
       <!-- Footer (centered, on black). -->
       <footer class="site-footer font-display">
         <p>WWW.OFFLINE.COMMUNITY</p>
-        <p>DUMB.CO * SEE WHAT'S UNDER STUDIO</p>
-        <p>DESIGNED WITH CARE IN WASHINGTON, DC</p>
+        <p><a class="site-footer__link" href="https://seewunder.studio/" target="_blank" rel="noopener">SEE WHAT'S UNDER STUDIO</a> * <a class="site-footer__link" href="https://dumb.co" target="_blank" rel="noopener">DUMB.CO</a></p>
+        <p>WASHINGTON, DC</p>
         <p class="site-footer__cc">
           <!-- Creative Commons logo — two C shapes inside a circle -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="16" height="16" aria-hidden="true">
             <circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="6"/>
             <path d="M36.5 33.5c-9.1 0-16.5 7.4-16.5 16.5s7.4 16.5 16.5 16.5c4.5 0 8.5-1.8 11.5-4.7l-4.2-4.2c-1.9 1.9-4.5 3-7.3 3-5.7 0-10.3-4.6-10.3-10.3s4.6-10.3 10.3-10.3c2.8 0 5.4 1.1 7.3 3l4.2-4.2c-3-2.9-7-4.3-11.5-4.3zm27 0c-9.1 0-16.5 7.4-16.5 16.5s7.4 16.5 16.5 16.5c4.5 0 8.5-1.8 11.5-4.7l-4.2-4.2c-1.9 1.9-4.5 3-7.3 3-5.7 0-10.3-4.6-10.3-10.3s4.6-10.3 10.3-10.3c2.8 0 5.4 1.1 7.3 3l4.2-4.2c-3-2.9-7-4.3-11.5-4.3z" fill="currentColor"/>
           </svg>
-          CREATIVE COMMONS MMXXVI
+          CREATIVE COMMONS. MMXXVI.
         </p>
       </footer>
     </div>
@@ -227,6 +227,15 @@ import '../styles/global.css';
     line-height: var(--leading-display);
     margin-top: 64px;
   }
+  .site-footer__link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .site-footer__link:hover,
+  .site-footer__link:focus-visible {
+    text-decoration: underline;
+  }
+
   .site-footer__cc {
     display: flex;
     align-items: center;
