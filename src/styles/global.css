@@ -38,8 +38,8 @@
   --size-footer:  14px; /* footer + ticker */
 
   /* Letter-spacing (Workbench runs slightly tracked-out; body less so) */
-  --track-heading: 0.12em;
-  --track-label:   0.12em;
+  --track-heading: 0.08em;
+  --track-label:   0.08em;
   --track-body:    0.32px;
 
   /* Line-height */
