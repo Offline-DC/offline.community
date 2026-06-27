@@ -5,15 +5,18 @@
 */
 interface Props {
   number: number;
-  color: 'yellow' | 'cyan' | 'pink' | 'blue' | 'red';
+  color: 'yellow' | 'cyan' | 'pink' | 'blue' | 'red' | 'black';
   title: string;
   question: string;
 }
 const { number, color, title, question } = Astro.props;
+const numStyle = color === 'black'
+  ? 'background: var(--black); color: var(--white);'
+  : `background: var(--mo-${color});`;
 ---
 
 <div class="program-step">
-  <div class="program-step__num font-display" style={`background: var(--mo-${color});`}>{number}</div>
+  <div class="program-step__num font-display" style={numStyle}>{number}</div>
   <div class="program-step__text">
     <h4 class="program-step__title font-display">{title}</h4>
     <!-- set:html renders the <u> underline tags inside the question. The copy
