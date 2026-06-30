@@ -1,0 +1,58 @@
+# Builds the Astro site and publishes it to GitHub Pages.
+#
+# Why an Actions workflow instead of plain "deploy from a branch":
+# the cohort directory is fetched from the Google Sheet at BUILD time,
+# so the host has to actually run `npm run build` with the SHEET_CSV_URL
+# secret available. This workflow does exactly that, then hands the
+# finished `dist/` folder to GitHub Pages.
+name: Deploy to GitHub Pages
+
+on:
+  # Rebuild + redeploy whenever main changes.
+  push:
+    branches: [main]
+  # Lets you trigger a rebuild by hand from the Actions tab —
+  # useful after someone edits the Google Sheet, since that alone
+  # doesn't push any code.
+  workflow_dispatch:
+
+# Permissions the deploy step needs to publish to Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If you push twice quickly, let the newer run supersede the older one
+# rather than queuing a stale deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          # Pulled from the repo's Actions secrets (Settings → Secrets and
+          # variables → Actions). Never hardcoded here.
+          SHEET_CSV_URL: ${{ secrets.SHEET_CSV_URL }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
