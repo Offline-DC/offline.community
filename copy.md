@@ -15,8 +15,7 @@ it appears. Edit it directly, then hand it back and I'll apply your changes to t
 - **All caps is automatic.** Headings, bar labels, and the ticker/footer are
   uppercased by the site's styling, so I've written them here in normal case —
   edit them in normal case and they'll display in caps.
-- **Dynamic bits** (the ticker's date and clock) are generated automatically and
-  aren't editable here.
+- **Dynamic bits** (the ticker's date and clock) are generated automatically and aren't editable here.
 - Want a brand-new paragraph/section? Just write it in the right spot with a
   short note like `>> NEW paragraph` and I'll wire it up.
 
@@ -30,8 +29,9 @@ it appears. Edit it directly, then hand it back and I'll apply your changes to t
 *(The date and time are generated live and tick every second. WWW.OFFLINE.COMMUNITY links to the homepage. The two counters are hard-coded for now — tell me when the numbers change and I'll update them.)*
 
 **Footer line 1:** WWW.OFFLINE.COMMUNITY
-**Footer line 2:** DUMB.CO * SEE WHAT'S UNDER STUDIO
-**Footer line 3:** WASHINGTON, DC 2026
+**Footer line 2:** [SEE WHAT’S UNDER STUDIO](https://seewunder.studio/) * [DUMB.CO](https://dumb.co)
+**Footer line 3:** DESIGNED WITH CARE IN WASHINGTON, DC
+**Footer line 4:** CREATIVE COMMONS. MMXXVI.
 
 **Breadcrumb home link (start of every masthead):** Month Offline
 
@@ -49,9 +49,9 @@ it appears. Edit it directly, then hand it back and I'll apply your changes to t
 part support group, part happy hour, part classroom: ditch ur smartphone for 30 days and join a cohort of neighbors for weekly meetups, creative challenges, and mutual encouragement. if not now, when?
 
 **Intro — paragraph:**
-ahoy! [[you’ve reached offline.community]] — a directory of Month Offline cohorts and a guide to starting ur own. the very first MO challenge took place in Washington DC in May 2025. since then, over 400 brave souls have entered the flip side with their neighbors -- turning doomscroll into neighborhood stroll, plugging their creativity into the local landscape, & filling the smartphone-shaped hole in their lives with on-land joy. check the directory below to see if there’s already a MO cohort in ur city. if not, might u be the one to get it going? ⁕
+ahoy! [[you’ve reached offline.community]] — a directory of Month Offline cohorts and a guide to starting ur own. the very first MO challenge took place in Washington DC in May 2025. since then, over 400 brave souls have entered the flip side with their neighbors. check the directory below to see if there’s already a MO cohort in ur city. if not, might u be the one to get it going? ⁕
 
-**Section heading (cyan bar):** Read all about it
+**Section heading (cyan bar):** Extra, extra, Read all about it
 
 **Press item 1 — headline:** A group of us ditched our smartphones for a month. It changed us.
 **Press item 1 — outlet:** [Washington Post](https://www.washingtonpost.com/dc-md-va/interactive/2025/smartphones-dumbphones-month-offline/)
@@ -82,7 +82,7 @@ ahoy! [[you’ve reached offline.community]] — a directory of Month Offline co
 **Bullet:** [[showcase]] stories, artworks, and practices that emerged during the month
 
 **Body — directory blurb:**
-each cohort is unique, but we’re united by the MO pledge and our commitment to attention liberation. join an existing cohort and start ur own.
+each cohort is unique, but we’re united by the MO pledge and our commitment to attention liberation. join an existing cohort or start ur own.
 
 **Section heading (cyan bar):** Month Offline locations
 
@@ -110,7 +110,7 @@ in April 2025, we came together to post flyers around DC with a simple invitatio
 
 if that was THE END, it would have been enough! but we were so energized by what emerged in newfound offtime that we decided to organize another cohort. and another. and another ... after crushing the July ’25 challenge, Lydia came on board as MO’s first-ever trained facilitator and not long after, she helped bring the challenge to a whole new city: the Big Apple.  
 
-so much has bloomed now: new friendships, photo books, dance videos, plays, short films, a makeshift telegraph, subjective cartographies, kombucha, repaired jeans, a petition to save the local park -- more than we can remember. inspired by all we’ve witnessed, we created this DIY guide to encourage u to start a MO cohort (and to make it ur own)! inside you’ll find helpful hints and printable materials for every stage of ur organizing. u got this! don’t hesitate to reach out. 
+so much has bloomed now: new friendships, photo books, dance videos, plays, short films, a makeshift telegraph, subjective cartographies, kombucha, repaired jeans, a petition to save the local park -- more than we can remember! inspired by all we’ve witnessed, we created this DIY guide to encourage u to start a cohort (and to make it ur own). inside you’ll find helpful hints and printable materials for every stage of ur organizing. u got this! don’t hesitate to reach out. 
 
 Less is MO,
 Aaron, Josh, & Lydia
@@ -120,7 +120,9 @@ month@offline.community
 **Section heading (yellow bar):** The basics
 
 **Body:**
-[[weekly meetups are at the heart of MO]]. the most important ‘content’ of our curriculum is the stories that participants bring back from the field. the dumbphone is just a gateway. it’s not a retreat, but a *reentry* program to the beauty of local Life beyond the screen. the og challenge is built around 5 themes, but u r welcome to remix our recipe to better suit the needs of ur neighborhood: 
+[[weekly meetups are at the heart of MO]]. the most important ‘content’ of the curriculum is the stories that participants bring back from the field. it’s not a retreat, but a *reentry* program to the beauty of local Life beyond the screen. dumbco can help u get hooked ups with phones, but remember ... the device is just a gateway.
+
+the og challenge is built around 5 themes and a community exhibition, but u r welcome to remix our recipe to better suit the needs of ur neighborhood: 
 
 **Program week 1 — title:** Communication
 **Program week 1 — question:** how do devices shape our patterns of communication? ppl [[sign the Offline Pledge]]and ceremonially flip off their smartphones. 
@@ -142,10 +144,10 @@ month@offline.community
 
 
 
-**Section heading (yellow bar):** Ring ring: we r here 2 help u flip off
+**Section heading (yellow bar):** Ring ring: let’s get organized
 
 **Body:**
-ready to take the next step? start thinking about co-facilitator, a venue, and a start date. submit an interest form and we’ll invite u to the next Q&A session where u can ask any questions, meet other aspiring organizers, and learn how to get dumbphones. 
+ready to take the next step? start thinking about a co-facilitator, a venue, and ur first meetup date. submit an interest form and we’ll invite u to the next Q&A session where u can ask any questions, meet other aspiring organizers, and learn how to get dumbphones. 
 **Button:** COUNT ME IN
 
 **Section heading (yellow bar):** How to...
@@ -170,9 +172,9 @@ ready to take the next step? start thinking about co-facilitator, a venue, and a
 **Body — paragraph 1:**
 it's much easier to flip off in community than on ur own. the first step is to [[find at least one other person who wants to help u bring this to life]]. 
 
-work together to recruit a group of 10–30 participants to go offline together. set up a phone number, email address, or form where ppl can sign up. invite some friends to join you, and ask them to invite some of their friends. 
+work together to [[recruit a group of 10–30 participants]] to go offline together. set up a phone number, email address, or form where ppl can sign up. invite some friends to join you, and ask them to invite some of their friends. 
 
-flyer on utility boxes, in cafes, book shops, bars -- or wherever u can find a community bulletin board. table on a busy street corner. submit an invitation to local newsletters or e-mail listservs. try to avoid using social media ... [[u will be surprised by how many ppl]] come out of the woodwork! 
+flyer on utility boxes, in cafes, book shops, bars -- or wherever u can find a community bulletin board. table on a busy street corner. submit an invitation to local newsletters or e-mail listservs. try to [[avoid using social media]] ... u will be surprised by how many ppl come out of the woodwork! the medium is the message.
 
 *(photo of someone wheat-pasting a flyer)*
 
@@ -220,7 +222,7 @@ once you’ve found ur ppl and place, ur ready to start prepping for the meetups
 **Sub-heading (blue):** Why dumb down?
 
 **Body — paragraph:**
-most of us have learned the hard way that we need more than just self-control, grayscale screens, and private resolutions to reduce our screen time. ppl get the most out of MO when they fully abandon their smartphones for the month. 
+most of us have learned the hard way that we need more than just self-control, grayscale screens, and private resolutions to reduce our screen time. ppl get the most out of MO when they [[fully abandon their smartphones]] for the month. 
 
 why? every device has an opinion about how we should be relating, attending, and spending our time -- an opinion expressed in the form of its hardware and software design. beginning in the ‘90s, a couple of companies decided it would be a good idea to try combining telephones and computers into one all-purpose pocket communicator. the dumbphone says nah. its intentionally-limited functionality leaves room for mind & body wandering, for fruitful friction, for glorious glitches.  
 
@@ -229,11 +231,15 @@ all dumbphones are welcome at Month Offline, most ppl use the dumbphone 2 from d
 **Sub-heading (blue):** What are the dumbphone deets?  
 
 **Body — paragraph:**
-dumb.co is offering a discount code that organizers can give to participants. when u share an interest form, you’ll receive a followup with all the details. in short: the hardware costs $20 and, upon receiving the phone, they’ll need to activate a $15.99/mo phone plan for a minimum of 2 months. shipping usually takes 3–5 business days, so make sure that ur ppl order with enough lead time. for more options, check out the [Dumbphone Finder](https://www.dumbphones.org/). 
+[dumb.co](https://dumb.co) is offering a discount code that organizers can give to participants. when u submit an interest form, you’ll receive a followup with all the details. 
+
+in short: the [[hardware costs $20]] and, upon receiving the phone, they’ll need to activate a [[$15.99/mo phone plan]] for a minimum of 2 months. shipping usually takes 3–5 business days, so make sure that ur ppl order with enough lead time. 
+
+for more options, check out the [Dumbphone Finder](https://www.dumbphones.org/). 
 
 *(photo of participants setting up dumbphones)*
 
-**Button:** ANSWER THE CALL*
+**Button:** ANSWER THE CALL
 
 **Next bar — link label:** How to Facilitate Meetups
 
@@ -304,9 +310,9 @@ u might want to make a way for participants to keep in touch with each other aft
 **Sub-heading (blue):** How do we share our stories w/o social media?
 
 **Body — paragraph:**
-the MO team innovated a new form of social media called the Dumbscroll. at the beginning of each meetup, participants are invited to create (analog) content about what went down during their offtime -- memorable moments, frustrating frictions, surprising synchronicities. 
+the MO team innovated a new form of social media called [[the Dumbscroll]]. at the beginning of each meetup, participants are invited to create (analog) content about what went down during their offtime -- memorable moments, frustrating frictions, surprising synchronicities. 
 
-after graduation, their drawings & writings are assembled into a collective art piece: a *finite* scroll on brown butcher paper that tells the stories of our Month Offline. this is a feed that u can get to the bottom of, and u have to be there to see it. 
+after graduation, their [[drawings & writings are assembled]] into a collective art piece: a *finite* scroll on brown butcher paper that tells the stories of our Month Offline. this is a feed that u can get to the bottom of, and u have to be there to see it. 
 
 **Section heading (cyan bar):** Resources
 
@@ -345,18 +351,18 @@ after graduation, their drawings & writings are assembled into a collective art 
 **Sub-heading (blue):** What do ppl do with all their new free time? 
 
 **Body — paragraph:**
-Month Offline is not just about what we're saying no to, but what we're inviting in. we always ask participants to consider choosing an Offtime Outlet for the month. 
+Month Offline is not just about what we're saying no to, but [[what we're inviting in]]. we always ask participants to consider choosing an Offtime Outlet for the month. 
 
-how might they want to spend their newfound free time? this is a permission slip to do that thing they've always wanted to do. keep it low-stakes and low-pressure! Offtime outlets come in many different shapes and sizes (including napping and spending more time with the kids). set aside some time to workshop ideas at each MO meetup.
+how might they want to spend their newfound free time? this is a permission slip to do that thing they've always wanted to do. keep it low-stakes and low-pressure! [[Offtime Outlets come in many different shapes and sizes]] (including napping and spending more time with the kids). set aside some time to workshop ideas at each MO meetup.
 
 *(the handwritten "Offtime Outlets" sign-up graphic)*
 
 **Sub-heading (blue):** What’s a community exhibition? 
 
 **Body — paragraph:**
-the og Month Offline cohorts ended with a phone-free exhibition where participants shared their offtime projects with friends, family, and neighbors. 
+the og Month Offline closed ended with a phone-free [[exhibition]] where participants shared their offtime projects with friends, family, and neighbors. 
 
-it’s important to wrap things up with a public event so that ur cohort sparks a community conversation  and more ppl are invited 2 join the attention liberation movement. 
+it’s important to wrap things up with a public event so that ur cohort sparks a [[community conversation]] and more ppl are invited 2 join the attention liberation movement. 
 
 the goal is not to isolate participants in insular flip phone clubs, but to make our neighborhoods more enriching than our screens. 
 

@@ -150,6 +150,14 @@ img {
   background: var(--mo-gray);
 }
 
+/* On narrow (mobile) screens, tighten the card padding so content isn't
+   crowded by the 48px desktop inset. */
+@media (max-width: 600px) {
+  .card {
+    padding: 20px;
+  }
+}
+
 /* Blue sub-heading bar — a filled blue bar with white text, used inside cards
    on the home and DIY pages (e.g. "5 FACILITATED MEETUPS"). Always carries 32px
    of space above it, except when it's the first thing in a card (where the

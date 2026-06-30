@@ -174,13 +174,33 @@ const { title, byline, src } = Astro.props;
       if (audio.paused) { audio.play(); setPlaying(true); }
       else { audio.pause(); setPlaying(false); }
     });
+    // Show the clip's total length. Two quirks to handle:
+    //  1. Many MP3s report duration as Infinity/NaN in `loadedmetadata` until
+    //     the file has been fully scanned. When that happens, seeking past the
+    //     end forces the browser to compute the real length, which it then
+    //     reports via `durationchange` (we rewind to the start once we have it).
+    //  2. This is a deferred module script, so `loadedmetadata` may have already
+    //     fired before we attached the listener (common with a cached file) —
+    //     the readyState check below covers that case.
+    let probing = false;
+    function setDuration() {
+      const d = audio!.duration;
+      if (isFinite(d) && d > 0) {
+        durEl!.textContent = fmt(d);
+        bar!.setAttribute('aria-valuemax', String(Math.floor(d)));
+        if (probing) { probing = false; audio!.currentTime = 0; }
+        renderProgress();
+      } else if (!probing) {
+        probing = true;
+        audio!.currentTime = 1e101;
+      }
+    }
+
     audio.addEventListener('ended', () => setPlaying(false));
     audio.addEventListener('timeupdate', renderProgress);
-    audio.addEventListener('loadedmetadata', () => {
-      durEl.textContent = fmt(audio.duration);
-      bar.setAttribute('aria-valuemax', String(Math.floor(audio.duration) || 0));
-      renderProgress();
-    });
+    audio.addEventListener('loadedmetadata', setDuration);
+    audio.addEventListener('durationchange', setDuration);
+    if (audio.readyState >= 1) setDuration();
 
     // Seek by clicking or dragging anywhere along the bar.
     function seekTo(clientX: number) {

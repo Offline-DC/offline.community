@@ -33,7 +33,7 @@ const cohorts = await getCohorts();
     <!-- 2. Intro -->
     <section class="card">
       <p class="lead__tagline font-display">part support group, part happy hour, part classroom</p>
-      <p class="lead__headline font-display">try a dumbphone for 30 days and join a cohort of neighbors for weekly meetups and mutual encouragement.</p>
+      <p class="lead__headline font-display">ditch ur smartphone for 30 days and join a cohort of neighbors for weekly meetups and mutual encouragement.</p>
       <p class="lead__coda font-display">if not now, when?</p>
       <p class="body">
         ahoy! <u>you've reached offline.community</u> — a directory of Month
@@ -85,11 +85,11 @@ const cohorts = await getCohorts();
         <li>✺ <u>graduation ceremony</u> to celebrate each other's offtime</li>
       </ul>
 
-      <h3 class="label">dumbphone 2 from <a href="https://dumb.co" target="_blank" rel="noopener">dumb.co</a></h3>
+      <h3 class="label">dumb device</h3>
       <ul class="bullets">
-        <li>☎ <u>classic flip phone</u> designed with Month Offline participants in mind</li>
-        <li>☎ <u>unlimited</u> calling &amp; texting, grainy 2MP camera, the sweet sound of closure when u snap it shut</li>
-        <li>☎ <u>option to sync</u> calls, texts, &amp; contacts with ur "smart" phone</li>
+        <li>☎ abandon ur mobile phone altogether and set up a landline</li>
+        <li>☎ get a classic flip phone</li>
+        <li>☎ try a dumbphone 2 from dumb.co with option to sync calls, txts, and contacts with ur smartphone</li>
       </ul>
 
       <h3 class="label">community exhibition</h3>
@@ -119,11 +119,22 @@ const cohorts = await getCohorts();
     <!-- 6. CTA → DIY guide -->
     <a class="cta" href="/diy">
       <div class="cta__head">
-        <span class="font-display">Start Month Offline in ur city</span>
+        <span class="font-display">Start Month Offline in ur neighborhood</span>
         <span class="font-display">&gt;&gt;&gt;</span>
       </div>
       <p class="cta__blurb">
         not seeing ur location? don't fret ... use the DIY guide to roll ur own cohort.
+      </p>
+    </a>
+
+    <!-- Blue CTA → get notified when a cohort launches nearby -->
+    <a class="cta cta--notify" href="https://tally.so/r/japgd9" target="_blank" rel="noopener">
+      <div class="cta__head">
+        <span class="font-display">Get notified when MO comes to town</span>
+        <span class="font-display">&gt;&gt;&gt;</span>
+      </div>
+      <p class="cta__blurb">
+        we'll shoot u an email when someone decides to organize a cohort nearby.
       </p>
     </a>
 
@@ -152,8 +163,14 @@ const cohorts = await getCohorts();
     text-align: center;
     white-space: nowrap;
   }
+  /* On narrow screens the tagline doesn't fit on one line — let it wrap. */
+  @media (max-width: 600px) {
+    .lead__tagline {
+      white-space: normal;
+    }
+  }
   .lead__headline {
-    font-size: 24px;
+    font-size: 22px;
     line-height: var(--leading-display);
     text-align: center;
     margin-top: var(--space-2);
@@ -162,7 +179,7 @@ const cohorts = await getCohorts();
     font-size: 24px;
     line-height: var(--leading-display);
     text-align: center;
-    margin-top: var(--space-4);
+    margin-top: var(--space-2);
   }
 
   /* Standard body paragraph (Syne Mono). Home-page copy reads a touch larger
@@ -181,7 +198,7 @@ const cohorts = await getCohorts();
 
   /* Directory blurb box beneath the "Month Offline locations" header. */
   .directory-note {
-    background: var(--mo-yellow);
+    background: var(--mo-cyan);
     color: var(--black);
     padding: var(--space-3);
     font-size: var(--size-body);
@@ -228,6 +245,14 @@ const cohorts = await getCohorts();
   /* Hover: lighten the box 20% toward white. */
   .cta:hover {
     background: color-mix(in srgb, var(--mo-pink) 80%, white);
+  }
+  /* Blue variant ("get notified") — white text for contrast on blue. */
+  .cta--notify {
+    background: var(--mo-blue);
+    color: var(--white);
+  }
+  .cta--notify:hover {
+    background: color-mix(in srgb, var(--mo-blue) 80%, white);
   }
   .cta__head {
     display: flex;
