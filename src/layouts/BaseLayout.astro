@@ -60,6 +60,11 @@ import '../styles/global.css';
     <meta name="description" content={description} />
     <title>{title}</title>
 
+    <!-- Favicon. Lives in public/, so it's served from the site root at
+         /favicon.ico. Without this link (and the file) the browser requests
+         /favicon.ico, gets a 404, and shows no icon. -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
     <!-- Google Fonts: Workbench (display) + Syne Mono (body). preconnect
          speeds up the font fetch. We request the plain Workbench family —
          it serves the full variable font, and we pin the axes in CSS. -->
