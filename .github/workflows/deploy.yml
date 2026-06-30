@@ -12,9 +12,15 @@ on:
   push:
     branches: [main]
   # Lets you trigger a rebuild by hand from the Actions tab —
-  # useful after someone edits the Google Sheet, since that alone
-  # doesn't push any code.
+  # useful when you want a Sheet edit live immediately.
   workflow_dispatch:
+  # Rebuild once a day so edits to the Google Sheet go live without
+  # anyone pushing code or clicking a button. 09:00 UTC ≈ 5am US Eastern,
+  # so changes are live by the start of the day. Cron is always in UTC.
+  # Note: GitHub may delay scheduled runs under load, and pauses the
+  # schedule after 60 days with no repo activity (a push re-arms it).
+  schedule:
+    - cron: '0 9 * * *'
 
 # Permissions the deploy step needs to publish to Pages.
 permissions:
