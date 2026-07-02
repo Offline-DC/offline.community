@@ -106,10 +106,15 @@ a {
   color: inherit;
 }
 
-/* Links inside running body copy read as blue, underlined. */
+/* Links inside running body copy read as blue, underlined. On hover, invert
+   to a solid blue block with white text. */
 .body a {
   color: var(--mo-blue);
   text-decoration: underline;
+}
+.body a:hover {
+  background-color: var(--mo-blue);
+  color: var(--white);
 }
 
 img {
