@@ -4,10 +4,11 @@
 
   Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
     1. Hero            — the M ❀ logo
-    2. Letter          — "Dear future organizers" backstory
-    3. The basics      — the 6-week program
-    4. Ring ring       — join the next Q&A (info session signup)
-    5. How to…         — links to the four ordered subpages
+    2. How to…         — links to the four ordered subpages
+    3. Letter          — "Dear future organizers" backstory
+    4. The basics      — the 6-week program
+    5. Ring ring       — join the next Q&A (info session signup)
+    6. Next            — cyan bar forward to the first subpage
 
   The RSVP link is a placeholder (href="#") until the info-session signup URL
   is shared.
@@ -18,6 +19,7 @@ import SectionHeader from '../../components/SectionHeader.astro';
 import GuideLink from '../../components/GuideLink.astro';
 import ProgramStep from '../../components/ProgramStep.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
+import NextLink from '../../components/NextLink.astro';
 
 // The four subpages, read in order. Each links to the next at its own foot.
 const guideLinks = [
@@ -45,7 +47,13 @@ const program = [
     <!-- 1. Hero -->
     <Hero />
 
-    <!-- 2. Letter -->
+    <!-- 2. How to… -->
+    <SectionHeader label="How to..." color="cyan" />
+    {guideLinks.map((link) => (
+      <GuideLink number={link.number} label={link.label} href={link.href} />
+    ))}
+
+    <!-- 3. Letter -->
     <section class="card">
       <h3 class="letter__salutation font-display">Dear organizers,</h3>
       <p class="body">
@@ -55,7 +63,7 @@ const program = [
         -- a community garden and outdoor classroom in Washington, DC. Grant and
         Danny teamed up with Aaron and Josh to design a challenge that would help
         neighbors liberate their attention and deepen their sense of place. all
-        of us had been practicing our own forms of <a href="https://www.schoolofattention.org/attention-activism" target="_blank" rel="noopener">attention activism</a>
+        of us had been practicing our own forms of attention activism
         ... building clay ovens, inspiring friends to use flip phones, <a href="https://seewunder.studio/" target="_blank" rel="noopener">organizing
         local field trips</a>.
       </p>
@@ -109,15 +117,14 @@ const program = [
       />
     </section>
 
-    <!-- 3. The basics -->
+    <!-- 4. The basics -->
     <SectionHeader label="The basics" color="yellow" />
     <section class="card">
       <p class="body">
         <u>weekly meetups are at the heart of MO</u>. the most important
         'content' of the curriculum is the stories that participants bring back
         from the field. it's not a retreat, but a <em>reentry</em> program to
-        the beauty of local Life beyond the screen. dumbco can help u get
-        hooked up with phones, but remember ... the device is just a gateway.
+        the beauty of local Life beyond the screen.
       </p>
       <p class="body">
         the og challenge is built around 5 themes and a community exhibition,
@@ -131,23 +138,20 @@ const program = [
       </div>
     </section>
 
-    <!-- 4. Ring ring — interest form -->
+    <!-- 5. Ring ring — interest form -->
     <SectionHeader label="Ring ring: let's get organized" color="yellow" />
     <section class="lydia">
       <div class="lydia__top">
         <p class="body">
-          ready to take the next step? start thinking about a co-facilitator, a venue, and ur first meetup date. submit an interest form and we'll invite u to the next Q&amp;A session where u can ask any questions, meet other aspiring organizers, and learn how to get dumbphones.
+          ready to take the next step? submit an interest form and join the <a href="https://luma.com/calendar/cal-xd3qvSDnQeDHWEf" target="_blank" rel="noopener">next Q&amp;A session</a> to ask any questions, meet other aspiring organizers, and learn how to get dumbphones.
         </p>
         <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
       </div>
-      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">COUNT ME IN</a>
+      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">ANSWER THE CALL</a>
     </section>
 
-    <!-- 5. How to… -->
-    <SectionHeader label="How to..." color="yellow" />
-    {guideLinks.map((link) => (
-      <GuideLink number={link.number} label={link.label} href={link.href} />
-    ))}
+    <!-- 6. Next -->
+    <NextLink label="How to Gather Participants" href="/diy/gather-participants" />
   </div>
 </BaseLayout>
 

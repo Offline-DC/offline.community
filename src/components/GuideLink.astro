@@ -1,6 +1,6 @@
 ---
 /*
-  GuideLink.astro — a cyan "how-to" link row on the DIY guide landing page,
+  GuideLink.astro — a yellow "how-to" link row on the DIY guide landing page,
   e.g. "01. GATHER PARTICIPANTS  >>>". Links to one of the four subpages.
 */
 interface Props {
@@ -22,7 +22,7 @@ const { number, label, href } = Astro.props;
     justify-content: space-between;
     align-items: center;
     gap: var(--space-2);
-    background: var(--mo-cyan);
+    background: var(--mo-yellow);
     color: var(--black);
     text-decoration: none;
     padding: var(--space-2);
@@ -32,7 +32,7 @@ const { number, label, href } = Astro.props;
   }
   /* Hover: lighten the box 20% toward white. */
   .guide-link:hover {
-    background: color-mix(in srgb, var(--mo-cyan) 80%, white);
+    background: color-mix(in srgb, var(--mo-yellow) 80%, white);
   }
   .guide-link__arrow {
     transition: transform 0.15s ease;
