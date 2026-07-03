@@ -10,7 +10,7 @@ import Papa from 'papaparse';
 // The sheet has one row per cohort. Header names are normalized to UPPERCASE
 // (see transformHeader below) so a stray capitalization or space in the sheet
 // won't silently blank out a column. Current headers in the sheet:
-//   CITY | STATE | ORGANIZERS | FORM | MONTH
+//   CITY | STATE | ORGANIZERS | FORM | MONTH | STATUS
 // NB: the organizer column is "ORGANIZERS" (plural) in the live sheet — it must
 // match exactly (after uppercasing), so this can't be "ORGANIZER".
 const COLUMNS = {
@@ -19,12 +19,19 @@ const COLUMNS = {
   organizer: 'ORGANIZERS',
   signupUrl: 'FORM',
   startDate: 'MONTH',
+  status: 'STATUS',
 };
 
 /**
  * Fetch + parse the sheet, returning an array of cohort objects shaped for
  * the CohortRow component:
- *   { location, date, organizer, href }
+ *   { location, date, organizer, href, status }
+ *
+ * `status` is lowercased to either "past" or "upcoming" — the Home page uses
+ * it to sort each cohort into the "Month Offline locations" or "Past
+ * cohorts" section. Anything other than "Past" in the sheet (including a
+ * blank cell) is treated as "upcoming", so existing rows without a Status
+ * cell yet keep showing up under Locations.
  *
  * If SHEET_CSV_URL isn't set yet, returns an empty array (and warns), so the
  * site still builds before the sheet is wired up.
@@ -68,12 +75,16 @@ export async function getCohorts() {
     .map((row) => {
       const city = (row[COLUMNS.city] || '').trim();
       const state = (row[COLUMNS.state] || '').trim();
+      const status = (row[COLUMNS.status] || '').trim().toLowerCase();
       return {
         // "City, State" — but tolerate a missing state.
         location: [city, state].filter(Boolean).join(', '),
         date: (row[COLUMNS.startDate] || '').trim(),
         organizer: (row[COLUMNS.organizer] || '').trim(),
-        href: (row[COLUMNS.signupUrl] || '').trim() || '#',
+        // Empty string (not "#") when there's no sign-up link, so CohortRow
+        // can tell "no link" apart from a real href and drop the arrow.
+        href: (row[COLUMNS.signupUrl] || '').trim(),
+        status: status === 'past' ? 'past' : 'upcoming',
       };
     })
     // Drop any row without at least a city (e.g. stray blank rows).

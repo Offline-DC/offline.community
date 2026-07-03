@@ -28,6 +28,7 @@ const resources = [
   { title: 'Conversation Cards',         description: 'weekly prompts to use at each meetup.',                                              href: '/resources/mo_prompts.pdf' },
   { title: 'Facilitation Guides',        description: "beat-for-beat structure of the og MO meetups. take what's useful, leave the rest.", href: '/resources/mo_facilitator_guides.pdf' },
   { title: 'Certificates of Completion', description: 'graduate from Month Offline in style.',                                             href: '/resources/mo_certificate.pdf' },
+  { title: 'Offtime Outlets index',      description: 'invite ppl to add their creative outlet to a shared inventory.',                    href: '/resources/mo_offtime_outlets.pdf' },
 ];
 ---
 
@@ -64,6 +65,13 @@ const resources = [
         detailed facilitation guides for each meetup, or create ur own!
       </p>
 
+      <img
+        class="card__photo photo-bring"
+        src="/images/what_to_bring.png"
+        width="980"
+        height="218"
+        alt="A handbell, a box of crayons, a book, and a portable speaker"
+      />
       <h3 class="label">What should I bring?</h3>
       <ul class="bring">
         <li>✶ a handbell to easily get the attention of a large group</li>
@@ -208,6 +216,21 @@ const resources = [
     margin: var(--space-3) 0;
   }
   .card__photo:first-child {
+    margin-top: 0;
+  }
+
+  /* The "what 2 bring" illustration sits flush on top of its label bar,
+     like the items are resting on a shelf, so it drops the usual gap
+     below the photo and the label's own top margin. */
+  .photo-bring {
+    display: block;
+    width: 440px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .photo-bring + .label {
     margin-top: 0;
   }
 

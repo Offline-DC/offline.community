@@ -37,6 +37,7 @@ in `src/lib/cohorts.js`):
 - `ORGANIZERS` — organizer name(s)
 - `FORM` — sign-up form link
 - `MONTH` — start month/date
+- `STATUS` — `Upcoming` or `Past`; controls whether the cohort lists under "Month Offline locations" or "Past cohorts" on the Home page
 
 A non-technical teammate edits this sheet directly to add or update cohorts — no admin UI needed on the site itself. New rows appear on the next build (see `getCohorts()` in `src/lib/cohorts.js`).
 

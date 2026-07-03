@@ -8,8 +8,9 @@
     2. Intro       — what Month Offline is
     3. Press       — "Read all about it" coverage
     4. How it works— meetups, the dumbphone, and the directory blurb
-    5. Locations   — the cohort directory (placeholder rows for now)
-    6. CTA         — start a cohort in your city → DIY guide
+    5. Locations   — the cohort directory (rows with Status "Upcoming")
+    6. CTA         — start a cohort in your city → DIY guide, then the
+                     "get notified" CTA, then Past cohorts (Status "Past")
     7. Photos      — a strip of three images
 */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -23,6 +24,12 @@ import { getCohorts } from '../lib/cohorts.js';
 // Empty until cohorts are added to the sheet — the section shows an
 // empty-state message below in that case.
 const cohorts = await getCohorts();
+
+// Split into the two directory sections by the sheet's Status column: rows
+// still running (or not yet started) show up under "Month Offline
+// locations"; finished ones move down to "Past cohorts".
+const upcomingCohorts = cohorts.filter((c) => c.status !== 'past');
+const pastCohorts = cohorts.filter((c) => c.status === 'past');
 ---
 
 <BaseLayout title="Month Offline">
@@ -104,8 +111,8 @@ const cohorts = await getCohorts();
         ur own.
       </p>
     </section>
-    {cohorts.length > 0
-      ? cohorts.map((c) => (
+    {upcomingCohorts.length > 0
+      ? upcomingCohorts.map((c) => (
           <CohortRow location={c.location} date={c.date} organizer={c.organizer} href={c.href} />
         ))
       : <p class="no-cohorts">No cohorts listed yet — be the first to start one in your city, below.</p>
@@ -132,6 +139,15 @@ const cohorts = await getCohorts();
         we'll shoot u an email when someone decides to organize a cohort nearby.
       </p>
     </a>
+
+    <!-- Past cohorts -->
+    <SectionHeader label="Past cohorts" color="cyan" />
+    {pastCohorts.length > 0
+      ? pastCohorts.map((c) => (
+          <CohortRow location={c.location} date={c.date} organizer={c.organizer} href={c.href} color="gray" />
+        ))
+      : <p class="no-cohorts">No past cohorts yet.</p>
+    }
 
     <!-- 7. Photos -->
     <section class="photos">
@@ -277,15 +293,16 @@ const cohorts = await getCohorts();
     margin-top: var(--space-1);
   }
 
-  /* Photo strip: three equal images in a row. */
+  /* Photo strip: three equal-width images in a row. */
   .photos {
     display: flex;
+    align-items: flex-start; /* don't stretch shorter photos to match the tallest */
     gap: var(--space-1);
+    margin-top: 32px;
   }
   .photos img {
     flex: 1;
     width: 0; /* let flex-basis drive width so all three are equal */
-    height: 219px;
-    object-fit: cover;
+    height: auto; /* keep each photo's natural aspect ratio, no cropping */
   }
 </style>

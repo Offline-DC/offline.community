@@ -4,25 +4,34 @@
 
   This is the component the Google Sheet data will map onto: each row in
   the sheet (city, state, organizer, sign-up link, start date) becomes one
-  CohortRow. For now the Home page passes in placeholder rows; wiring it to
-  the published CSV is the next step.
+  CohortRow.
+
+  `href` is optional. When the sheet's FORM cell is blank there's nothing to
+  link to, so the row renders as a plain <div> instead of an <a> and the
+  trailing arrow is left off.
 */
 interface Props {
   location: string;   // e.g. "New York City, NY"
   date: string;       // e.g. "July 2026"
   organizer: string;  // e.g. "Melissa"
-  href: string;       // the cohort's external sign-up form
+  href?: string;       // the cohort's external sign-up form, if any
+  color?: 'yellow' | 'gray'; // yellow (default) for upcoming, gray for past cohorts
 }
-const { location, date, organizer, href } = Astro.props;
+const { location, date, organizer, href, color = 'yellow' } = Astro.props;
+const hasLink = Boolean(href);
+
+// Astro lets a lowercase variable stand in for the tag name, so the row is
+// an <a> when there's somewhere to link to and a <div> when there isn't.
+const Tag = hasLink ? 'a' : 'div';
 ---
 
-<a class="cohort-row" href={href} target="_blank" rel="noopener">
+<Tag class={`cohort-row cohort-row--${color}`} {...hasLink ? { href, target: '_blank', rel: 'noopener' } : {}}>
   <div class="cohort-row__head">
     <span class="cohort-row__title font-display">{location} – {date}</span>
-    <span class="cohort-row__arrow font-display">&gt;&gt;&gt;</span>
+    {hasLink && <span class="cohort-row__arrow font-display">&gt;&gt;&gt;</span>}
   </div>
   <p class="cohort-row__organizer">Organized by {organizer}.</p>
-</a>
+</Tag>
 
 <style>
   .cohort-row {
@@ -39,6 +48,14 @@ const { location, date, organizer, href } = Astro.props;
     background: color-mix(in srgb, var(--mo-yellow) 80%, white);
   }
 
+  /* Gray variant — past cohorts, matching the "Read all about it" press box. */
+  .cohort-row--gray {
+    background: var(--mo-gray);
+  }
+  .cohort-row--gray:hover {
+    background: color-mix(in srgb, var(--mo-gray) 80%, white);
+  }
+
   .cohort-row__head {
     display: flex;
     justify-content: space-between;
@@ -49,6 +66,15 @@ const { location, date, organizer, href } = Astro.props;
   .cohort-row__title,
   .cohort-row__arrow {
     font-size: var(--size-body);
+    /* Workbench has no real weight (wght) axis — it only has BLED and SCAN,
+       so `font-weight` was just triggering the browser's faux-bold, which
+       looked muddy on a pixel font like this. The font's own named
+       instances step up in heaviness by raising SCAN (letters go from
+       "Delicate" through "Touching" to "Maximum" as the scanlines merge).
+       "Overexposed" (SCAN 67) is a couple steps past the site-wide default
+       of "Touching" (SCAN 21, set via --workbench-axes), so this row reads
+       noticeably heavier than the rest of the page. */
+    font-variation-settings: 'BLED' 0, 'SCAN' 67;
   }
   .cohort-row__arrow {
     transition: transform 0.15s ease;
