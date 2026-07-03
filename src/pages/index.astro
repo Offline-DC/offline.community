@@ -121,7 +121,7 @@ const pastCohorts = cohorts.filter((c) => c.status === 'past');
     <!-- 6. CTA → DIY guide -->
     <a class="cta" href="/diy">
       <div class="cta__head">
-        <span class="font-display">Start Month Offline in ur neighborhood</span>
+        <span class="font-display"><span class="cta__icon cta__icon--star">★</span> Start MO in ur neighborhood</span>
         <span class="font-display">&gt;&gt;&gt;</span>
       </div>
       <p class="cta__blurb">
@@ -132,7 +132,7 @@ const pastCohorts = cohorts.filter((c) => c.status === 'past');
     <!-- Blue CTA → get notified when a cohort launches nearby -->
     <a class="cta cta--notify" href="https://tally.so/r/japgd9" target="_blank" rel="noopener">
       <div class="cta__head">
-        <span class="font-display">Get notified when MO comes to town</span>
+        <span class="font-display"><span class="cta__icon cta__icon--mail">✉</span> Get notified when MO comes to town</span>
         <span class="font-display">&gt;&gt;&gt;</span>
       </div>
       <p class="cta__blurb">
@@ -287,6 +287,22 @@ const pastCohorts = cohorts.filter((c) => c.status === 'past');
   }
   .cta:hover .cta__head .font-display:last-child {
     transform: translateX(4px);
+  }
+
+  /* The star/envelope glyphs render much smaller than Workbench's capital
+     letters at the same font-size (Workbench doesn't include these symbols,
+     so the browser substitutes a fallback font whose glyphs sit small and
+     high in the em box). Scale each one up so its ink height roughly
+     matches the surrounding caps, then nudge back onto the baseline. */
+  .cta__icon {
+    line-height: 1;
+  }
+  .cta__icon--star {
+    font-size: 1.64em;
+  }
+  .cta__icon--mail {
+    font-size: 2.16em;
+    vertical-align: -2px;
   }
   .cta__blurb {
     font-size: var(--size-body);

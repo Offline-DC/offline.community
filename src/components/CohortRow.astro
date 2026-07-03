@@ -66,14 +66,7 @@ const Tag = hasLink ? 'a' : 'div';
   .cohort-row__title,
   .cohort-row__arrow {
     font-size: var(--size-body);
-    /* Workbench has no real weight (wght) axis — it only has BLED and SCAN,
-       so `font-weight` was just triggering the browser's faux-bold, which
-       looked muddy on a pixel font like this. The font's own named
-       instances step up in heaviness by raising SCAN (letters go from
-       "Delicate" through "Touching" to "Maximum" as the scanlines merge).
-       "Overexposed" (SCAN 67) is a couple steps past the site-wide default
-       of "Touching" (SCAN 21, set via --workbench-axes), so this row reads
-       noticeably heavier than the rest of the page. */
+    font-weight: 900;
     font-variation-settings: 'BLED' 0, 'SCAN' 67;
   }
   .cohort-row__arrow {
