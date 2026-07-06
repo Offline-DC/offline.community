@@ -113,8 +113,11 @@ const program = [
         src="/images/mo_bike.jpg"
         width="1512"
         height="1134"
-        alt="Rows of open yellow Month Offline field-kit boxes, each with a 'Welcome to the Flip Side' letter printed inside the lid"
+        alt="A crowd gathered around a man on a Citi Bike as another man steadies him"
       />
+      <p class="letter__photo-caption">
+        Josh helps <a href="https://nycofftech.com/" target="_blank" rel="noopener">Nick</a> learn how to ride a bike at the first MO NYC exhibition, Feb 2026
+      </p>
     </section>
 
     <!-- 4. The basics -->
@@ -179,6 +182,14 @@ const program = [
     width: 100%;
     height: auto;
     margin-top: var(--space-3);
+  }
+  .letter__photo-caption {
+    font-size: calc(var(--size-body) - 2px);
+    opacity: 0.5;
+    margin-top: var(--space-1);
+  }
+  .letter__photo-caption a {
+    color: inherit;
   }
 
   /* Vertical breathing room around the audio player in the letter. */
