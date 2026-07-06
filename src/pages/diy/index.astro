@@ -23,10 +23,10 @@ import NextLink from '../../components/NextLink.astro';
 
 // The four subpages, read in order. Each links to the next at its own foot.
 const guideLinks = [
-  { number: '01', label: 'Gather participants', href: '/diy/gather-participants' },
-  { number: '02', label: 'Get dumbphones',      href: '/diy/get-dumbphones' },
-  { number: '03', label: 'Facilitate meetups',  href: '/diy/facilitate-meetups' },
-  { number: '04', label: 'Host an exhibition',  href: '/diy/host-an-exhibition' },
+  { number: '01', label: 'Gather participants', href: '/diy/gather-participants', color: 'yellow' },
+  { number: '02', label: 'Get dumbphones',      href: '/diy/get-dumbphones',       color: 'cyan' },
+  { number: '03', label: 'Facilitate meetups',  href: '/diy/facilitate-meetups',   color: 'pink' },
+  { number: '04', label: 'Host an exhibition',  href: '/diy/host-an-exhibition',   color: 'blue' },
 ];
 
 // The 6-week program shown under "The basics".
@@ -50,7 +50,7 @@ const program = [
     <!-- 2. How to… -->
     <SectionHeader label="How to..." color="cyan" />
     {guideLinks.map((link) => (
-      <GuideLink number={link.number} label={link.label} href={link.href} />
+      <GuideLink number={link.number} label={link.label} href={link.href} color={link.color} />
     ))}
 
     <!-- 3. Letter -->
@@ -143,7 +143,7 @@ const program = [
     <section class="lydia">
       <div class="lydia__top">
         <p class="body">
-          ready to take the next step? submit an interest form and join the <a href="https://luma.com/calendar/cal-xd3qvSDnQeDHWEf" target="_blank" rel="noopener">next Q&amp;A session</a> to ask any questions, meet other aspiring organizers, and learn how to get dumbphones.
+          ready to take the next step? submit an interest form and join the <a href="https://luma.com/calendar/cal-xd3qvSDnQeDHWEf" target="_blank" rel="noopener">next Q&amp;A session</a> to ask any questions, meet other aspiring organizers, &amp; learn how to get dumbphones.
         </p>
         <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
       </div>

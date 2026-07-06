@@ -16,6 +16,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import NextLink from '../../components/NextLink.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
 ---
 
 <BaseLayout title="How to Host a Closing Exhibition — Month Offline" masthead="Month Offline > DIY Guide > Exhibition">
@@ -85,6 +86,14 @@ import NextLink from '../../components/NextLink.astro';
         spread the word by printing invitations and submitting to local
         newspapers or community calendars.
       </p>
+      <div class="exhibition__audio">
+        <AudioPlayer
+          title="MO Exhibition Panel"
+          byline="June 2025 * Temperance Alley Garden"
+          src="/audio/2025-06-exhibition-panel.mp3"
+        />
+      </div>
+
       <p class="body">
         set up tables where ppl can showcase their projects. invite 2-3
         participants to share their experience during a ~20min panel and give
@@ -133,6 +142,11 @@ import NextLink from '../../components/NextLink.astro';
   }
   .body + .body {
     margin-top: var(--space-3);
+  }
+
+  /* Vertical breathing room around the audio player. */
+  .exhibition__audio {
+    margin: var(--space-3) 0;
   }
 
   /* Photos interspersed through the card. */

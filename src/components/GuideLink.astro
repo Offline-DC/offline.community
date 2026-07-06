@@ -1,17 +1,23 @@
 ---
 /*
-  GuideLink.astro — a yellow "how-to" link row on the DIY guide landing page,
+  GuideLink.astro — a "how-to" link row on the DIY guide landing page,
   e.g. "01. GATHER PARTICIPANTS  >>>". Links to one of the four subpages.
+
+  `color` picks the box color: yellow (default), cyan, pink, or blue. Blue
+  gets white text to stay legible (matches the blue sub-heading bars
+  elsewhere on the site); the others keep black text.
 */
 interface Props {
   number: string; // e.g. "01"
   label: string;  // e.g. "Gather participants"
   href: string;   // e.g. "/diy/gather-participants"
+  color?: 'yellow' | 'cyan' | 'pink' | 'blue';
 }
-const { number, label, href } = Astro.props;
+const { number, label, href, color = 'yellow' } = Astro.props;
+const textColor = color === 'blue' ? 'var(--white)' : 'var(--black)';
 ---
 
-<a class="guide-link" href={href}>
+<a class="guide-link" href={href} style={`--guide-link-color: var(--mo-${color}); --guide-link-text: ${textColor};`}>
   <span class="guide-link__label font-display">{number}. {label}</span>
   <span class="guide-link__arrow font-display">&gt;&gt;&gt;</span>
 </a>
@@ -22,8 +28,8 @@ const { number, label, href } = Astro.props;
     justify-content: space-between;
     align-items: center;
     gap: var(--space-2);
-    background: var(--mo-yellow);
-    color: var(--black);
+    background: var(--guide-link-color);
+    color: var(--guide-link-text);
     text-decoration: none;
     padding: var(--space-2);
     min-height: var(--bar-section);
@@ -32,7 +38,7 @@ const { number, label, href } = Astro.props;
   }
   /* Hover: lighten the box 20% toward white. */
   .guide-link:hover {
-    background: color-mix(in srgb, var(--mo-yellow) 80%, white);
+    background: color-mix(in srgb, var(--guide-link-color) 80%, white);
   }
   .guide-link__arrow {
     transition: transform 0.15s ease;
