@@ -1,0 +1,255 @@
+---
+/*
+  Privacy Policy — /privacy
+
+  Astro turns this file into dist/privacy/index.html, which serves at
+  https://offline.community/privacy/ (with the trailing slash). That exact
+  URL is what's declared in the Dumb Down listing in Google Play Console,
+  and Play requires it to be a live, non-editable, globally reachable page.
+
+  ── Keeping this accurate ────────────────────────────────────────────────
+  This describes the CURRENT Dumb Down Android app (com.offlineinc.dumbdown,
+  v2.20.0 / versionCode 28). It was written against the app's manifest and
+  source, not from memory. If the app's permissions or data flows change,
+  this page and the Play "Data safety" form both need updating.
+
+  Two claims below depend on backend behaviour, not app code — re-check them
+  if the backend changes:
+    1. "only your two phones hold the key" — assumes the pairing server
+       discards the shared secret after issuing it. Note that
+       /contact-sync/upload authenticates with an X-Auth-HMAC computed from
+       that same secret, so the server must be verifying it some other way
+       (e.g. a stored verifier) for this to hold.
+    2. Retention windows in the "How long we keep things" section.
+---------------------------------------------------------------------------*/
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+
+const lastUpdated = 'July 31, 2026';
+---
+
+<BaseLayout
+  title="Privacy Policy — Dumb Down — Offline DC Inc"
+  description="How the Dumb Down app handles contacts, phone numbers, and sign-in information."
+  masthead="Month Offline > Privacy"
+>
+  <div class="sections">
+    <SectionHeader label="Privacy policy" color="cyan" />
+
+    <section class="card">
+      <p class="body">
+        <strong>Dumb Down</strong> &mdash; an app by <strong>OFFLINE DC INC</strong><br />
+        <span class="meta">Last updated: {lastUpdated}</span>
+      </p>
+
+      <p class="body">
+        Dumb Down is a companion app. It runs on your smartphone and helps you set
+        up and live with a dumb phone: pairing the two devices, copying your
+        contacts across, typing on the big phone so the words appear on the small
+        one, and getting you signed in to the services your dumb phone uses.
+      </p>
+      <p class="body">
+        Everything below follows from that. We handle only what the setup
+        actually needs, and we don't build a profile of you along the way.
+      </p>
+
+      <h3 class="label">The short version</h3>
+      <p class="body">
+        Dumb Down reads your contacts and relays sign-in information to your
+        paired dumb phone, at your request. Anything that travels between your
+        two phones is encrypted on the device it leaves from. We don't sell your
+        data, we don't show ads, and the app contains no analytics, tracking, or
+        crash-reporting SDKs. <strong>Dumb Down does not read, send, or store
+        your text messages</strong>, and requests no SMS permission.
+      </p>
+
+      <h3 class="label">1. What the app handles</h3>
+
+      <h4 class="sub">Contacts</h4>
+      <p class="body">
+        When you tap sync on the Contact Sync screen, the app reads the names and
+        phone numbers in your contacts and packages them as a vCard file. That
+        file is encrypted on your device with AES-256-GCM, using a key
+        established when you paired your two phones, and then uploaded to our
+        sync server so your dumb phone can collect it. Contacts saved on the dumb
+        phone travel back to your smartphone the same way, and are added to your
+        contacts list.
+      </p>
+      <p class="body">
+        Only the encrypted file reaches our server. Only your two paired phones
+        hold the key needed to read it. Contact syncing runs when you ask it to
+        &mdash; the app doesn't sync in the background &mdash; and your contacts
+        are never used for advertising, analytics, or profiling.
+      </p>
+
+      <h4 class="sub">Phone numbers</h4>
+      <p class="body">
+        Setup needs both numbers: your smartphone's and your dumb phone's. Both
+        are stored on your device. Your smartphone number is also sent to our
+        server so we can set up and confirm text syncing and call forwarding.
+        What we keep on our side is the phone number itself and a flag recording
+        whether setup succeeded &mdash; not the contents of any message or call.
+      </p>
+
+      <h4 class="sub">Signing in to Google Messages</h4>
+      <p class="body">
+        Your dumb phone sends and receives texts through Google Messages, which
+        means it needs to be signed in to your Google account. Dumb Down helps
+        you do that in one of two ways: you sign in to Google inside the app, or
+        you sign in on your computer and scan the resulting code with your
+        phone's camera.
+      </p>
+      <p class="body">
+        Either way, the app takes the resulting Google session cookies, encrypts
+        them on your device, and passes them through our relay to your paired
+        dumb phone, which stores them and uses them to sign in. The relay hands
+        the encrypted message straight to your dumb phone; we don't store these
+        cookies on our servers, and we can't read them. We never ask for, see, or
+        store your Google password.
+      </p>
+
+      <h4 class="sub">Typing on your dumb phone</h4>
+      <p class="body">
+        When you use your smartphone as a keyboard for your dumb phone, what you
+        type is encrypted on your device and relayed to the paired phone. It
+        isn't stored on our servers or retained after it arrives.
+      </p>
+
+      <h4 class="sub">Camera</h4>
+      <p class="body">
+        The camera is used for exactly one thing: scanning the sign-in code from
+        your computer screen. No photo or video is saved, and nothing from the
+        camera is uploaded.
+      </p>
+
+      <h4 class="sub">Pairing your devices</h4>
+      <p class="body">
+        To link the two phones, the app sends a randomly generated device
+        identifier and the platform name ("android") to our server, which returns
+        a short pairing code you enter on the dumb phone. This identifier isn't
+        an advertising ID and isn't shared with anyone.
+      </p>
+
+      <h4 class="sub">Call forwarding</h4>
+      <p class="body">
+        The app works out the right carrier code for forwarding calls to your
+        dumb phone and shows it to you. Dumb Down doesn't place calls itself and
+        holds no call permission &mdash; the code goes to your phone's own dialer,
+        where you place the call.
+      </p>
+
+      <h3 class="label">2. What the app does not do</h3>
+      <p class="body">
+        Dumb Down does not access SMS or MMS messages. It holds no SMS
+        permission, reads no messages, sends no messages, and runs no
+        notification listener. (Earlier versions of this policy described SMS
+        forwarding; the app no longer works that way.)
+      </p>
+      <p class="body">
+        It also does not: sell or rent personal data; share personal data with
+        advertisers or data brokers; show ads; include analytics, attribution,
+        tracking, or crash-reporting SDKs; access your location, photos,
+        microphone, calendar, or files; or track you across other apps and
+        websites.
+      </p>
+
+      <h3 class="label">3. Permissions the app asks for</h3>
+      <p class="body">
+        Android will prompt you for each of these, and you can refuse or revoke
+        any of them in your device settings. Refusing one turns off the feature
+        that needs it and nothing else.
+      </p>
+      <ul class="body list">
+        <li><strong>Contacts (read and write)</strong> &mdash; to copy contacts to and from your dumb phone.</li>
+        <li><strong>Camera</strong> &mdash; to scan the sign-in code from your computer.</li>
+        <li><strong>Internet</strong> &mdash; to reach the pairing, sync, and relay services.</li>
+      </ul>
+
+      <h3 class="label">4. Who else is involved</h3>
+      <p class="body">
+        We run our own backend on Heroku, a cloud hosting provider, which
+        processes data on our behalf and under our instructions. When you sign in
+        to your Google account, that exchange happens directly with Google and is
+        governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a>.
+        We share personal data with no one else.
+      </p>
+
+      <h3 class="label">5. How long we keep things</h3>
+      <ul class="body list">
+        <li><strong>Encrypted contact files</strong> &mdash; held on the sync server only until your paired phone collects them, then replaced by the next sync.</li>
+        <li><strong>Relayed messages</strong> (sign-in cookies, typed text) &mdash; passed straight through; not written to disk.</li>
+        <li><strong>Phone numbers and setup status</strong> &mdash; kept while your devices are paired.</li>
+        <li><strong>Data on your device</strong> &mdash; your numbers, chosen carrier, and pairing details live in the app's storage and are removed when you uninstall it or clear its data.</li>
+      </ul>
+
+      <h3 class="label">6. Your choices</h3>
+      <p class="body">
+        You decide whether to sync contacts and whether to sign in. You can
+        revoke any permission at any time in your device settings, unpair your
+        phones from inside the app, or uninstall the app, which clears everything
+        it stored locally.
+      </p>
+      <p class="body">
+        To ask what we hold about you, or to have it deleted from our servers,
+        email <a href="mailto:team@offline.community">team@offline.community</a>.
+        We'll respond within 30 days.
+      </p>
+
+      <h3 class="label">7. Children</h3>
+      <p class="body">
+        Dumb Down isn't directed at children under 13, and we don't knowingly
+        collect personal information from them. If you believe a child under 13
+        has given us personal information, email us and we'll delete it.
+      </p>
+
+      <h3 class="label">8. Changes to this policy</h3>
+      <p class="body">
+        If we change how the app handles information, we'll update this page and
+        move the "last updated" date at the top. Material changes will also be
+        noted in the app.
+      </p>
+
+      <h3 class="label">9. Contact us</h3>
+      <p class="body">
+        Questions about this policy, or about anything above:<br />
+        <a href="mailto:team@offline.community">team@offline.community</a><br />
+        OFFLINE DC INC, Washington, DC
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Standard body paragraph (Syne Mono) — same rhythm as the DIY pages. */
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+  .body + .body {
+    margin-top: var(--space-3);
+  }
+
+  /* The "last updated" line, quieter than the copy around it. */
+  .meta {
+    font-size: var(--size-footer);
+  }
+
+  /* Sub-heading below a blue .label bar — plain text in the display face,
+     for the individual data types inside section 1. */
+  .sub {
+    font-size: var(--size-body);
+    margin-top: var(--space-3);
+  }
+  .sub + .body {
+    margin-top: var(--space-1);
+  }
+
+  /* Bulleted lists sit inside the card's padding rather than hanging off it. */
+  .list {
+    margin: var(--space-2) 0 0;
+    padding-left: var(--space-3);
+  }
+  .list li + li {
+    margin-top: var(--space-1);
+  }
+</style>
