@@ -111,6 +111,15 @@ import '../styles/global.css';
         <Fragment><a class="masthead__link" href="/">{HOME_CRUMB}</a>{mastheadRest}</Fragment>
       ) : masthead}</h1>
 
+      <!-- Nav bar: three equal-width links on blue, separated by black
+           dividers. Home/DIY Guide are internal; Q&A opens the Luma
+           calendar in a new tab. -->
+      <nav class="nav-bar font-display">
+        <a class="nav-bar__link" href="/">Home</a>
+        <a class="nav-bar__link" href="/diy">DIY Guide</a>
+        <a class="nav-bar__link" href="https://luma.com/calendar/cal-xd3qvSDnQeDHWEf" target="_blank" rel="noopener">Q&amp;A</a>
+      </nav>
+
       <!-- Page content goes here. -->
       <main>
         <slot />
@@ -119,7 +128,7 @@ import '../styles/global.css';
       <!-- Footer (centered, on black). -->
       <footer class="site-footer font-display">
         <img class="pinwheel" src="/images/pinwheel.png" alt="" />
-        <p><a class="site-footer__link" href="mailto:organize@dumb.co">ORGANIZE@DUMB.CO</a> * <a class="site-footer__link" href="/privacy">PRIVACY</a></p>
+        <p><a class="site-footer__link" href="mailto:organize@dumb.co">ORGANIZE@DUMB.CO</a></p>
         <p><a class="site-footer__link" href="https://seewunder.studio/" target="_blank" rel="noopener">SEE WHAT'S UNDER STUDIO</a> * <a class="site-footer__link" href="https://dumb.co" target="_blank" rel="noopener">DUMB.CO</a></p>
         <p>DESIGNED WITH CARE IN WASHINGTON, DC</p>
         <p class="site-footer__cc">
@@ -224,6 +233,34 @@ import '../styles/global.css';
   .masthead__link:hover,
   .masthead__link:focus-visible {
     text-decoration: underline;
+  }
+
+  /* Nav bar: three equal-width links on blue, split by 2px black dividers
+     (borders on all but the first link, so there's no double-width line). */
+  .nav-bar {
+    display: flex;
+    background: var(--mo-blue);
+    height: var(--bar-section);
+    /* Same gap as between every other section (--space-1, via .sections'
+       own gap/margin-top), so the nav bar sits flush with that rhythm. */
+    margin: var(--space-1) 0;
+  }
+  .nav-bar__link {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.15s ease;
+  }
+  .nav-bar__link + .nav-bar__link {
+    border-left: 2px solid var(--black);
+  }
+  .nav-bar__link:hover,
+  .nav-bar__link:focus-visible {
+    background: color-mix(in srgb, var(--mo-blue) 80%, white);
   }
 
   .pinwheel {
