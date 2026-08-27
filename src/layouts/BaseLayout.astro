@@ -74,6 +74,15 @@ import '../styles/global.css';
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Workbench&display=swap"
     />
+
+    <!-- Umami analytics. `defer` means it downloads alongside the page but
+         only runs once the HTML is parsed, so it can't block rendering.
+         Every page gets this because BaseLayout wraps all of them, so this
+         one tag is all it takes to get site-wide pageview tracking.
+         data-website-id isn't a secret — it's plain text in every page's
+         source anyway — so unlike SHEET_CSV_URL it doesn't need to live in
+         .env. -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="f53ab9af-8e50-4028-98d1-59940bc69929"></script>
   </head>
 
   <body>

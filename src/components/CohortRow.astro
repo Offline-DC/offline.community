@@ -9,6 +9,11 @@
   `href` is optional. When the sheet's FORM cell is blank there's nothing to
   link to, so the row renders as a plain <div> instead of an <a> and the
   trailing arrow is left off.
+
+  data-umami-event: tags the row for Umami (see BaseLayout.astro and
+  ResourceCard.astro, which does the same thing) so clicks show up in the
+  dashboard as a named event — "cohort: New York City, NY" — instead of just
+  a generic outbound-link count. Only added when there's actually a link.
 */
 interface Props {
   location: string;   // e.g. "New York City, NY"
@@ -25,7 +30,7 @@ const hasLink = Boolean(href);
 const Tag = hasLink ? 'a' : 'div';
 ---
 
-<Tag class={`cohort-row cohort-row--${color}`} {...hasLink ? { href, target: '_blank', rel: 'noopener' } : {}}>
+<Tag class={`cohort-row cohort-row--${color}`} {...hasLink ? { href, target: '_blank', rel: 'noopener', 'data-umami-event': `cohort: ${location}` } : {}}>
   <div class="cohort-row__head">
     <span class="cohort-row__title font-display">{location} – {date}</span>
     {hasLink && <span class="cohort-row__arrow font-display">&gt;&gt;&gt;</span>}

@@ -7,6 +7,12 @@
   PDF we host under /resources/, sometimes an external page (e.g. a sign-up
   form). Opening in a new tab (target="_blank") keeps the guide page open
   behind it; rel="noopener" is the standard safety attribute for that.
+
+  data-umami-event: Umami (see BaseLayout.astro) watches for clicks on any
+  element carrying this attribute and logs it as a named event, separately
+  from plain pageviews. We set it to the resource's own title, so the Umami
+  dashboard shows a click count broken out per resource ("Month Offline
+  Flyers: 12 clicks") instead of lumping every PDF under one number.
 */
 interface Props {
   title: string;
@@ -16,7 +22,7 @@ interface Props {
 const { title, description, href } = Astro.props;
 ---
 
-<a class="resource" href={href} target="_blank" rel="noopener">
+<a class="resource" href={href} target="_blank" rel="noopener" data-umami-event={`resource: ${title}`}>
   <div class="resource__head">
     <span class="resource__title font-display">{title}</span>
     <!-- Open-in-new-tab icon (arrow leaving a box). `currentColor` keeps it
