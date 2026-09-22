@@ -17,31 +17,24 @@ import Hero from '../../components/Hero.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import NextLink from '../../components/NextLink.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
+import { getEntry } from 'astro:content';
+
+const { data: page } = await getEntry('diy-host-exhibition', 'page');
 ---
 
-<BaseLayout title="How to Host a Closing Exhibition — Month Offline" masthead="Month Offline > DIY Guide > Exhibition">
+<BaseLayout title={page.title} masthead={page.masthead}>
   <div class="sections">
     <!-- 1. Hero -->
     <Hero />
 
     <!-- 2. Heading -->
-    <SectionHeader label="How to host a closing exhibition" color="cyan" />
+    <SectionHeader label={page.sectionLabel} color="cyan" />
 
     <!-- 3. Body -->
     <section class="card">
-      <h3 class="label">What do ppl do with all their new free time?</h3>
-      <p class="body">
-        Month Offline is not just about what we're saying no to, but what we're
-        inviting in. we always ask participants to consider choosing an Offtime
-        Outlet for the month.
-      </p>
-      <p class="body">
-        how might they want to spend their newfound free time? this is a
-        permission slip to do that thing they've always wanted to do. keep it
-        low-stakes and low-pressure! Offtime outlets come in many different
-        shapes and sizes (including napping and spending more time with the
-        kids). set aside some time to workshop ideas at each MO meetup.
-      </p>
+      <h3 class="label">{page.subheadings[0]}</h3>
+      <p class="body" set:html={page.paragraph1} />
+      <p class="body" set:html={page.paragraph2} />
 
       <img
         class="card__photo"
@@ -51,21 +44,10 @@ import AudioPlayer from '../../components/AudioPlayer.astro';
         alt="A handwritten Offtime Outlets sign-up sheet listing participants and the slow pursuits they chose"
       />
 
-      <h3 class="label">What's a community exhibition?</h3>
-      <p class="body">
-        the og Month Offline cohorts ended with a phone-free exhibition where
-        participants shared their offtime projects with friends, family, and
-        neighbors.
-      </p>
-      <p class="body">
-        it's important to wrap things up with a public event so that ur cohort
-        sparks a community conversation and more ppl are invited 2 join the
-        attention liberation movement.
-      </p>
-      <p class="body">
-        the goal is not to isolate participants in insular flip phone clubs, but
-        to make our neighborhoods more enriching than our screens.
-      </p>
+      <h3 class="label">{page.subheadings[1]}</h3>
+      <p class="body" set:html={page.paragraph3} />
+      <p class="body" set:html={page.paragraph4} />
+      <p class="body" set:html={page.paragraph5} />
 
       <!-- Vimeo embed of the Month Offline Gallery video. The responsive
            wrapper below keeps it at a 16:9 ratio at any width. -->
@@ -78,34 +60,18 @@ import AudioPlayer from '../../components/AudioPlayer.astro';
         ></iframe>
       </div>
 
-      <p class="body">
-        the exhibition feels like a cross between a science fair, an open mic,
-        and an art gallery.
-      </p>
-      <p class="body">
-        spread the word by printing invitations and submitting to local
-        newspapers or community calendars.
-      </p>
+      <p class="body" set:html={page.paragraph6} />
+      <p class="body" set:html={page.paragraph7} />
       <div class="exhibition__audio">
         <AudioPlayer
-          title="MO Exhibition Panel"
-          byline="June 2025 * Temperance Alley Garden"
+          title={page.audio.title}
+          byline={page.audio.byline}
           src="/audio/2025-06-exhibition-panel.mp3"
         />
       </div>
 
-      <p class="body">
-        set up tables where ppl can showcase their projects. invite 2-3
-        participants to share their experience during a ~20min panel and give
-        guests plenty of time to ask their own questions. it's always a good
-        time to listen to the trials and triumphs from the month-long challenge.
-      </p>
-      <p class="body">
-        ppl leave feeling inspired reconsider their relationship to digital
-        media and maybe even join a future MO cohort. find a way to collect
-        contact information so u can follow up with guests after the event and
-        grow ur scene!
-      </p>
+      <p class="body" set:html={page.paragraph8} />
+      <p class="body" set:html={page.paragraph9} />
 
       <img
         class="card__photo"
@@ -130,7 +96,7 @@ import AudioPlayer from '../../components/AudioPlayer.astro';
     </section>
 
     <!-- 4. Next — last page loops back to the DIY guide index (no arrow). -->
-    <NextLink label="DIY Guide" href="/diy" arrow={false} prefix="Return to " />
+    <NextLink label={page.nextLinkLabel} href="/diy" arrow={false} prefix="Return to " />
   </div>
 </BaseLayout>
 

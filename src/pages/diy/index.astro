@@ -20,94 +20,61 @@ import GuideLink from '../../components/GuideLink.astro';
 import ProgramStep from '../../components/ProgramStep.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
 import NextLink from '../../components/NextLink.astro';
+import { getEntry } from 'astro:content';
 
-// The four subpages, read in order. Each links to the next at its own foot.
-const guideLinks = [
-  { number: '01', label: 'Invite participants', href: '/diy/gather-participants', color: 'yellow' },
-  { number: '02', label: 'Get dumbphones',      href: '/diy/get-dumbphones',       color: 'yellow' },
-  { number: '03', label: 'Facilitate meetups',  href: '/diy/facilitate-meetups',   color: 'yellow' },
-  { number: '04', label: 'Host an exhibition',  href: '/diy/host-an-exhibition',   color: 'yellow' },
-];
+const { data: diyIndex } = await getEntry('diy-index', 'index');
 
-// The 6-week program shown under "The basics".
-// Each question underlines a key phrase (the <u> tags are rendered as HTML in
-// ProgramStep via set:html — see that component).
-const program = [
-  { number: 1, color: 'yellow', title: 'Communication', question: 'how do devices shape our patterns of communication? ppl <u>sign the Offline Pledge</u> and ceremonially flip off their smartphones.' },
-  { number: 2, color: 'cyan',   title: 'Memory',        question: "what do we remember when we're not feeling distracted? ppl interview each other about <u>a creative outlet</u> they're exploring." },
-  { number: 3, color: 'pink',   title: 'Navigation',    question: "how do we experience urban space when we're off the GPS? ppl <u>use paper maps</u> to share the story of their commute." },
-  { number: 4, color: 'blue',   title: 'Boredom',       question: 'how do we inhabit the vacancies in our attention? ppl <u>split into 2 teams</u> for a collage competition and plan a midweek outing.' },
-  { number: 5, color: 'red',    title: 'Graduation',    question: 'what are we going to carry with us from this experience together? ppl give <u>mini-commencement speeches</u> with their takeaways.' },
-  { number: 6, color: 'black',  title: 'Exhibition',    question: 'how did we make the most of our offtime? ppl share their <u>creative outlets</u> at a public party for the community.' },
+// The number/href/color for each subpage link and program step is design —
+// tied to fixed positions in the layout, not something you'd edit in
+// Craft — so it stays here. Only the text (diyIndex.guideLinkLabels,
+// diyIndex.program) comes from the copy doc.
+const GUIDE_LINK_META = [
+  { number: '01', href: '/diy/gather-participants', color: 'yellow' },
+  { number: '02', href: '/diy/get-dumbphones',       color: 'yellow' },
+  { number: '03', href: '/diy/facilitate-meetups',   color: 'yellow' },
+  { number: '04', href: '/diy/host-an-exhibition',   color: 'yellow' },
 ];
+const guideLinks = GUIDE_LINK_META.map((meta, i) => ({ ...meta, label: diyIndex.guideLinkLabels[i] }));
+
+const PROGRAM_META = [
+  { number: 1, color: 'yellow' },
+  { number: 2, color: 'cyan' },
+  { number: 3, color: 'pink' },
+  { number: 4, color: 'blue' },
+  { number: 5, color: 'red' },
+  { number: 6, color: 'black' },
+];
+const program = PROGRAM_META.map((meta, i) => ({ ...meta, ...diyIndex.program[i] }));
 ---
 
-<BaseLayout title="DIY Guide — Month Offline" masthead="Month Offline > DIY Guide">
+<BaseLayout title={diyIndex.title} masthead={diyIndex.masthead}>
   <div class="sections">
     <!-- 1. Hero -->
     <Hero />
 
     <!-- 2. How to… -->
-    <SectionHeader label="How to..." color="cyan" />
+    <SectionHeader label={diyIndex.howToSectionLabel} color="cyan" />
     {guideLinks.map((link) => (
       <GuideLink number={link.number} label={link.label} href={link.href} color={link.color} />
     ))}
 
     <!-- 3. Letter -->
     <section class="card">
-      <h3 class="letter__salutation font-display">Dear organizers,</h3>
-      <p class="body">
-        we're glad you're curious about starting a Month Offline cohort in ur
-        city. a little backstory: MO's founding flipmates first met at a
-        phone-free Shabbat dinner in <a href="https://www.ustreetcommunity.org/temperance-alley-garden" target="_blank" rel="noopener">Temperance Alley</a>
-        -- a community garden and outdoor classroom in Washington, DC. Grant and
-        Danny teamed up with Aaron and Josh to design a challenge that would help
-        neighbors liberate their attention and deepen their sense of place. all
-        of us had been practicing our own forms of attention activism
-        ... building clay ovens, inspiring friends to use flip phones, <a href="https://seewunder.studio/" target="_blank" rel="noopener">organizing
-        local field trips</a>.
-      </p>
-      <p class="body">
-        in April 2025, we came together to post flyers around DC with a simple
-        invitation: CALL 1-844-OFFLINE if u want to ditch ur smartphone for 30
-        days and experience the beauty of Life beyond the screen with a small
-        group of peers. to our surprise, ppl started leaving us heartfelt
-        voicemails about why they wanted to flip off. we put together a MO field
-        kit with old-school tools that would help us fill the void left behind
-        by our smartphones. and a few weeks later, 15 strangers assembled at a
-        local bar to embark on what turned out to be a transformative trip.
-      </p>
+      <h3 class="letter__salutation font-display">{diyIndex.letter.salutation}</h3>
+      <p class="body" set:html={diyIndex.letter.paragraph1} />
+      <p class="body" set:html={diyIndex.letter.paragraph2} />
 
       <div class="letter__audio">
         <AudioPlayer
-          title="1-844-Offline Voice Collage"
-          byline="May 2025 * edited by Josh Morin"
+          title={diyIndex.audio.title}
+          byline={diyIndex.audio.byline}
           src="/audio/1844OFFLINE.mp3"
         />
       </div>
 
-      <p class="body">
-        if that was THE END, it would have been enough! but we were so energized
-        by what emerged in newfound offtime that we decided to organize another
-        cohort. and another. and another ... after crushing the July '25
-        challenge, Lydia came on board as MO's first-ever trained facilitator
-        and not long after, she helped bring the challenge to a whole new city:
-        the Big Apple.
-      </p>
-      <p class="body">
-        so much has bloomed now: new friendships, photo books, dance videos,
-        plays, short films, a makeshift telegraph, subjective cartographies,
-        kombucha, repaired jeans, a petition to save the local park -- more than
-        we can remember. inspired by all we've witnessed, we created this DIY
-        guide to encourage u to start a MO cohort (and to make it ur own)! inside
-        you'll find helpful hints and printable materials for every stage of ur
-        organizing. u got this! don't hesitate to reach out.
-      </p>
-      <p class="body letter__signoff">
-        Less is MO,<br />
-        Aaron, Josh, &amp; Lydia<br />
-        <a href="mailto:month@offline.community">month@offline.community</a>
-      </p>
+      <p class="body" set:html={diyIndex.letter.paragraph3} />
+      <p class="body" set:html={diyIndex.letter.paragraph4} />
+      <p class="body letter__signoff" set:html={diyIndex.letter.signoff} />
       <img
         class="letter__image"
         src="/images/mo_bike.jpg"
@@ -121,19 +88,10 @@ const program = [
     </section>
 
     <!-- 4. The basics -->
-    <SectionHeader label="The basics" color="yellow" />
+    <SectionHeader label={diyIndex.basicsSectionLabel} color="yellow" />
     <section class="card">
-      <p class="body">
-        <u>weekly meetups are at the heart of MO</u>. the most important
-        'content' of the curriculum is the stories that participants bring back
-        from the field. it's not a retreat, but a <em>reentry</em> program to
-        the beauty of local Life beyond the screen.
-      </p>
-      <p class="body">
-        the og challenge is built around 5 themes and a community exhibition,
-        but u r welcome to remix our recipe to better suit the needs of ur
-        neighborhood:
-      </p>
+      <p class="body" set:html={diyIndex.basics.intro1} />
+      <p class="body" set:html={diyIndex.basics.intro2} />
       <div class="program">
         {program.map((step) => (
           <ProgramStep number={step.number} color={step.color} title={step.title} question={step.question} />
@@ -142,19 +100,17 @@ const program = [
     </section>
 
     <!-- 5. Ring ring — interest form -->
-    <SectionHeader label="Ring ring: let's get organized" color="yellow" />
+    <SectionHeader label={diyIndex.ringRingSectionLabel} color="yellow" />
     <section class="lydia">
       <div class="lydia__top">
-        <p class="body">
-          ready to take the next step? submit an interest form and join the <a href="https://luma.com/calendar/cal-xd3qvSDnQeDHWEf" target="_blank" rel="noopener">next Q&amp;A session</a> to ask any questions, meet other aspiring organizers, &amp; learn how to get dumbphones.
-        </p>
+        <p class="body" set:html={diyIndex.ringRing.paragraph} />
         <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
       </div>
-      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">ANSWER THE CALL</a>
+      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">{diyIndex.ringRing.buttonLabel}</a>
     </section>
 
     <!-- 6. Next -->
-    <NextLink label="How to Invite Participants" href="/diy/gather-participants" />
+    <NextLink label={diyIndex.nextLinkLabel} href="/diy/gather-participants" />
   </div>
 </BaseLayout>
 

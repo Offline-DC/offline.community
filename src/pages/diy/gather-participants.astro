@@ -17,57 +17,25 @@ import Hero from '../../components/Hero.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import ResourceCard from '../../components/ResourceCard.astro';
 import NextLink from '../../components/NextLink.astro';
+import { getEntry } from 'astro:content';
 
-// Resource cards. Hosted PDFs live in /public/resources/; the sign-up form is
-// an external Tally link. Each card opens its resource in a new tab.
-const resources = [
-  {
-    title: 'Month Offline Flyers',
-    description: 'posters that u can put up around ur neighborhood to find the others!',
-    href: '/resources/mo_flyers.pdf',
-  },
-  {
-    title: 'sign up form',
-    description: 'use our registration form template to keep track of all your participants.',
-    href: 'https://tally.so/templates/month-offline-registration-form-template/m6zZYm',
-  },
-  {
-    title: 'Month Offline Postcards',
-    description: 'encouraging letters from past participants. cut them out and mail them as a welcome gift.',
-    href: '/resources/mo_postcards.pdf',
-  },
-];
+const { data: page } = await getEntry('diy-gather-participants', 'page');
 ---
 
-<BaseLayout title="How to Invite Participants — Month Offline" masthead="Month Offline > DIY Guide > Participants">
+<BaseLayout title={page.title} masthead={page.masthead}>
   <div class="sections">
     <!-- 1. Hero -->
     <Hero />
 
     <!-- 2. Heading -->
-    <SectionHeader label="How to invite participants" color="cyan" />
+    <SectionHeader label={page.sectionLabel} color="cyan" />
 
     <!-- 3. Body -->
     <section class="card">
-      <h3 class="label">How do I get the word out?</h3>
-      <p class="body">
-        it's much easier to flip off in community than on ur own. the first step
-        is to <u>find at least one other person who wants to help u bring this
-        to life</u>.
-      </p>
-      <p class="body">
-        work together to <u>recruit a group of 10–30 participants</u> to go offline
-        together. set up a phone number, email address, or form where ppl can
-        sign up. invite some friends to join you, and ask them to invite some of
-        their friends.
-      </p>
-      <p class="body">
-        flyer on utility boxes, in cafes, book shops, bars -- or wherever u can
-        find a community bulletin board. table on a busy street corner. submit
-        an invitation to local newsletters or e-mail listservs. try to <u>avoid
-        using social media</u> ... u will be surprised by how many ppl come
-        out of the woodwork! the medium is the message.
-      </p>
+      <h3 class="label">{page.subheading1}</h3>
+      <p class="body" set:html={page.paragraph1} />
+      <p class="body" set:html={page.paragraph2} />
+      <p class="body" set:html={page.paragraph3} />
 
       <img
         class="card__photo"
@@ -77,37 +45,13 @@ const resources = [
         alt="A hand wheat-pasting a Month Offline poster onto a city wall"
       />
 
-      <p class="body">
-        <u>cold call</u> ppl as they sign up. ask them about why they decided to
-        take the plunge, their hopes &amp; dreams for the month. make sure
-        they're free on the date &amp; time you've selected. share a bit about
-        urself and what to expect from the meetups.
-      </p>
-      <p class="body">
-        <u>send a reminder</u> 1 week before and 1 day before with all ur deets:
-        date, time, &amp; location. try including a playful instruction like
-        "look 4 the man in the sunglasses and give him the secret passcode LESS
-        IS MO."
-      </p>
+      <p class="body" set:html={page.paragraph4} />
+      <p class="body" set:html={page.paragraph5} />
 
-      <h3 class="label">Where should we meet up?</h3>
-      <p class="body">
-        <u>choose a day and time</u> that u and ur fellow organizers are
-        available for 5 consecutive weeks. meetups typically last 1.5-2hours,
-        and remember u will need at least a half hour on either end for set up
-        and takedown!
-      </p>
-      <p class="body">
-        <u>find a local venue</u> that will host u, and get to know the owners.
-        Month Offline is a great way to patronize local businesses and support
-        IRL community hubs. private rooms or relatively quite spaces at
-        restaurants &amp; bars tend to work best, but some groups meet outside
-        at the park.
-      </p>
-      <p class="body">
-        once you've found ur ppl and place, ur ready to start prepping for the
-        meetups!
-      </p>
+      <h3 class="label">{page.subheading2}</h3>
+      <p class="body" set:html={page.paragraph6} />
+      <p class="body" set:html={page.paragraph7} />
+      <p class="body" set:html={page.paragraph8} />
 
       <img
         class="card__photo"
@@ -117,20 +61,17 @@ const resources = [
         alt="Month Offline participants gathered around a table at their meetup venue"
       />
 
-      <p class="body">
-        dumb.co is offering a $100 starter stipend to organizers to help cover
-        the cost of getting ur cohort off the ground!
-      </p>
+      <p class="body" set:html={page.paragraph9} />
     </section>
 
     <!-- 4. Resources -->
-    <SectionHeader label="Resources" />
-    {resources.map((r) => (
+    <SectionHeader label={page.resourcesSectionLabel} />
+    {page.resources.map((r) => (
       <ResourceCard title={r.title} description={r.description} href={r.href} />
     ))}
 
     <!-- 5. Next — read-in-order, per CLAUDE.md (Gather → Get Dumbphones → …). -->
-    <NextLink label="How to Get Dumbphones" href="/diy/get-dumbphones" />
+    <NextLink label={page.nextLinkLabel} href="/diy/get-dumbphones" />
   </div>
 </BaseLayout>
 

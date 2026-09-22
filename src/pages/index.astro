@@ -19,6 +19,7 @@ import SectionHeader from '../components/SectionHeader.astro';
 import CohortRow from '../components/CohortRow.astro';
 import PressItem from '../components/PressItem.astro';
 import { getCohorts } from '../lib/cohorts.js';
+import { getEntry } from 'astro:content';
 
 // Pull the cohort directory from the published Google Sheet at build time.
 // Empty until cohorts are added to the sheet — the section shows an
@@ -30,123 +31,106 @@ const cohorts = await getCohorts();
 // locations"; finished ones move down to "Past cohorts".
 const upcomingCohorts = cohorts.filter((c) => c.status !== 'past');
 const pastCohorts = cohorts.filter((c) => c.status === 'past');
+
+// Pull this page's text from src/content/home/home.md, validated against
+// the schema in src/content.config.ts. `home.data` is the file's
+// frontmatter, e.g. home.data.intro.tagline.
+const { data: home } = await getEntry('home', 'home');
+
+// The bullet icon (✺ meetups, ☎ device, ❉ exhibition) is design, not copy —
+// it's tied to which "how it works" group this is, not something anyone
+// would edit in Craft, so it stays here rather than in the doc. Matched to
+// home.howItWorks.groups by position (1st group, 2nd group, 3rd group).
+const GROUP_GLYPHS = ['✺', '☎', '❉'];
 ---
 
-<BaseLayout title="Month Offline">
+<BaseLayout title={home.title} masthead={home.masthead}>
   <div class="sections">
     <!-- 1. Hero -->
     <Hero />
 
     <!-- 2. Intro -->
     <section class="card">
-      <p class="lead__tagline font-display">part support group, part happy hour, part classroom</p>
-      <p class="lead__headline font-display">ditch ur smartphone for 30 days and join a cohort of neighbors for weekly meetups, creative exercises, &amp; mutual encouragement.</p>
-      <p class="lead__coda font-display">if not now, when?</p>
-      <p class="body">
-        ahoy! <u>you've reached offline.community</u> — a directory of Month
-        Offline cohorts and a <a href="https://offline.community/diy/" target="_blank" rel="noopener">guide</a> to starting ur own. the very first MO
-        challenge took place in Washington DC in May 2025. since then, over 400
-        brave souls have entered the flip side with their neighbors. check the
-        directory below to see if there's already a MO cohort in ur city. if
-        not, might u be the one to get it going? ⁕
-      </p>
+      <p class="lead__tagline font-display">{home.intro.tagline}</p>
+      <p class="lead__headline font-display">{home.intro.headline}</p>
+      <p class="lead__coda font-display">{home.intro.coda}</p>
+      <!-- set:html renders the string as real HTML instead of escaping it as
+           text — this field's value in home.md has real <u>/<a> tags typed
+           directly into the frontmatter. Safe here because that file is
+           something you write yourself in the repo, not from a visitor or
+           any other untrusted source. -->
+      <p class="body" set:html={home.intro.paragraph} />
     </section>
 
     <!-- 3. Press -->
-    <SectionHeader label="Extra, extra, Read all about it" color="cyan" />
+    <SectionHeader label={home.press.sectionLabel} color="cyan" />
     <section class="card card--gray">
       <ul class="press-list">
-        <PressItem
-          headline="A group of us ditched our smartphones for a month. It changed us."
-          outlet="Washington Post"
-          href="https://www.washingtonpost.com/dc-md-va/interactive/2025/smartphones-dumbphones-month-offline/"
-        />
-        <PressItem
-          headline="The flip-phone cleanse"
-          outlet="The Atlantic"
-          href="https://www.theatlantic.com/technology/2026/04/month-offline-smartphone-detox/686911/"
-        />
+        {home.press.items.map((item) => (
+          <PressItem headline={item.headline} outlet={item.outlet} href={item.href} />
+        ))}
       </ul>
     </section>
 
     <!-- 4. How it works -->
-    <SectionHeader label="How it works" color="cyan" />
+    <SectionHeader label={home.howItWorks.sectionLabel} color="cyan" />
     <section class="card">
-      <p class="body">
-        <u>flipping off is better together!</u> the MO challenge is a community
-        of practice for groups of 10–30. participants gather at a local venue,
-        sign a pledge to forgo the use of their smartphone for 30 days, and
-        support the vitality of the neighborhood through their presence +
-        patronage.
-      </p>
+      <p class="body" set:html={home.howItWorks.intro} />
 
-      <h3 class="label">Facilitated IRL meetups</h3>
-      <ul class="bullets">
-        <li>✺ <u>hands-on activities</u> to explore weekly themes on the frictions &amp; fruits of offline living</li>
-        <li>✺ <u>dedicated time</u> to incubate your creative outlet and encourage others' exploration</li>
-        <li>✺ <u>graduation ceremony</u> to celebrate each other's offtime</li>
-      </ul>
-
-      <h3 class="label">dumb device</h3>
-      <ul class="bullets">
-        <li>☎ <u>abandon</u> ur mobile phone altogether and set up a landline</li>
-        <li>☎ or <u>get a classic flip</u> phone and switch ur SIM</li>
-        <li>☎ or <u>try a dumbphone 2</u> from <a href="https://dumb.co" target="_blank">dumb.co</a> with option to sync calls, txts, and contacts with ur smartphone</li>
-      </ul>
-
-      <h3 class="label">show &amp; tell</h3>
-      <ul class="bullets">
-        <li>❉ <u>public party</u> with the friends &amp; family of MO participants</li>
-        <li>❉ <u>showcase</u> stories, artworks, and practices that emerged during the month</li>
-      </ul>
+      {home.howItWorks.groups.map((group, i) => (
+        <>
+          <h3 class="label">{group.heading}</h3>
+          <ul class="bullets">
+            {group.bullets.map((bullet) => (
+              <li>{GROUP_GLYPHS[i]} <span set:html={bullet} /></li>
+            ))}
+          </ul>
+        </>
+      ))}
     </section>
 
     <!-- 5. Locations -->
-    <SectionHeader label="Month Offline locations" color="cyan" />
+    <SectionHeader label={home.locations.sectionLabel} color="cyan" />
     <!-- Directory blurb sits beneath the locations header in its own blue box. -->
     <section class="directory-note">
-      <p>
-        each cohort is unique, but we're united by the MO pledge and our
-        commitment to attention liberation. join an existing cohort or start
-        ur own.
-      </p>
+      <p set:html={home.locations.blurb} />
     </section>
     {upcomingCohorts.length > 0
       ? upcomingCohorts.map((c) => (
           <CohortRow location={c.location} date={c.date} organizer={c.organizer} href={c.href} />
         ))
-      : <p class="no-cohorts">No cohorts listed yet — be the first to start one in your city, below.</p>
+      : <p class="no-cohorts">{home.locations.emptyState}</p>
     }
 
     <!-- 6. CTA → DIY guide -->
     <a class="cta" href="/diy">
       <div class="cta__head">
-        <span class="font-display"><span class="cta__icon cta__icon--star">★</span> Start MO in ur neighborhood</span>
+        <span class="font-display"><span class="cta__icon cta__icon--star">★</span> {home.ctaDiy.heading}</span>
         <span class="font-display">&gt;&gt;&gt;</span>
       </div>
       <p class="cta__blurb">
-        not seeing ur location? don't fret ... use the DIY guide to roll ur own cohort.
+        {home.ctaDiy.blurb}
       </p>
     </a>
 
     <!-- Blue CTA → get notified when a cohort launches nearby -->
     <a class="cta cta--notify" href="https://tally.so/r/japgd9" target="_blank" rel="noopener">
       <div class="cta__head">
-        <span class="font-display"><span class="cta__icon cta__icon--mail">✉</span> Get notified when MO comes to town</span>
+        <span class="font-display"><span class="cta__icon cta__icon--mail">✉</span> {home.ctaNotify.heading}</span>
         <span class="font-display">&gt;&gt;&gt;</span>
       </div>
       <p class="cta__blurb">
-        we'll shoot u an email when someone decides to organize a cohort nearby.
+        {home.ctaNotify.blurb}
       </p>
     </a>
 
     <!-- Past cohorts -->
-    <SectionHeader label="Past cohorts" color="cyan" />
+    <SectionHeader label={home.pastCohorts.sectionLabel} color="cyan" />
     {pastCohorts.length > 0
       ? pastCohorts.map((c) => (
           <CohortRow location={c.location} date={c.date} organizer={c.organizer} href={c.href} color="gray" />
         ))
-      : <p class="no-cohorts">No past cohorts yet.</p>
+      : <p class="no-cohorts">{home.pastCohorts.emptyState}</p>
     }
 
     <!-- 7. Photos -->

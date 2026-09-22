@@ -19,27 +19,23 @@ import SectionHeader from '../../components/SectionHeader.astro';
 import ResourceCard from '../../components/ResourceCard.astro';
 import NextLink from '../../components/NextLink.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
+import { getEntry } from 'astro:content';
 
-// Resource cards. Hosted PDFs live in /public/resources/; each card opens in
-// a new tab.
-const resources = [
-  { title: 'Time Capsule Card',          description: 'encourage ppl to set intentions at orientation that they can review at the end of the month.',     href: '/resources/mo_time_capsule.pdf' },
-  { title: 'Offline Pledge Card',        description: 'ceremonially enter the month by signing the Offline Pledge together at orientation.',   href: '/resources/mo_pledge.pdf' },
-  { title: 'Dumb Prompts',               description: 'weekly prompts to use at each meetup.',                                              href: '/resources/mo_prompts.pdf' },
-  { title: 'Facilitation Guides',        description: "beat-for-beat structure of the og MO meetups. take what's useful, leave the rest.", href: '/resources/mo_facilitator_guides.pdf' },
-  { title: 'Offtime Outlets index',      description: 'invite ppl to add their creative outlet to a shared inventory.',                    href: '/resources/mo_offtime_outlets.pdf' },
-  { title: 'Certificates of Completion', description: 'graduate from Month Offline in style.',                                             href: '/resources/mo_certificate.pdf' },
-  { title: 'Blank Postcards',            description: 'after graduation, ask participants to write a letter of advice to a future participant.', href: '/resources/mo_blank_postcards.pdf' },
-];
+const { data: page } = await getEntry('diy-facilitate-meetups', 'page');
+
+// The glyph before each "what to bring" item is design, tied to its
+// position in the list, not something you'd edit in Craft — same idea as
+// the Home page's bullet-group icons.
+const BRING_GLYPHS = ['✶', '✷', '✸', '✹', '✺', '✻', '✼'];
 ---
 
-<BaseLayout title="How to Facilitate Meetups — Month Offline" masthead="Month Offline > DIY Guide > Facilitation">
+<BaseLayout title={page.title} masthead={page.masthead}>
   <div class="sections">
     <!-- 1. Hero -->
     <Hero />
 
     <!-- 2. Heading -->
-    <SectionHeader label="How to facilitate meetups" color="cyan" />
+    <SectionHeader label={page.sectionLabel} color="cyan" />
 
     <!-- 3. Body -->
     <section class="card">
@@ -51,20 +47,9 @@ const resources = [
         alt="Participants seated at long tables during a Month Offline orientation meetup"
       />
 
-      <p class="body">
-        Month Offline meetups are playful and thought-provoking events where
-        participants encourage, challenge, and get to know each other.
-      </p>
-      <p class="body">
-        we're not purists (it's OK to slip up), but we do urge ppl to <u>make
-        the most</u> of the the time we have together.
-      </p>
-      <p class="body">
-        facilitators <u>don't have all the answers</u> and don't take up too
-        much space in the room -- we help participants learn from each other and
-        crowdsource creative workarounds to common troubles. u can download
-        detailed facilitation guides for each meetup, or create ur own!
-      </p>
+      <p class="body" set:html={page.paragraph1} />
+      <p class="body" set:html={page.paragraph2} />
+      <p class="body" set:html={page.paragraph3} />
 
       <img
         class="card__photo photo-bring"
@@ -73,47 +58,24 @@ const resources = [
         height="218"
         alt="A handbell, a box of crayons, a book, and a portable speaker"
       />
-      <h3 class="label">What should I bring?</h3>
+      <h3 class="label">{page.subheadings[0]}</h3>
       <ul class="bring">
-        <li>✶ a handbell to easily get the attention of a large group</li>
-        <li>✷ nametags to help strangers become friends</li>
-        <li>✸ old-school tools for ppl to play with, e.g. typewriter, quill pen, film camera</li>
-        <li>✹ relevant books for participants to peruse</li>
-        <li>✺ paper, crayons, and pens for drawing or writing about the triumphs and trials of MO</li>
-        <li>✻ stickers for ppl to bedazzle their phones</li>
-        <li>✼ speakers and a rockin' playlist</li>
+        {page.bringItems.map((item, i) => (
+          <li>{BRING_GLYPHS[i]} <span set:html={item} /></li>
+        ))}
       </ul>
 
       <img class="card__photo" src="/images/facilitation-04.jpg" alt="" />
-      <h3 class="label">What's the orientation like?</h3>
-      <p class="body">
-        participants have called in, left voicemails, signed up, showed up, and
-        now ... orientation meetup is all about building a doorway in time and
-        walking through it together. Month Offline has officially™ begun! <u>the
-        focus is <em>not</em> on the pain of the problem, but on the fun of the
-        challenge ahead</u>. private commitments become shared, and participants
-        get a chance to meet the rest of the cohort.
-      </p>
-      <p class="body">
-        <u>arrange the seating</u> to allow for open communication between all
-        participants. invite ppl pair up as they arrive and chat with each other
-        about why they're flipping off.
-      </p>
-      <p class="body">
-        after everyone has arrived, circle up and ask ppl to share the <u>story
-        of their name</u>, and a <u>digital habit</u> they're hoping to leave
-        behind.
-      </p>
-      <p class="body">
-        stage a <u>Flipping Off Ceremony</u>, where participants turn off their
-        smartphones and sign an Offline Pledge together to officially enter the
-        Month Offline.
-      </p>
+      <h3 class="label">{page.subheadings[1]}</h3>
+      <p class="body" set:html={page.paragraph4} />
+      <p class="body" set:html={page.paragraph5} />
+      <p class="body" set:html={page.paragraph6} />
+      <p class="body" set:html={page.paragraph7} />
 
       <!-- Add `src` (e.g. src="/audio/flipping-off-ceremony.mp3") once the
            audio file is uploaded; until then the player renders as a placeholder. -->
       <div class="card__audio">
-        <AudioPlayer title="Flipping Off Ceremony" />
+        <AudioPlayer title={page.audioTitle} />
       </div>
 
       <img
@@ -124,37 +86,21 @@ const resources = [
         alt="A Month Offline meetup gathered around a candlelit dinner table"
       />
 
-      <h3 class="label">How do the meetups work?</h3>
-      <p class="body">Month Offline meetups often contain 4 segments:</p>
+      <h3 class="label">{page.subheadings[2]}</h3>
+      <p class="body" set:html={page.paragraph8} />
       <ol class="segments">
-        <li><u>Reflection</u>: draw a memorable moment from the last week and discuss dumb prompts in small groups</li>
-        <li><u>Round Robin</u>: share out reflections to the whole group</li>
-        <li><u>Creation</u>: hands-on activity or creative exercise related to the weekly theme</li>
-        <li><u>Transition</u>: learn about the next challenge and set intentions for the week ahead</li>
+        {page.segments.map((segment) => (
+          <li set:html={segment} />
+        ))}
       </ol>
-      <p class="body">
-        bonus: <u>reach out to participants</u> 1-2 times per week with meetup
-        reminders, notes of encouragement, weekly challenges, or upcoming
-        events. check in with anyone who misses unexpectedly to make sure
-        they're doing OK.
-      </p>
+      <p class="body" set:html={page.paragraph9} />
 
       <!-- Yellow info box pointing at the Resources cards lower down. -->
-      <p class="callout">
-        Check the facilitator guides below for activity ideas and prompts for
-        each meetup.
-      </p>
+      <p class="callout">{page.callout}</p>
 
-      <h3 class="label">What's the graduation like?</h3>
-      <p class="body">
-        close out the challenge with a Graduation Ceremony, where participants
-        can give mini commencement speeches about what they learned during the
-        month and take home key insights from each other.
-      </p>
-      <p class="body">
-        u might want to make a way for participants to keep in touch with each
-        other after the challenge: e-mail listserv, reunions, alumni events, etc.
-      </p>
+      <h3 class="label">{page.subheadings[3]}</h3>
+      <p class="body" set:html={page.paragraph10} />
+      <p class="body" set:html={page.paragraph11} />
 
       <img
         class="card__photo"
@@ -164,19 +110,9 @@ const resources = [
         alt="A Month Offline graduation ceremony under hanging paper lanterns"
       />
 
-      <h3 class="label">How do we share our stories w/o social media?</h3>
-      <p class="body">
-        the MO team innovated a new form of social media called <u>the Dumbscroll</u>.
-        at the beginning of each meetup, participants are invited to create
-        (analog) content about what went down during their offtime -- memorable
-        moments, frustrating frictions, surprising synchronicities.
-      </p>
-      <p class="body">
-        after graduation, their <u>drawings &amp; writings are assembled</u> into a
-        collective art piece: a <em>finite</em> scroll on brown butcher paper
-        that tells the stories of our Month Offline. this is a feed that u can
-        get to the bottom of, and u have to be there to see it.
-      </p>
+      <h3 class="label">{page.subheadings[4]}</h3>
+      <p class="body" set:html={page.paragraph12} />
+      <p class="body" set:html={page.paragraph13} />
 
 
       <img
@@ -189,13 +125,13 @@ const resources = [
     </section>
 
     <!-- 4. Resources -->
-    <SectionHeader label="Resources" />
-    {resources.map((r) => (
+    <SectionHeader label={page.resourcesSectionLabel} />
+    {page.resources.map((r) => (
       <ResourceCard title={r.title} description={r.description} href={r.href} />
     ))}
 
     <!-- 5. Next — read-in-order, per CLAUDE.md (Facilitate Meetups → Host an Exhibition). -->
-    <NextLink label="How to Host an Exhibition" href="/diy/host-an-exhibition" />
+    <NextLink label={page.nextLinkLabel} href="/diy/host-an-exhibition" />
   </div>
 </BaseLayout>
 
