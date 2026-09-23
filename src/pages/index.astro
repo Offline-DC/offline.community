@@ -97,7 +97,7 @@ const GROUP_GLYPHS = ['✺', '☎', '❉'];
     </section>
     {upcomingCohorts.length > 0
       ? upcomingCohorts.map((c) => (
-          <CohortRow location={c.location} date={c.date} organizer={c.organizer} href={c.href} />
+          <CohortRow location={c.location} date={c.date} description={c.description} href={c.href} />
         ))
       : <p class="no-cohorts">{home.locations.emptyState}</p>
     }
@@ -128,7 +128,7 @@ const GROUP_GLYPHS = ['✺', '☎', '❉'];
     <SectionHeader label={home.pastCohorts.sectionLabel} color="cyan" />
     {pastCohorts.length > 0
       ? pastCohorts.map((c) => (
-          <CohortRow location={c.location} date={c.date} organizer={c.organizer} href={c.href} color="gray" />
+          <CohortRow location={c.location} date={c.date} description={c.description} href={c.href} color="gray" />
         ))
       : <p class="no-cohorts">{home.pastCohorts.emptyState}</p>
     }

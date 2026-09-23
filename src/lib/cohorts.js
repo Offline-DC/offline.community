@@ -10,13 +10,17 @@ import Papa from 'papaparse';
 // The sheet has one row per cohort. Header names are normalized to UPPERCASE
 // (see transformHeader below) so a stray capitalization or space in the sheet
 // won't silently blank out a column. Current headers in the sheet:
-//   CITY | STATE | ORGANIZERS | FORM | MONTH | STATUS
-// NB: the organizer column is "ORGANIZERS" (plural) in the live sheet — it must
-// match exactly (after uppercasing), so this can't be "ORGANIZER".
+//   CITY | STATE | DESCRIPTION | FORM | MONTH | STATUS
+// DESCRIPTION is free text shown under the location, exactly as typed (the
+// site adds no "Organized by" prefix or trailing period). The header must match
+// exactly (after uppercasing).
 const COLUMNS = {
   city: 'CITY',
   state: 'STATE',
-  organizer: 'ORGANIZERS',
+  description: 'DESCRIPTION',
+  // Old header name, still accepted so the site keeps working if a sheet
+  // hasn't been renamed yet.
+  legacyDescription: 'ORGANIZERS',
   signupUrl: 'FORM',
   startDate: 'MONTH',
   status: 'STATUS',
@@ -25,7 +29,7 @@ const COLUMNS = {
 /**
  * Fetch + parse the sheet, returning an array of cohort objects shaped for
  * the CohortRow component:
- *   { location, date, organizer, href, status }
+ *   { location, date, description, href, status }
  *
  * `status` is lowercased to either "past" or "upcoming" — the Home page uses
  * it to sort each cohort into the "Month Offline locations" or "Past
@@ -55,7 +59,7 @@ export async function getCohorts() {
 
   // PapaParse is a full CSV parser (not a naive comma-split), so a field that
   // contains commas, ampersands, or quotes stays intact as long as the sheet
-  // quotes it — e.g. an ORGANIZER cell of
+  // quotes it — e.g. a DESCRIPTION cell of
   //   Lydia Peabody, Tim O'Brien, & Emily Kennedy
   // is exported by Google Sheets as "Lydia Peabody, Tim O'Brien, & Emily Kennedy"
   // and parses as one value without shifting the FORM/MONTH columns after it.
@@ -80,7 +84,7 @@ export async function getCohorts() {
         // "City, State" — but tolerate a missing state.
         location: [city, state].filter(Boolean).join(', '),
         date: (row[COLUMNS.startDate] || '').trim(),
-        organizer: (row[COLUMNS.organizer] || '').trim(),
+        description: (row[COLUMNS.description] || row[COLUMNS.legacyDescription] || '').trim(),
         // Empty string (not "#") when there's no sign-up link, so CohortRow
         // can tell "no link" apart from a real href and drop the arrow.
         href: (row[COLUMNS.signupUrl] || '').trim(),

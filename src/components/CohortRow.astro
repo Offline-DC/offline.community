@@ -3,7 +3,7 @@
   CohortRow.astro — one yellow row in the locations directory.
 
   This is the component the Google Sheet data will map onto: each row in
-  the sheet (city, state, organizer, sign-up link, start date) becomes one
+  the sheet (city, state, description, sign-up link, start date) becomes one
   CohortRow.
 
   `href` is optional. When the sheet's FORM cell is blank there's nothing to
@@ -18,11 +18,11 @@
 interface Props {
   location: string;   // e.g. "New York City, NY"
   date: string;       // e.g. "July 2026"
-  organizer: string;  // e.g. "Melissa"
+  description: string;  // free text from the sheet, shown as-is
   href?: string;       // the cohort's external sign-up form, if any
   color?: 'yellow' | 'gray'; // yellow (default) for upcoming, gray for past cohorts
 }
-const { location, date, organizer, href, color = 'yellow' } = Astro.props;
+const { location, date, description, href, color = 'yellow' } = Astro.props;
 const hasLink = Boolean(href);
 
 // Astro lets a lowercase variable stand in for the tag name, so the row is
@@ -35,7 +35,7 @@ const Tag = hasLink ? 'a' : 'div';
     <span class="cohort-row__title font-display">{location} – {date}</span>
     {hasLink && <span class="cohort-row__arrow font-display">&gt;&gt;&gt;</span>}
   </div>
-  <p class="cohort-row__organizer">Organized by {organizer}.</p>
+  <p class="cohort-row__description">{description}</p>
 </Tag>
 
 <style>
@@ -81,8 +81,8 @@ const Tag = hasLink ? 'a' : 'div';
     transform: translateX(4px);
   }
 
-  /* The "Organized by …" line uses the body font (Syne Mono), not display. */
-  .cohort-row__organizer {
+  /* The description line uses the body font (Syne Mono), not display. */
+  .cohort-row__description {
     font-size: var(--size-body);
     margin-top: var(--space-1);
   }
