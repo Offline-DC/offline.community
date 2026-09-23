@@ -45,7 +45,6 @@ const home = defineCollection({
     }),
     ctaDiy: z.object({ heading: z.string(), blurb: z.string() }),
     ctaNotify: z.object({ heading: z.string(), blurb: z.string() }),
-    pastCohorts: z.object({ sectionLabel: z.string(), emptyState: z.string() }),
   }),
 });
 

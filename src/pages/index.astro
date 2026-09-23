@@ -10,7 +10,7 @@
     4. How it works— meetups, the dumbphone, and the directory blurb
     5. Locations   — the cohort directory (rows with Status "Upcoming")
     6. CTA         — start a cohort in your city → DIY guide, then the
-                     "get notified" CTA, then Past cohorts (Status "Past")
+                     "get notified" CTA
     7. Photos      — a strip of three images
 */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -26,11 +26,10 @@ import { getEntry } from 'astro:content';
 // empty-state message below in that case.
 const cohorts = await getCohorts();
 
-// Split into the two directory sections by the sheet's Status column: rows
-// still running (or not yet started) show up under "Month Offline
-// locations"; finished ones move down to "Past cohorts".
+// Only rows that aren't marked "Past" in the sheet's Status column are
+// listed under "Month Offline locations". Past cohorts are hidden (there's
+// no Past cohorts section anymore).
 const upcomingCohorts = cohorts.filter((c) => c.status !== 'past');
-const pastCohorts = cohorts.filter((c) => c.status === 'past');
 
 // Pull this page's text from src/content/home/home.md, validated against
 // the schema in src/content.config.ts. `home.data` is the file's
@@ -123,15 +122,6 @@ const GROUP_GLYPHS = ['✺', '☎', '❉'];
         {home.ctaNotify.blurb}
       </p>
     </a>
-
-    <!-- Past cohorts -->
-    <SectionHeader label={home.pastCohorts.sectionLabel} color="cyan" />
-    {pastCohorts.length > 0
-      ? pastCohorts.map((c) => (
-          <CohortRow location={c.location} date={c.date} description={c.description} href={c.href} color="gray" />
-        ))
-      : <p class="no-cohorts">{home.pastCohorts.emptyState}</p>
-    }
 
     <!-- 7. Photos -->
     <section class="photos">

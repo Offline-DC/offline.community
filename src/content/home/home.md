@@ -43,7 +43,4 @@ ctaDiy:
 ctaNotify:
   heading: Get notified when MO comes to town
   blurb: we'll shoot u an email when someone decides to organize a cohort nearby.
-pastCohorts:
-  sectionLabel: Past cohorts
-  emptyState: No past cohorts yet.
 ---
