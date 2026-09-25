@@ -1,0 +1,96 @@
+---
+/*
+  Resource Library (/resources) — every printable/linkable resource on the
+  site, grouped by the phase of the challenge it's used in.
+
+  Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
+    1. Hero      — the M ❀ logo
+    2. Heading   — cyan "* RESOURCE LIBRARY" bar
+    3. Intro     — white card: what these are, how to print them, what the
+                   box icon means
+    4. Phases    — for each phase (01. Invite … 04. Graduate), a colored bar
+                   followed by that phase's outline resource cards
+
+  All the copy, including the list of resources, comes from
+  src/content/resources/library.md. The DIY subpages show some of the same
+  items, picked from that same file, so copy never has to be edited twice.
+*/
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ResourceCard from '../components/ResourceCard.astro';
+import { getEntry } from 'astro:content';
+
+const { data: library } = await getEntry('resources', 'library');
+
+// Phase order, numbers, and bar colors are design (fixed by the layout), so
+// they live here; the phase names themselves come from the content file.
+// The gray bar is dark enough to need white text; the rest use black.
+const PHASE_META = [
+  { id: 'invite',   number: '01', color: 'var(--mo-gray-dark)', text: 'var(--white)' },
+  { id: 'orient',   number: '02', color: 'var(--mo-yellow)',    text: 'var(--black)' },
+  { id: 'meetup',   number: '03', color: 'var(--mo-cyan)',      text: 'var(--black)' },
+  { id: 'graduate', number: '04', color: 'var(--mo-pink)',      text: 'var(--black)' },
+];
+
+// For each phase, collect its items (keeping their order from library.md).
+const phases = PHASE_META.map((meta) => ({
+  ...meta,
+  label: library.phases[meta.id],
+  items: library.items.filter((item) => item.phase === meta.id),
+}));
+---
+
+<BaseLayout title={library.title} masthead={library.masthead}>
+  <div class="sections">
+    <!-- 1. Hero -->
+    <Hero />
+
+    <!-- 2. Heading -->
+    <SectionHeader label={library.sectionLabel} color="cyan" />
+
+    <!-- 3. Intro -->
+    <section class="card">
+      <p class="body" set:html={library.intro} />
+    </section>
+
+    <!-- 4. Phases. `style` passes each bar's colors in as CSS variables, the
+         same trick GuideLink uses, so one .phase rule covers all four. -->
+    {phases.map((phase) => (
+      <Fragment>
+        <h3 class="phase" style={`--phase-color: ${phase.color}; --phase-text: ${phase.text};`}>
+          {phase.number}. {phase.label}
+        </h3>
+        {phase.items.map((r) => (
+          <ResourceCard
+            title={r.title}
+            description={r.description}
+            href={r.href}
+            fieldKit={r.fieldKit}
+            variant="outline"
+          />
+        ))}
+      </Fragment>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  /* Standard body paragraph (Syne Mono). */
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+
+  /* Phase bar, e.g. "01. INVITE". Same height as the section-header bars but
+     body-sized text and no leading asterisk, per the design. */
+  .phase {
+    display: flex;
+    align-items: center;
+    min-height: var(--bar-section);
+    padding: var(--space-1) var(--space-2);
+    background: var(--phase-color);
+    color: var(--phase-text);
+    font-size: var(--size-body);
+  }
+</style>

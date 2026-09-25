@@ -53,8 +53,7 @@ const diyIndex = defineCollection({
   schema: z.object({
     title: z.string(),
     masthead: z.string(),
-    guideLinkLabels: z.array(z.string()).length(4),
-    howToSectionLabel: z.string(),
+    guideLinkLabels: z.array(z.string()).length(5),
     letter: z.object({
       salutation: z.string(),
       paragraph1: htmlString,
@@ -70,6 +69,31 @@ const diyIndex = defineCollection({
     ringRingSectionLabel: z.string(),
     ringRing: z.object({ paragraph: htmlString, buttonLabel: z.string() }),
     nextLinkLabel: z.string(),
+  }),
+});
+
+// The Resource Library: every resource on the site, in one list. The
+// /resources page shows them all; DIY subpages pick theirs by `id` (their
+// `resources` field is just a list of ids — see src/lib/resources.js).
+const PHASES = ['invite', 'orient', 'meetup', 'graduate'] as const;
+const resources = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/resources' }),
+  schema: z.object({
+    title: z.string(),
+    masthead: z.string(),
+    sectionLabel: z.string(),
+    intro: htmlString,
+    // One display label per phase, e.g. `meetup: Meetup`.
+    phases: z.object({ invite: z.string(), orient: z.string(), meetup: z.string(), graduate: z.string() }),
+    items: z.array(z.object({
+      id: z.string(),
+      phase: z.enum(PHASES),
+      // Optional: missing means "not in the Field Kit".
+      fieldKit: z.boolean().default(false),
+      title: z.string(),
+      description: z.string(),
+      href: z.string(),
+    })),
   }),
 });
 
@@ -91,7 +115,7 @@ const diyGatherParticipants = defineCollection({
     paragraph8: htmlString,
     paragraph9: htmlString,
     resourcesSectionLabel: z.string(),
-    resources: z.array(z.object({ title: z.string(), description: z.string(), href: z.string() })).length(3),
+    resources: z.array(z.string()).length(3),
     nextLinkLabel: z.string(),
   }),
 });
@@ -129,7 +153,7 @@ const diyFacilitateMeetups = defineCollection({
     segments: z.array(htmlString).length(4),
     callout: z.string(),
     resourcesSectionLabel: z.string(),
-    resources: z.array(z.object({ title: z.string(), description: z.string(), href: z.string() })).length(7),
+    resources: z.array(z.string()).length(7),
     nextLinkLabel: z.string(),
     paragraph1: htmlString,
     paragraph2: htmlString,
@@ -175,4 +199,5 @@ export const collections = {
   'diy-get-dumbphones': diyGetDumbphones,
   'diy-facilitate-meetups': diyFacilitateMeetups,
   'diy-host-exhibition': diyHostExhibition,
+  resources,
 };

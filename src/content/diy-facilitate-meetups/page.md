@@ -24,28 +24,16 @@ segments:
   - '<u>Transition</u>: learn about the next challenge and set intentions for the week ahead'
 callout: Check the facilitator guides below for activity ideas and prompts for each meetup.
 resourcesSectionLabel: Resources
+# Resources are picked by id from the Resource Library
+# (src/content/resources/library.md) — edit titles/descriptions there.
 resources:
-  - title: Time Capsule Card
-    description: encourage ppl to set intentions at orientation that they can review at the end of the month.
-    href: /resources/mo_time_capsule.pdf
-  - title: Offline Pledge Card
-    description: ceremonially enter the month by signing the Offline Pledge together at orientation.
-    href: /resources/mo_pledge.pdf
-  - title: Dumb Prompts
-    description: weekly prompts to use at each meetup.
-    href: /resources/mo_prompts.pdf
-  - title: Facilitation Guides
-    description: beat-for-beat structure of the og MO meetups. take what's useful, leave the rest.
-    href: /resources/mo_facilitator_guides.pdf
-  - title: Offtime Outlets index
-    description: invite ppl to add their creative outlet to a shared inventory.
-    href: /resources/mo_offtime_outlets.pdf
-  - title: Certificates of Completion
-    description: graduate from Month Offline in style.
-    href: /resources/mo_certificate.pdf
-  - title: Blank Postcards
-    description: after graduation, ask participants to write a letter of advice to a future participant.
-    href: /resources/mo_blank_postcards.pdf
+  - time-capsule
+  - pledge
+  - prompts
+  - facilitation-guides
+  - offtime-outlets
+  - certificates
+  - blank-postcards
 nextLinkLabel: How to Host an Exhibition
 paragraph1: Month Offline meetups are playful and thought-provoking events where participants encourage, challenge, and get to know each other.
 paragraph2: we're not purists (it's OK to slip up), but we do urge ppl to <u>make the most</u> of the time we have together.

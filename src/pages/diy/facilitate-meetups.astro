@@ -20,8 +20,12 @@ import ResourceCard from '../../components/ResourceCard.astro';
 import NextLink from '../../components/NextLink.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
 import { getEntry } from 'astro:content';
+import { getResourcesByIds } from '../../lib/resources.js';
 
 const { data: page } = await getEntry('diy-facilitate-meetups', 'page');
+// The page's content file lists resource ids; swap them for the full items
+// (title, description, link) from the shared Resource Library.
+const resources = await getResourcesByIds(page.resources);
 
 // The glyph before each "what to bring" item is design, tied to its
 // position in the list, not something you'd edit in Craft — same idea as
@@ -126,7 +130,7 @@ const BRING_GLYPHS = ['✶', '✷', '✸', '✹', '✺', '✻', '✼'];
 
     <!-- 4. Resources -->
     <SectionHeader label={page.resourcesSectionLabel} />
-    {page.resources.map((r) => (
+    {resources.map((r) => (
       <ResourceCard title={r.title} description={r.description} href={r.href} />
     ))}
 

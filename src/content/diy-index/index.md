@@ -6,7 +6,7 @@ guideLinkLabels:
   - Get dumbphones
   - Facilitate meetups
   - Host an exhibition
-howToSectionLabel: How to...
+  - Resource library
 letter:
   salutation: Dear organizers,
   paragraph1: 'we''re glad you''re curious about starting a Month Offline cohort in ur city. a little backstory: MO''s founding flipmates first met at a phone-free Shabbat dinner in <a href="https://www.ustreetcommunity.org/temperance-alley-garden" target="_blank" rel="noopener">Temperance Alley</a> -- a community garden and outdoor classroom in Washington, DC. Grant and Danny teamed up with Aaron and Josh to design a challenge that would help neighbors liberate their attention and deepen their sense of place. all of us had been practicing our own forms of attention activism ... building clay ovens, inspiring friends to use flip phones, <a href="https://seewunder.studio/" target="_blank" rel="noopener">organizing local field trips</a>.'

@@ -17,6 +17,7 @@
   --mo-pink:   #ff69b4; /* "start a cohort" CTA bar */
   --mo-red:    #ff0000; /* program-step accent (estimated — confirm in Figma) */
   --mo-gray:   #dddddd; /* press ("Read all about it") listing background */
+  --mo-gray-dark: #777777; /* "01. Invite" phase bar on /resources (estimated from the design) */
   --black:     #000000; /* page background */
   --white:     #ffffff; /* content cards, body text on black */
 
@@ -62,6 +63,10 @@
   --bar-section:  48px;  /* cyan section-header bars */
   --row-location: 78px;  /* yellow cohort rows */
   --bar-cta:      100px; /* pink CTA bar */
+
+  /* The black gutter between stacked blocks (bars, cards, list rows) on
+     every page. Used by .sections below and the nav bar in BaseLayout. */
+  --gap-section: 12px;
 }
 
 /* ---- Base resets & defaults ---- */
@@ -133,13 +138,13 @@ img {
 
 /* ---- Shared layout patterns (used across pages) ---- */
 
-/* Stacks page sections with a thin black gutter between them (~12px in the
+/* Stacks page sections with a thin black gutter between them (12px, per the
    design). Wrap a page's sections in <div class="sections"> … </div>. */
 .sections {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
-  margin-top: var(--space-1);
+  gap: var(--gap-section);
+  margin-top: var(--gap-section);
 }
 
 /* White content card with black text (the page default is white-on-black).
