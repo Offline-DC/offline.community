@@ -4,7 +4,7 @@
 
   Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
     1. Hero            — the M ❀ logo
-    2. How to…         — links to the four ordered subpages
+    2. Guide links     — the four ordered subpages, then the Resource Library
     3. Letter          — "Dear future organizers" backstory
     4. The basics      — the 6-week program
     5. Ring ring       — join the next Q&A (info session signup)
@@ -24,15 +24,16 @@ import { getEntry } from 'astro:content';
 
 const { data: diyIndex } = await getEntry('diy-index', 'index');
 
-// The number/href/color for each subpage link and program step is design —
-// tied to fixed positions in the layout, not something you'd edit in
-// Craft — so it stays here. Only the text (diyIndex.guideLinkLabels,
+// The number/href/color for each guide link and program step is design —
+// tied to fixed positions in the layout, not something you'd edit in the
+// content file — so it stays here. Only the text (diyIndex.guideLinkLabels,
 // diyIndex.program) comes from the copy doc.
 const GUIDE_LINK_META = [
   { number: '01', href: '/diy/gather-participants', color: 'yellow' },
   { number: '02', href: '/diy/get-dumbphones',       color: 'yellow' },
   { number: '03', href: '/diy/facilitate-meetups',   color: 'yellow' },
   { number: '04', href: '/diy/host-an-exhibition',   color: 'yellow' },
+  { number: '05', href: '/resources',                color: 'yellow' },
 ];
 const guideLinks = GUIDE_LINK_META.map((meta, i) => ({ ...meta, label: diyIndex.guideLinkLabels[i] }));
 
@@ -52,8 +53,7 @@ const program = PROGRAM_META.map((meta, i) => ({ ...meta, ...diyIndex.program[i]
     <!-- 1. Hero -->
     <Hero />
 
-    <!-- 2. How to… -->
-    <SectionHeader label={diyIndex.howToSectionLabel} color="cyan" />
+    <!-- 2. Guide links -->
     {guideLinks.map((link) => (
       <GuideLink number={link.number} label={link.label} href={link.href} color={link.color} />
     ))}

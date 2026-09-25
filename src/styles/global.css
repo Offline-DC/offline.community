@@ -17,6 +17,7 @@
   --mo-pink:   #ff69b4; /* "start a cohort" CTA bar */
   --mo-red:    #ff0000; /* program-step accent (estimated — confirm in Figma) */
   --mo-gray:   #dddddd; /* press ("Read all about it") listing background */
+  --mo-gray-dark: #777777; /* "01. Invite" phase bar on /resources (estimated from the design) */
   --black:     #000000; /* page background */
   --white:     #ffffff; /* content cards, body text on black */
 

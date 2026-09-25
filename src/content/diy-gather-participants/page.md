@@ -14,15 +14,11 @@ paragraph7: <u>find a local venue</u> that will host u, and get to know the owne
 paragraph8: once you've found ur ppl and place, ur ready to start prepping for the meetups!
 paragraph9: dumb.co is offering a $100 starter stipend to organizers to help cover the cost of getting ur cohort off the ground!
 resourcesSectionLabel: Resources
+# Resources are picked by id from the Resource Library
+# (src/content/resources/library.md) — edit titles/descriptions there.
 resources:
-  - title: Month Offline Flyers
-    description: posters that u can put up around ur neighborhood to find the others!
-    href: /resources/mo_flyers.pdf
-  - title: sign up form
-    description: use our registration form template to keep track of all your participants.
-    href: '[https://tally.so/templates/month-offline-registration-form-template/m6zZYm](https://tally.so/templates/month-offline-registration-form-template/m6zZYm)'
-  - title: Month Offline Postcards
-    description: encouraging letters from past participants. cut them out and mail them as a welcome gift.
-    href: /resources/mo_postcards.pdf
+  - flyers
+  - sign-up-form
+  - postcards
 nextLinkLabel: How to Get Dumbphones
 ---

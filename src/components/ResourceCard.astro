@@ -13,25 +13,49 @@
   from plain pageviews. We set it to the resource's own title, so the Umami
   dashboard shows a click count broken out per resource ("Month Offline
   Flyers: 12 clicks") instead of lumping every PDF under one number.
+
+  Two looks, picked with `variant`:
+    - "filled" (default) — solid pink box, used on the DIY subpages.
+    - "outline" — black box with a pink border, used on /resources. On hover
+      it fills in pink, i.e. turns into the "filled" look.
+
+  `fieldKit` adds a small box icon beside the arrow, meaning "this comes in
+  the Facilitator Field Kit" (explained in the /resources intro).
 */
 interface Props {
   title: string;
   description: string;
   href: string;
+  variant?: 'filled' | 'outline';
+  fieldKit?: boolean;
 }
-const { title, description, href } = Astro.props;
+const { title, description, href, variant = 'filled', fieldKit = false } = Astro.props;
 ---
 
-<a class="resource" href={href} target="_blank" rel="noopener" data-umami-event={`resource: ${title}`}>
+<a class:list={['resource', `resource--${variant}`]} href={href} target="_blank" rel="noopener" data-umami-event={`resource: ${title}`}>
   <div class="resource__head">
     <span class="resource__title font-display">{title}</span>
-    <!-- Open-in-new-tab icon (arrow leaving a box). `currentColor` keeps it
-         black, matching the text; aria-hidden since the link text says it all. -->
-    <svg class="resource__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M14 4h6v6" />
-      <path d="M20 4l-9 9" />
-      <path d="M19 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6" />
-    </svg>
+    <span class="resource__icons">
+      <!-- Box icon (an isometric cube), only on Field Kit items. Unlike the
+           arrow, it carries meaning the text doesn't, so screen readers get it
+           as a label and mouse users get the same words as a tooltip (<title>). -->
+      {fieldKit && (
+        <svg class="resource__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" role="img" aria-label="Included in the Facilitator Field Kit">
+          <title>Included in the Facilitator Field Kit</title>
+          <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z" />
+          <path d="M4 7.5l8 4.5 8-4.5" />
+          <path d="M12 12v9" />
+          <path d="M8 5.25l8 4.5" />
+        </svg>
+      )}
+      <!-- Open-in-new-tab icon (arrow leaving a box). `currentColor` makes it
+           match the text color; aria-hidden since the link text says it all. -->
+      <svg class="resource__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M14 4h6v6" />
+        <path d="M20 4l-9 9" />
+        <path d="M19 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6" />
+      </svg>
+    </span>
   </div>
   <p class="resource__desc">{description}</p>
 </a>
@@ -39,16 +63,34 @@ const { title, description, href } = Astro.props;
 <style>
   .resource {
     display: block;
-    background: var(--mo-pink);
-    color: var(--black);
     text-decoration: none;
     padding: var(--space-2);
-    transition: background-color 0.15s ease;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  /* Filled (DIY subpages): solid pink box, black text. */
+  .resource--filled {
+    background: var(--mo-pink);
+    color: var(--black);
   }
   /* Hover: lighten the box 20% toward white. */
-  .resource:hover {
+  .resource--filled:hover {
     background: color-mix(in srgb, var(--mo-pink) 80%, white);
   }
+
+  /* Outline (/resources): black box, pink border, white text. The border is
+     drawn inside the box (inset shadow) so it doesn't change the card's size. */
+  .resource--outline {
+    background: var(--black);
+    color: var(--white);
+    box-shadow: inset 0 0 0 1px var(--mo-pink);
+  }
+  /* Hover: fill in pink, i.e. the "filled" look. */
+  .resource--outline:hover {
+    background: var(--mo-pink);
+    color: var(--black);
+  }
+
   .resource__head {
     display: flex;
     justify-content: space-between;
@@ -57,6 +99,11 @@ const { title, description, href } = Astro.props;
   }
   .resource__title {
     font-size: var(--size-body);
+  }
+  .resource__icons {
+    flex: none;
+    display: flex;
+    gap: var(--space-1);
   }
   .resource__icon {
     flex: none;

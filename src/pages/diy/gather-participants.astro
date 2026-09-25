@@ -18,8 +18,12 @@ import SectionHeader from '../../components/SectionHeader.astro';
 import ResourceCard from '../../components/ResourceCard.astro';
 import NextLink from '../../components/NextLink.astro';
 import { getEntry } from 'astro:content';
+import { getResourcesByIds } from '../../lib/resources.js';
 
 const { data: page } = await getEntry('diy-gather-participants', 'page');
+// The page's content file lists resource ids; swap them for the full items
+// (title, description, link) from the shared Resource Library.
+const resources = await getResourcesByIds(page.resources);
 ---
 
 <BaseLayout title={page.title} masthead={page.masthead}>
@@ -66,7 +70,7 @@ const { data: page } = await getEntry('diy-gather-participants', 'page');
 
     <!-- 4. Resources -->
     <SectionHeader label={page.resourcesSectionLabel} />
-    {page.resources.map((r) => (
+    {resources.map((r) => (
       <ResourceCard title={r.title} description={r.description} href={r.href} />
     ))}
 
