@@ -37,7 +37,7 @@ resources:
 nextLinkLabel: How to Host a Show & Tell
 paragraph1: Month Offline meetups are playful and thought-provoking events where participants encourage, challenge, and get to know each other.
 paragraph2: we're not purists (it's OK to slip up), but we do urge ppl to <u>make the most</u> of the time we have together.
-paragraph3: facilitators <u>don't have all the answers</u> and don't take up too much space in the room -- we help participants learn from each other and crowdsource creative workarounds to common troubles. u can download detailed facilitation guides for each meetup, or create ur own!
+paragraph3: facilitators <u>don't have all the answers</u> and don't take up too much space in the room -- we help participants learn from each other and crowdsource creative workarounds to common troubles. u can download detailed facilitator guides for each meetup, or create ur own!
 paragraph4: participants have called in, left voicemails, signed up, showed up, and now ... orientation meetup is all about building a doorway in time and walking through it together. Month Offline has officially™ begun! <u>the focus is <em>not</em> on the pain of the problem, but on the fun of the challenge ahead</u>. private commitments become shared, and participants get a chance to meet the rest of the cohort.
 paragraph5: <u>arrange the seating</u> to allow for open communication between all participants. invite ppl pair up as they arrive and chat with each other about why they're flipping off.
 paragraph6: after everyone has arrived, circle up and ask ppl to share the <u>story of their name</u>, and a <u>digital habit</u> they're hoping to leave behind.

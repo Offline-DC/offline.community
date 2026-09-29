@@ -61,7 +61,7 @@ items:
     href: /resources/mo_prompts.pdf
   - id: facilitation-guides
     phase: meetup
-    title: Facilitation Guides
+    title: Facilitator Guides
     description: beat-for-beat structure of the og MO meetups. take what's useful, leave the rest.
     href: /resources/mo_facilitator_guides.pdf
   - id: flipmates
