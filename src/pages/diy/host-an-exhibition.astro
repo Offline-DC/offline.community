@@ -95,8 +95,9 @@ const { data: page } = await getEntry('diy-host-exhibition', 'page');
       <p class="caption">unrolling the dumb scroll</p>
     </section>
 
-    <!-- 4. Next — last page loops back to the DIY guide index (no arrow). -->
-    <NextLink label={page.nextLinkLabel} href="/diy" arrow={false} prefix="Return to " />
+    <!-- 4. Next — last page points on to the Resource Library (no arrow, and an
+         empty prefix so the label stands alone instead of "Next: …"). -->
+    <NextLink label={page.nextLinkLabel} href="/resources" arrow={false} prefix="" />
   </div>
 </BaseLayout>
 

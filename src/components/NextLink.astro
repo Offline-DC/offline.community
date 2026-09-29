@@ -7,7 +7,7 @@
 interface Props {
   label: string;    // e.g. "How to Get Dumbphones"
   href: string;     // e.g. "/diy/get-dumbphones"
-  arrow?: boolean;  // show the ">>>" arrow (off for the loop-back to /diy)
+  arrow?: boolean;  // show the ">>>" arrow (off for the last page's link to /resources)
   prefix?: string;  // defaults to "Next: "
 }
 const { label, href, arrow = true, prefix = 'Next: ' } = Astro.props;

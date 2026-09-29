@@ -8,7 +8,7 @@ subheadings:
 audio:
   title: MO Exhibition Panel
   byline: June 2025 * Temperance Alley Garden
-nextLinkLabel: DIY Guide
+nextLinkLabel: Explore the resource library
 paragraph1: Month Offline is not just about what we're saying no to, but what we're inviting in. we always ask participants to consider choosing an Offtime Outlet for the month.
 paragraph2: how might they want to spend their newfound free time? this is a permission slip to do that thing they've always wanted to do. keep it low-stakes and low-pressure! Offtime outlets come in many different shapes and sizes (including napping and spending more time with the kids). set aside some time to workshop ideas at each MO meetup.
 paragraph3: the og Month Offline cohorts ended with a phone-free show & tell where participants shared their offtime projects with friends, family, and neighbors.
