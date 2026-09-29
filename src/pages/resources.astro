@@ -9,7 +9,7 @@
     3. Intro     — white card: what these are, how to print them, what the
                    box icon means
     4. Phases    — for each phase (01. Invite … 05. Graduate), a colored bar
-                   followed by that phase's outline resource cards
+                   followed by that phase's resource cards (outlined in the bar's color)
 
   All the copy, including the list of resources, comes from
   src/content/resources/library.md. The DIY subpages show some of the same
@@ -69,6 +69,8 @@ const phases = PHASE_META.map((meta) => ({
             href={r.href}
             fieldKit={r.fieldKit}
             variant="outline"
+            color={phase.color}
+            hoverText={phase.text}
           />
         ))}
       </Fragment>
