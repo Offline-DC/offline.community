@@ -10,7 +10,7 @@
 #                 without updating the DIY pages that use it (the build will
 #                 fail and tell you which id it couldn't find).
 #   phase       — which group it's listed under on /resources: invite, orient,
-#                 meetup, or graduate (labels for these are under `phases`).
+#                 meetup, challenges (done in between meetups), or graduate (labels for these are under `phases`).
 #   fieldKit    — true adds the little box icon: "included in the Facilitator
 #                 Field Kit". Leave it off (or false) otherwise.
 #   href        — a PDF under /resources/ (files live in public/resources/),
@@ -25,6 +25,7 @@ phases:
   invite: Invite
   orient: Orient
   meetup: Meetup
+  challenges: Weekly Challenges
   graduate: Graduate
 items:
   - id: flyers
@@ -75,6 +76,26 @@ items:
     title: Offtime Outlets index
     description: invite ppl to add their creative outlet to a shared inventory.
     href: /resources/mo_offtime_outlets.pdf
+  - id: challenge-pen-pal
+    phase: challenges
+    title: 'Communication: Pen Pal Stationary'
+    description: choose a pen pal for the month, write a letter about a meaningful object, and drop it in the snailmail.
+    href: /resources/mo_challenge_pen_pal.pdf
+  - id: challenge-shotlist
+    phase: challenges
+    title: 'Memory: Shotlist'
+    description: go on a photo scavenger hunt with a non-smartphone cam and see how many shots u can collect from the shotlist.
+    href: /resources/mo_challenge_shotlist.pdf
+  - id: challenge-cartography-card
+    phase: challenges
+    title: 'Navigation: Cartography Card'
+    description: create a subjective map of ur neighborhood with the places that matter most to u.
+    href: /resources/mo_challenge_cartography_card.pdf
+  - id: challenge-bingo
+    phase: challenges
+    title: 'Boredom: Boredom Bingo'
+    description: 'silly and sincere activities to fill those idle in-between moments: go for 5 in a row, winner gets a prize.'
+    href: /resources/mo_challenge_bingo.pdf
   - id: certificates
     phase: graduate
     title: Certificates of Completion

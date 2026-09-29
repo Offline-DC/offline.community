@@ -75,7 +75,7 @@ const diyIndex = defineCollection({
 // The Resource Library: every resource on the site, in one list. The
 // /resources page shows them all; DIY subpages pick theirs by `id` (their
 // `resources` field is just a list of ids — see src/lib/resources.js).
-const PHASES = ['invite', 'orient', 'meetup', 'graduate'] as const;
+const PHASES = ['invite', 'orient', 'meetup', 'challenges', 'graduate'] as const;
 const resources = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/resources' }),
   schema: z.object({
@@ -84,7 +84,7 @@ const resources = defineCollection({
     sectionLabel: z.string(),
     intro: htmlString,
     // One display label per phase, e.g. `meetup: Meetup`.
-    phases: z.object({ invite: z.string(), orient: z.string(), meetup: z.string(), graduate: z.string() }),
+    phases: z.object({ invite: z.string(), orient: z.string(), meetup: z.string(), challenges: z.string(), graduate: z.string() }),
     items: z.array(z.object({
       id: z.string(),
       phase: z.enum(PHASES),
