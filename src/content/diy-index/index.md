@@ -5,7 +5,7 @@ guideLinkLabels:
   - Invite participants
   - Get dumbphones
   - Facilitate meetups
-  - Host an exhibition
+  - Host a show & tell
   - Resource library
 letter:
   salutation: Dear organizers,
@@ -20,7 +20,7 @@ audio:
 basicsSectionLabel: The basics
 basics:
   intro1: <u>weekly meetups are at the heart of MO</u>. the most important 'content' of the curriculum is the stories that participants bring back from the field. it's not a retreat, but a <em>reentry</em> program to the beauty of local Life beyond the screen.
-  intro2: 'the og challenge is built around 5 themes and a community exhibition, but u r welcome to remix our recipe to better suit the needs of ur neighborhood:'
+  intro2: 'the og challenge is built around 5 themes and a community show & tell, but u r welcome to remix our recipe to better suit the needs of ur neighborhood:'
 program:
   - title: Communication
     question: how do devices shape our patterns of communication? ppl <u>sign the Offline Pledge</u> and ceremonially flip off their smartphones.
@@ -32,7 +32,7 @@ program:
     question: how do we inhabit the vacancies in our attention? ppl <u>split into 2 teams</u> for a collage competition and plan a midweek outing.
   - title: Graduation
     question: what are we going to carry with us from this experience together? ppl give <u>mini-commencement speeches</u> with their takeaways.
-  - title: Exhibition
+  - title: Show & tell
     question: how did we make the most of our offtime? ppl share their <u>creative outlets</u> at a public party for the community.
 ringRingSectionLabel: 'Ring ring: let''s get organized'
 ringRing:

@@ -34,7 +34,7 @@ resources:
   - offtime-outlets
   - certificates
   - blank-postcards
-nextLinkLabel: How to Host an Exhibition
+nextLinkLabel: How to Host a Show & Tell
 paragraph1: Month Offline meetups are playful and thought-provoking events where participants encourage, challenge, and get to know each other.
 paragraph2: we're not purists (it's OK to slip up), but we do urge ppl to <u>make the most</u> of the time we have together.
 paragraph3: facilitators <u>don't have all the answers</u> and don't take up too much space in the room -- we help participants learn from each other and crowdsource creative workarounds to common troubles. u can download detailed facilitation guides for each meetup, or create ur own!
