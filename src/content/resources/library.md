@@ -94,7 +94,7 @@ items:
   - id: challenge-bingo
     phase: challenges
     title: 'Boredom: Boredom Bingo'
-    description: 'silly and sincere activities to fill those idle in-between moments: go for 5 in a row, winner gets a prize.'
+    description: 'playful activities to fill those idle in-between moments: go for 5 in a row, winner gets a prize.'
     href: /resources/mo_challenge_bingo.pdf
   - id: certificates
     phase: graduate
