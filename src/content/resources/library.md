@@ -73,7 +73,7 @@ items:
   - id: offtime-outlets
     phase: meetup
     fieldKit: true
-    title: Offtime Outlets index
+    title: Offtime Outlets Inventory
     description: invite ppl to add their creative outlet to a shared inventory.
     href: /resources/mo_offtime_outlets.pdf
   - id: challenge-pen-pal
