@@ -28,7 +28,7 @@ howItWorks:
       bullets:
         - <u>abandon</u> ur mobile phone altogether and set up a landline
         - or <u>get a classic flip</u> phone and switch ur SIM
-        - or <u>try a dumbphone 2</u> from <a href="https://dumb.co" target="_blank" rel="noopener">dumb.co</a> with option to sync calls, txts, and contacts with ur smartphone
+        - or <u>borrow a dumbphone</u> from <a href="https://dumb.co" target="_blank" rel="noopener">dumb.co</a> with option to sync calls, texts, & contacts with ur smartphone
     - heading: show & tell
       bullets:
         - <u>public party</u> with the friends & family of MO participants
