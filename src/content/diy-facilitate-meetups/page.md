@@ -39,7 +39,7 @@ resources:
 # written here rather than picked from library.md.
 weeklyChallengesCard:
   title: Weekly Challenges
-  description: creative exercises to experiment with different forms of attention
+  description: creative exercises to experiment with different forms of attention.
   href: /resources#weekly-challenges
 nextLinkLabel: How to Host a Show & Tell
 paragraph1: Month Offline meetups are playful and thought-provoking events where participants encourage, challenge, and get to know each other.
