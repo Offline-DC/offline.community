@@ -43,5 +43,5 @@ ctaDiy:
   blurb: use the DIY guide to roll ur own cohort
 ctaNotify:
   heading: Get notified when MO comes to town
-  blurb: we'll e-mail you when a cohort pops up nearby
+  blurb: we'll e-mail u when a cohort pops up nearby
 ---
