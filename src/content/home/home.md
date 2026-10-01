@@ -39,8 +39,8 @@ locations:
   emptyState: No cohorts listed yet — be the first to start one in your city, below.
 ctaDiy:
   heading: Start MO in ur neighborhood
-  blurb: not seeing ur location? don't fret ... use the DIY guide to roll ur own cohort.
+  blurb: use the DIY guide to roll ur own cohort
 ctaNotify:
   heading: Get notified when MO comes to town
-  blurb: we'll shoot u an email when someone decides to organize a cohort nearby.
+  blurb: we'll e-mail you when a cohort pops up nearby
 ---
