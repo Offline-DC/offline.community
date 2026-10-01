@@ -42,6 +42,7 @@ const home = defineCollection({
       sectionLabel: z.string(),
       blurb: htmlString,
       emptyState: z.string(),
+      pastLabel: z.string(), // text on the "view past cohorts" toggle
     }),
     ctaDiy: z.object({ heading: z.string(), blurb: z.string() }),
     ctaNotify: z.object({ heading: z.string(), blurb: z.string() }),

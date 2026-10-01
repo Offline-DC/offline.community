@@ -36,6 +36,7 @@ howItWorks:
 locations:
   sectionLabel: Month Offline locations
   blurb: each cohort is unique, but we're united by the MO pledge and our commitment to attention liberation. join an existing cohort or start ur own.
+  pastLabel: View past cohorts
   emptyState: No cohorts listed yet — be the first to start one in your city, below.
 ctaDiy:
   heading: Start MO in ur neighborhood

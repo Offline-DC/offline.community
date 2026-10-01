@@ -20,7 +20,7 @@ interface Props {
   date: string;       // e.g. "July 2026"
   description: string;  // free text from the sheet, shown as-is
   href?: string;       // the cohort's external sign-up form, if any
-  color?: 'yellow' | 'gray'; // yellow (default) for upcoming, gray for past cohorts
+  color?: 'yellow' | 'gray' | 'outline'; // yellow (default) for upcoming; gray / outline for past cohorts
 }
 const { location, date, description, href, color = 'yellow' } = Astro.props;
 const hasLink = Boolean(href);
@@ -32,7 +32,7 @@ const Tag = hasLink ? 'a' : 'div';
 
 <Tag class={`cohort-row cohort-row--${color}`} {...hasLink ? { href, target: '_blank', rel: 'noopener', 'data-umami-event': `cohort: ${location}` } : {}}>
   <div class="cohort-row__head">
-    <span class="cohort-row__title font-display">{location} – {date}</span>
+    <span class="cohort-row__title font-display">{location}{date && ` – ${date}`}</span>
     {hasLink && <span class="cohort-row__arrow font-display">&gt;&gt;&gt;</span>}
   </div>
   <p class="cohort-row__description">{description}</p>
@@ -59,6 +59,17 @@ const Tag = hasLink ? 'a' : 'div';
   }
   .cohort-row--gray:hover {
     background: color-mix(in srgb, var(--mo-gray) 80%, white);
+  }
+
+  /* Outline variant — past cohorts: 11% white fill on the black page with a
+     thin white border. No background change on hover; only the arrow moves. */
+  .cohort-row--outline {
+    background: rgb(255 255 255 / 0.11);
+    color: var(--white);
+    border: 1px solid var(--white);
+  }
+  .cohort-row--outline:hover {
+    background: rgb(255 255 255 / 0.11);
   }
 
   .cohort-row__head {

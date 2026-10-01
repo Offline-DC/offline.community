@@ -1,0 +1,80 @@
+---
+/*
+  PixelIcon.astro — a tiny 8-bit icon drawn on a grid, used in place of
+  unicode symbols (★ ✉ etc.) whose look depends on whatever fallback font the
+  browser picks. Drawing them ourselves means they always look the same and
+  match the pixel feel of the Workbench headings.
+
+  How it works: each icon below is a list of rows. "#" is a filled pixel,
+  "." is empty. The loop turns every "#" into a 1×1 square inside an SVG, and
+  the CSS sizes each square in `em`, so the icon scales with the text next to
+  it. It's painted with `currentColor`, so it takes the text's color.
+
+  To add or tweak an icon, just edit the rows (keep every row the same width).
+*/
+interface Props {
+  name: 'house' | 'mail' | 'rewind';
+}
+const { name } = Astro.props;
+
+const ICONS = {
+  house: [
+    '.....#.....',
+    '....###....',
+    '...#####...',
+    '..#######..',
+    '.#########.',
+    '###########',
+    '.#########.',
+    '.###...###.',
+    '.###...###.',
+  ],
+  mail: [
+    '###########',
+    '##.......##',
+    '#.#.....#.#',
+    '#..#...#..#',
+    '#...#.#...#',
+    '#....#....#',
+    '#.........#',
+    '###########',
+  ],
+  rewind: [
+    '...#...#.',
+    '..##..##.',
+    '.###.###.',
+    '####.####',
+    '.###.###.',
+    '..##..##.',
+    '...#...#.',
+  ],
+};
+
+const rows = ICONS[name];
+const cols = rows[0].length;
+
+// One SVG path: for every "#", draw a 1×1 square at that spot
+// ("M x y" move there, "h1 v1 h-1 z" trace the square).
+const path = rows
+  .flatMap((row, y) => [...row].map((cell, x) => (cell === '#' ? `M${x} ${y}h1v1h-1z` : '')))
+  .join('');
+---
+
+<svg
+  class="pixel-icon"
+  viewBox={`0 0 ${cols} ${rows.length}`}
+  style={`width:${cols * 0.13}em;height:${rows.length * 0.13}em`}
+  fill="currentColor"
+  shape-rendering="crispEdges"
+  aria-hidden="true"
+>
+  <path d={path} />
+</svg>
+
+<style>
+  .pixel-icon {
+    display: inline-block;
+    vertical-align: -0.12em;
+    margin-right: 0.45em;
+  }
+</style>
