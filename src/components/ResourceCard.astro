@@ -35,10 +35,13 @@ interface Props {
 }
 const { title, description, href, variant = 'filled', fieldKit = false, color, hoverText } = Astro.props;
 // Hand the colors to the CSS below as variables (same trick as the phase bars).
+// PDFs and external links open in a new tab; links to another page on this
+// site (e.g. "/resources#weekly-challenges") open in the same tab.
+const opensInNewTab = /^https?:|\.pdf$/i.test(href);
 const colorVars = color ? `--card-color: ${color};${hoverText ? ` --card-hover-text: ${hoverText};` : ''}` : undefined;
 ---
 
-<a class:list={['resource', `resource--${variant}`]} href={href} style={colorVars} target="_blank" rel="noopener" data-umami-event={`resource: ${title}`}>
+<a class:list={['resource', `resource--${variant}`]} href={href} style={colorVars} target={opensInNewTab ? '_blank' : undefined} rel={opensInNewTab ? 'noopener' : undefined} data-umami-event={`resource: ${title}`}>
   <div class="resource__head">
     <span class="resource__title font-display">{title}</span>
     <span class="resource__icons">
@@ -56,11 +59,13 @@ const colorVars = color ? `--card-color: ${color};${hoverText ? ` --card-hover-t
       )}
       <!-- Open-in-new-tab icon (arrow leaving a box). `currentColor` makes it
            match the text color; aria-hidden since the link text says it all. -->
-      <svg class="resource__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="M14 4h6v6" />
-        <path d="M20 4l-9 9" />
-        <path d="M19 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6" />
-      </svg>
+      {opensInNewTab && (
+        <svg class="resource__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M14 4h6v6" />
+          <path d="M20 4l-9 9" />
+          <path d="M19 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6" />
+        </svg>
+      )}
     </span>
   </div>
   <p class="resource__desc">{description}</p>

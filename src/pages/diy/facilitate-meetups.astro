@@ -55,13 +55,6 @@ const BRING_GLYPHS = ['✶', '✷', '✸', '✹', '✺', '✻', '✼'];
       <p class="body" set:html={page.paragraph2} />
       <p class="body" set:html={page.paragraph3} />
 
-      <img
-        class="card__photo photo-bring"
-        src="/images/what_to_bring.png"
-        width="980"
-        height="218"
-        alt="A handbell, a box of crayons, a book, and a portable speaker"
-      />
       <h3 class="label">{page.subheadings[0]}</h3>
       <ul class="bring">
         {page.bringItems.map((item, i) => (
@@ -131,7 +124,18 @@ const BRING_GLYPHS = ['✶', '✷', '✸', '✹', '✺', '✻', '✼'];
     <!-- 4. Resources -->
     <SectionHeader label={page.resourcesSectionLabel} />
     {resources.map((r) => (
-      <ResourceCard title={r.title} description={r.description} href={r.href} />
+      <Fragment>
+        <ResourceCard title={r.title} description={r.description} href={r.href} />
+        {/* Weekly Challenges sits directly under Facilitator Guides. It links
+            to a section of the Resource Library page, not a file. */}
+        {r.id === 'facilitation-guides' && (
+          <ResourceCard
+            title={page.weeklyChallengesCard.title}
+            description={page.weeklyChallengesCard.description}
+            href={page.weeklyChallengesCard.href}
+          />
+        )}
+      </Fragment>
     ))}
 
     <!-- 5. Next — read-in-order, per CLAUDE.md (Facilitate Meetups → Host an Exhibition). -->
@@ -157,21 +161,6 @@ const BRING_GLYPHS = ['✶', '✷', '✸', '✹', '✺', '✻', '✼'];
     margin: var(--space-3) 0;
   }
   .card__photo:first-child {
-    margin-top: 0;
-  }
-
-  /* The "what 2 bring" illustration sits flush on top of its label bar,
-     like the items are resting on a shelf, so it drops the usual gap
-     below the photo and the label's own top margin. */
-  .photo-bring {
-    display: block;
-    width: 440px;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0;
-  }
-  .photo-bring + .label {
     margin-top: 0;
   }
 

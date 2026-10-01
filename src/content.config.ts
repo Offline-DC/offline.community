@@ -155,6 +155,7 @@ const diyFacilitateMeetups = defineCollection({
     callout: z.string(),
     resourcesSectionLabel: z.string(),
     resources: z.array(z.string()).length(7),
+    weeklyChallengesCard: z.object({ title: z.string(), description: z.string(), href: z.string() }),
     nextLinkLabel: z.string(),
     paragraph1: htmlString,
     paragraph2: htmlString,

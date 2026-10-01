@@ -34,6 +34,13 @@ resources:
   - offtime-outlets
   - certificates
   - blank-postcards
+# An extra card shown right after "facilitation-guides" above. It links to a
+# section of the Resource Library page instead of opening a file, so it's
+# written here rather than picked from library.md.
+weeklyChallengesCard:
+  title: Weekly Challenges
+  description: creative exercises to experiment with different forms of attention
+  href: /resources#weekly-challenges
 nextLinkLabel: How to Host a Show & Tell
 paragraph1: Month Offline meetups are playful and thought-provoking events where participants encourage, challenge, and get to know each other.
 paragraph2: we're not purists (it's OK to slip up), but we do urge ppl to <u>make the most</u> of the time we have together.

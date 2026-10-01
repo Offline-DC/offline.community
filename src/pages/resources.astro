@@ -30,7 +30,7 @@ const PHASE_META = [
   { id: 'invite',   number: '01', color: 'var(--mo-gray-dark)', text: 'var(--white)' },
   { id: 'orient',   number: '02', color: 'var(--mo-yellow)',    text: 'var(--black)' },
   { id: 'meetup',   number: '03', color: 'var(--mo-cyan)',      text: 'var(--black)' },
-  { id: 'challenges', number: '04', color: 'var(--mo-blue)',    text: 'var(--white)' },
+  { id: 'challenges', anchor: 'weekly-challenges', number: '04', color: 'var(--mo-blue)',    text: 'var(--white)' },
   { id: 'graduate', number: '05', color: 'var(--mo-pink)',      text: 'var(--black)' },
 ];
 
@@ -59,7 +59,7 @@ const phases = PHASE_META.map((meta) => ({
          same trick GuideLink uses, so one .phase rule covers all four. -->
     {phases.map((phase) => (
       <Fragment>
-        <h3 class="phase" style={`--phase-color: ${phase.color}; --phase-text: ${phase.text};`}>
+        <h3 class="phase" id={phase.anchor} style={`--phase-color: ${phase.color}; --phase-text: ${phase.text};`}>
           {phase.number}. {phase.label}
         </h3>
         {phase.items.map((r) => (
