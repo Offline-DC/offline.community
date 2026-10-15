@@ -1,0 +1,78 @@
+---
+/*
+  Bibliography (/bibliography) — the readings behind the Month Offline
+  curriculum, grouped by weekly theme.
+
+  Styled like the "Dear organizers" letter on the DIY Guide index: one white
+  card, a Workbench heading, then Syne Mono body copy.
+
+  Sections, top to bottom (ticker, masthead, footer come from BaseLayout):
+    1. Hero — the M ❀ logo
+    2. Card — heading, intro, then one block per theme (blue bar, bold note,
+              citations)
+
+  All copy lives in src/content/bibliography/bibliography.md.
+*/
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import { getEntry } from 'astro:content';
+
+const { data: bib } = await getEntry('bibliography', 'bibliography');
+---
+
+<BaseLayout title={bib.title} masthead={bib.masthead}>
+  <div class="sections">
+    <!-- 1. Hero -->
+    <Hero />
+
+    <!-- 2. The bibliography card -->
+    <section class="card">
+      <h1 class="bib__heading font-display">{bib.heading}</h1>
+      <p class="body" set:html={bib.intro} />
+
+      {/* <Fragment> groups each theme's elements without adding a wrapper
+           <div> — a wrapper would make the blue bar its :first-child, and
+           global.css drops the bar's top spacing in that case. */}
+      {bib.sections.map((section) => (
+        <Fragment>
+          <h2 class="label">{section.theme}</h2>
+          <p class="body bib__note" set:html={section.note} />
+          {section.entries.map((entry) => (
+            <p class="body bib__entry" set:html={entry} />
+          ))}
+        </Fragment>
+      ))}
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Standard body paragraph (Syne Mono), same as the DIY letter. */
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+  .body + .body {
+    margin-top: var(--space-3);
+  }
+
+  /* Page heading — same look as the letter's salutation. Theme headings use
+     the shared blue .label bar from global.css (which brings its own 32px
+     of space above). */
+  .bib__heading {
+    font-size: var(--size-body);
+    font-weight: normal;
+    margin-bottom: var(--space-3);
+  }
+  .bib__note {
+    font-weight: bold;
+  }
+
+  /* Citations: a hanging indent, the usual bibliography format.
+     `overflow-wrap` lets long titles break on narrow phone screens. */
+  .bib__entry {
+    padding-left: var(--space-3);
+    text-indent: calc(-1 * var(--space-3));
+    overflow-wrap: anywhere;
+  }
+</style>

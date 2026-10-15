@@ -194,8 +194,25 @@ const diyHostExhibition = defineCollection({
   }),
 });
 
+// The Bibliography (/bibliography): readings grouped by weekly theme.
+const bibliography = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/bibliography' }),
+  schema: z.object({
+    title: z.string(),
+    masthead: z.string(),
+    heading: z.string(),
+    intro: htmlString,
+    sections: z.array(z.object({
+      theme: z.string(),
+      note: htmlString,
+      entries: z.array(htmlString),
+    })),
+  }),
+});
+
 export const collections = {
   home,
+  bibliography,
   'diy-index': diyIndex,
   'diy-gather-participants': diyGatherParticipants,
   'diy-get-dumbphones': diyGetDumbphones,
