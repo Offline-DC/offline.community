@@ -5,7 +5,7 @@ intro:
   tagline: part support group, part happy hour, part classroom
   headline: ditch ur smartphone for 30 days and join a cohort of neighbors for weekly meetups, creative exercises, & mutual encouragement.
   coda: if not now, when?
-  paragraph: ahoy! <u>you've reached offline.community</u> — a directory of Month Offline cohorts and a <a href="https://offline.community/diy/" target="_blank" rel="noopener">guide</a> to starting ur own. the very first MO challenge took place in Washington DC in May 2025. since then, over 400 brave souls have entered the flip side with their neighbors. check the directory below to see if there's already a MO cohort in ur city. if not, might u be the one to get it going? ⁕
+  paragraph: ahoy! <u>you've reached offline.community</u> — a directory of Month Offline cohorts and a guide to starting ur own. the very first MO challenge took place in Washington DC in May 2025. since then, over 400 brave souls have entered the flip side with their neighbors. check the directory below to see if there's already a MO cohort in ur city. if not, might u be the one to <a href="https://tally.so/r/RGgD2p" target="_blank" rel="noopener">get it going</a>? ⁕
 press:
   sectionLabel: Extra, extra, Read all about it
   items:
@@ -17,7 +17,7 @@ press:
       href: https://www.theatlantic.com/technology/2026/04/month-offline-smartphone-detox/686911/
 howItWorks:
   sectionLabel: How it works
-  intro: <u>flipping off is better together!</u> the MO challenge is a community of practice for groups of 10–30. participants gather at a local venue, sign a pledge to forgo the use of their smartphone for 30 days, and support the vitality of the neighborhood through their presence + patronage.
+  intro: <u>flipping off is better together!</u> the MO challenge is a community of practice for groups of 10–30. participants gather at a local venue, sign a pledge to forgo the use of their smartphone for 30 days, and support the vitality of the neighborhood through their presence + patronage. questions? <a href="mailto:aaron@offline.community?cc=organize@dumb.co">get in touch</a>.
   groups:
     - heading: Facilitated IRL meetups
       bullets:

@@ -137,8 +137,19 @@ import '../styles/global.css';
       <!-- Footer (centered, on black). -->
       <footer class="site-footer font-display">
         <img class="pinwheel" src="/images/pinwheel.png" alt="" />
-        <p><a class="site-footer__link" href="mailto:organize@dumb.co">ORGANIZE@DUMB.CO</a></p>
-        <p><a class="site-footer__link" href="https://seewunder.studio/" target="_blank" rel="noopener">SEE WHAT'S UNDER STUDIO</a> * <a class="site-footer__link" href="https://dumb.co" target="_blank" rel="noopener">DUMB.CO</a></p>
+        <p class="site-footer__contact-row">
+          <a class="site-footer__link site-footer__contact" href="mailto:aaron@offline.community?cc=organize@dumb.co">
+            CONTACT US
+            <!-- Same open-in-new-tab arrow as the Resource Library cards
+                 (ResourceCard.astro); aria-hidden since the text says it all. -->
+            <svg class="site-footer__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M14 4h6v6" />
+              <path d="M20 4l-9 9" />
+              <path d="M19 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6" />
+            </svg>
+          </a>
+        </p>
+        <p><a class="site-footer__link" href="https://seewunder.studio/" target="_blank" rel="noopener">SEE WHAT'S UNDER</a> * <a class="site-footer__link" href="https://dumb.co" target="_blank" rel="noopener">DUMB.CO</a></p>
         <p>DESIGNED WITH CARE IN WASHINGTON, DC</p>
         <p class="site-footer__cc">
           <!-- Creative Commons logo — two C shapes inside a circle -->
@@ -300,6 +311,21 @@ import '../styles/global.css';
   .site-footer__link:hover,
   .site-footer__link:focus-visible {
     text-decoration: underline;
+  }
+
+  /* Extra space under "Contact us" so it stands apart from the credits below. */
+  .site-footer__contact-row {
+    margin-bottom: var(--space-2);
+  }
+  /* "Contact us" + arrow icon side by side, icon sized to the text. */
+  .site-footer__contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .site-footer__icon {
+    width: 1em;
+    height: 1em;
   }
 
   .site-footer__cc {
