@@ -6,8 +6,8 @@
     1. Hero            — the M ❀ logo
     2. Guide links     — the four ordered subpages, then the Resource Library
     3. Letter          — "Dear future organizers" backstory
-    4. The basics      — the 6-week program
-    5. Ring ring       — join the next Q&A (info session signup)
+    4. Ring ring       — join the next Q&A (info session signup)
+    5. The basics      — the 6-week program
     6. Next            — cyan bar forward to the first subpage
 
   The RSVP link is a placeholder (href="#") until the info-session signup URL
@@ -87,7 +87,17 @@ const program = PROGRAM_META.map((meta, i) => ({ ...meta, ...diyIndex.program[i]
       </p>
     </section>
 
-    <!-- 4. The basics -->
+    <!-- 4. Ring ring — interest form -->
+    <SectionHeader label={diyIndex.ringRingSectionLabel} color="yellow" />
+    <section class="lydia">
+      <div class="lydia__top">
+        <p class="body" set:html={diyIndex.ringRing.paragraph} />
+        <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
+      </div>
+      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">{diyIndex.ringRing.buttonLabel}</a>
+    </section>
+
+    <!-- 5. The basics -->
     <SectionHeader label={diyIndex.basicsSectionLabel} color="yellow" />
     <section class="card">
       <p class="body" set:html={diyIndex.basics.intro1} />
@@ -97,16 +107,6 @@ const program = PROGRAM_META.map((meta, i) => ({ ...meta, ...diyIndex.program[i]
           <ProgramStep number={step.number} color={step.color} title={step.title} question={step.question} />
         ))}
       </div>
-    </section>
-
-    <!-- 5. Ring ring — interest form -->
-    <SectionHeader label={diyIndex.ringRingSectionLabel} color="yellow" />
-    <section class="lydia">
-      <div class="lydia__top">
-        <p class="body" set:html={diyIndex.ringRing.paragraph} />
-        <img class="lydia__photo" src="/images/lydia.jpg" width="1200" height="1200" alt="Lydia, a Month Offline organizer" />
-      </div>
-      <a class="lydia__btn font-display" href="https://tally.so/r/RGgD2p">{diyIndex.ringRing.buttonLabel}</a>
     </section>
 
     <!-- 6. Next -->
