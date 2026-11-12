@@ -127,5 +127,9 @@ const colorVars = color ? `--card-color: ${color};${hoverText ? ` --card-hover-t
   .resource__desc {
     font-size: var(--size-body);
     margin-top: var(--space-1);
+    /* Show line breaks from the description text as real line breaks, so a
+       multi-line description in library.md (e.g. Facilitator Guides) displays
+       on multiple lines. Normal one-line descriptions are unaffected. */
+    white-space: pre-line;
   }
 </style>
