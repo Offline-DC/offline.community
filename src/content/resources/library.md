@@ -62,11 +62,7 @@ items:
   - id: facilitation-guides
     phase: meetup
     title: Facilitator Guides
-    # The "|-" below is YAML for "keep my line breaks" — each line shows as
-    # its own line on the card. (Plain one-line descriptions don't need it.)
-    description: |-
-      beat-for-beat structure of the og MO meetups. take what's useful, leave the rest.
-      for facilitator eyes only!
+    description: beat-for-beat structure of the og MO meetups. take what's useful, leave the rest. for facilitator eyes only!
     href: /resources/mo_facilitator_guides.pdf
   - id: flipmates
     phase: meetup
